@@ -6,13 +6,16 @@
 #define HOMESCREEN_H
 #include <resources/QtCommon.h>
 
+class btShell;
 
 class homeScreen : public QObject {
     Q_OBJECT
     QWidget* btHomeScreen;
+    btShell* mainShell;
 public:
-    homeScreen();
+    homeScreen(btShell* shell);
     QWidget* returnHomeScreen();
+
 };
 
 

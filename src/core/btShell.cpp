@@ -14,6 +14,8 @@ void btShell::setupShellScreen(){
 
 
 btShell::btShell(int h, int w) : height(h), width(w) {
+    mainState = new btState;
+
     // create the QWidget for the shell
     shellScreen = new QWidget();
 
@@ -21,7 +23,7 @@ btShell::btShell(int h, int w) : height(h), width(w) {
     topBar = new btTopBar();
 
     mainScreenManager = new screenManager;
-    homeScreen* mainHome = new homeScreen;
+    homeScreen* mainHome = new homeScreen(this);
 
     mainScreenManager->addWidget(mainHome->returnHomeScreen());
 
@@ -33,14 +35,12 @@ btShell::btShell(int h, int w) : height(h), width(w) {
     mainScreen->addWidget(localTopBar);
     mainScreen->addWidget(mainScreenManager->returnStack());
 
+    connect(mainScreenManager, &screenManager::stateChanged,
+        this, &btShell::updateUi);
+
 
     shellScreen->setLayout(mainScreen);
     shellScreen->setFixedSize(width, height);
-
-
-
-
-
 
 }
 
@@ -59,3 +59,12 @@ screenManager* btShell::returnScreenManager() const{
 QWidget* btShell::returnCurrentScreen(){
     return shellScreen;
 }
+
+
+void btShell::updateUi(){
+    shellScreen->update();
+    qDebug() << "update" << shellScreen;
+}
+
+
+

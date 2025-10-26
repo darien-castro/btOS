@@ -20,13 +20,15 @@ class btShell : public QObject {
     int width;
 
 public:
-    btShell(int h = 450, int w = 300);
+    btShell(int h = 450, int w = 250);
     QString returnStateTime();
     QString returnStateBat();
     QString returnStateConnec();
     void setupShellScreen();
     screenManager* returnScreenManager() const;
     QWidget* returnCurrentScreen();
+private slots:
+    void updateUi();
 };
 
 #endif

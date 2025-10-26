@@ -8,6 +8,7 @@
 
 void screenManager::addWidget(QWidget* add_widget){
         stack->addWidget(add_widget);
+        emit stateChanged();
 }
 void screenManager::removeWidget(QWidget* rem_widget){
         stack->removeWidget(rem_widget);

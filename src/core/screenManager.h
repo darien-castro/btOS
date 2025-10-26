@@ -8,7 +8,8 @@
 
 class btShell;
 
-class screenManager {
+class screenManager : public QObject{
+    Q_OBJECT
     QStackedWidget* stack;
     public:
     screenManager();
@@ -18,6 +19,8 @@ class screenManager {
     void switchTo(QWidget* state_widget);
     QStackedWidget* returnStack();
     QWidget* returnCurrent();
+    signals:
+    void stateChanged();
 };
 
 

@@ -9,7 +9,7 @@ int main(int argc, char* argv[])
 
    QApplication app(argc,argv);
 
-   btShell* thisShell = new btShell(350,400);
+   btShell* thisShell = new btShell(800,500);
 
    QWidget* wait = thisShell->returnCurrentScreen();
 

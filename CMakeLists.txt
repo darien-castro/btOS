@@ -24,6 +24,8 @@ set(SOURCES
         src/core/screenManager.h
         src/applications/homeScreen.cpp
         src/applications/homeScreen.h
+        src/applications/notesScreen.cpp
+        src/applications/notesScreen.h
 )
 
 
