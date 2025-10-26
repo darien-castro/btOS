@@ -1,0 +1,11 @@
+cmake-build-debug/
+cmake-build-release/
+*.user
+*.obj
+*.o
+*.exe
+*.dll
+*.so
+*.db
+CMakeFiles/
+Makefile
