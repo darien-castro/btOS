@@ -9,6 +9,8 @@ class btTopBar;
 class screenManager;
 class homeScreen;
 
+enum class CURRAPP {HOMESCREEN, APPLICATION};
+
 class btShell : public QObject {
     Q_OBJECT
     btState* mainState;
@@ -18,6 +20,7 @@ class btShell : public QObject {
     //depends on settings
     int height;
     int width;
+    CURRAPP current = CURRAPP::HOMESCREEN;
 
 public:
     btShell(int h = 450, int w = 250);
@@ -27,6 +30,7 @@ public:
     void setupShellScreen();
     screenManager* returnScreenManager() const;
     QWidget* returnCurrentScreen();
+    bool onHome();
 private slots:
     void updateUi();
 };

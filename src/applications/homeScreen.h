@@ -8,9 +8,7 @@
 
 class btShell;
 
-class homeScreen : public QObject {
-    Q_OBJECT
-    QWidget* btHomeScreen;
+class homeScreen : public QWidget {
     btShell* mainShell;
 public:
     homeScreen(btShell* shell);

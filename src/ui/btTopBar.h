@@ -12,14 +12,17 @@ class btShell;
 class btTopBar : public QObject{
     Q_OBJECT
     QWidget* topBar;
+    btShell* shell = nullptr;
     //todo decide if these variables are necessary
     QString time;
     QString battery;
     QString connection;
 public:
-    btTopBar();
+    btTopBar(btShell* parent);
     void btTopBar_setup();
     QWidget* returnTopBar();
+    signals:
+    void buttonPressed();
 };
 
 

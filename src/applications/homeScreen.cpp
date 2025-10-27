@@ -10,8 +10,9 @@
 
 
 homeScreen::homeScreen(btShell* shell){
+
+    setAccessibleName("homescreen");
     mainShell = shell;
-    btHomeScreen = new QWidget;
 
     //toDo need button for applications, and way to print them on homescreen
     //toDo from some application list, for now, just buttons to set connections
@@ -38,10 +39,10 @@ homeScreen::homeScreen(btShell* shell){
     homeScreenLayout->addWidget(text, 0, Qt::AlignCenter);
     homeScreenLayout->addWidget(manga, 0, Qt::AlignCenter);
 
-    btHomeScreen->setLayout(homeScreenLayout);
+    setLayout(homeScreenLayout);
 }
 
 QWidget* homeScreen::returnHomeScreen(){
-    return btHomeScreen;
+    return this;
 }
 

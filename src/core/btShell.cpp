@@ -20,7 +20,7 @@ btShell::btShell(int h, int w) : height(h), width(w) {
     shellScreen = new QWidget();
 
     // create the btTopBar controller
-    topBar = new btTopBar();
+    topBar = new btTopBar(this);
 
     mainScreenManager = new screenManager;
     homeScreen* mainHome = new homeScreen(this);
@@ -37,6 +37,7 @@ btShell::btShell(int h, int w) : height(h), width(w) {
 
     connect(mainScreenManager, &screenManager::stateChanged,
         this, &btShell::updateUi);
+
 
 
     shellScreen->setLayout(mainScreen);
@@ -61,10 +62,30 @@ QWidget* btShell::returnCurrentScreen(){
 }
 
 
-void btShell::updateUi(){
-    shellScreen->update();
-    qDebug() << "update" << shellScreen;
+bool btShell::onHome(){
+    if (current == CURRAPP::HOMESCREEN)
+    {
+        return true;
+    }
+    if (current == CURRAPP::APPLICATION)
+    {
+        return false;
+    }
 }
 
+
+
+void btShell::updateUi(){
+    if (mainScreenManager->returnStack()->currentWidget()->accessibleName() == "homescreen")
+    {
+        this->current = CURRAPP::HOMESCREEN;
+    }
+    else
+    {
+        this->current = CURRAPP::APPLICATION;
+    }
+    shellScreen->update();
+    qDebug() << "update" << mainScreenManager->returnStack()->currentWidget();
+}
 
 

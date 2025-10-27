@@ -19,6 +19,8 @@ class screenManager : public QObject{
     void switchTo(QWidget* state_widget);
     QStackedWidget* returnStack();
     QWidget* returnCurrent();
+    private slots:
+    void delApp();
     signals:
     void stateChanged();
 };
