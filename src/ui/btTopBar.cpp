@@ -22,6 +22,11 @@ btTopBar::btTopBar(btShell* btParent){
 
     //button logic for leaving current window
     QPushButton* close_window = new QPushButton("Quit");
+    exitButton=close_window;
+    close_window->setStyleSheet("QPushButton:hover{"
+                                "background-color: solid rgba(204, 192, 199, 62)"
+                                ""
+                                "}");
 
     top_bar_hbox->addWidget(label_battery);
     top_bar_hbox->addWidget(label_time);
@@ -35,7 +40,9 @@ btTopBar::btTopBar(btShell* btParent){
             qDebug() << "cannot remove homeScreen";
             return;
         }
+        QWidget* toDel = shell->returnScreenManager()->returnCurrent();
         shell->returnScreenManager()->removeWidget(shell->returnScreenManager()->returnCurrent());
+        delete toDel;
     });
 
     top_bar_frame->setLayout(top_bar_hbox);
@@ -45,12 +52,35 @@ btTopBar::btTopBar(btShell* btParent){
 
     pushLayout->addWidget(top_bar_frame);
 
-    topBar = new QWidget();
-    topBar->setLayout(pushLayout);
+    if (shell->onHome())
+    {
+        exitToggle(false);
+    }
+
+    this->setStyleSheet("QWidget{"
+                        "background: solid rgba(96, 76, 87, 62);"
+                        "border-radius: 10px;"
+                        "color: #FFFFFF"
+                        "}");
+
+    this->setLayout(pushLayout);
 
 
 }
 
 QWidget* btTopBar::returnTopBar(){
     return topBar;
+}
+
+
+void btTopBar::exitToggle(bool x){
+    if (x == false)
+    {
+        this->exitButton->hide();
+    }
+    if (x == true)
+    {
+        this->exitButton->show();
+    }
+
 }

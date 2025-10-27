@@ -13,6 +13,7 @@ class homeScreen : public QWidget {
 public:
     homeScreen(btShell* shell);
     QWidget* returnHomeScreen();
+    void buttonStyle(QWidget* button);
 
 };
 

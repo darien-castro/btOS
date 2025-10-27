@@ -9,10 +9,11 @@
 
 class btShell;
 
-class btTopBar : public QObject{
+class btTopBar : public QWidget{
     Q_OBJECT
     QWidget* topBar;
     btShell* shell = nullptr;
+    QWidget* exitButton;
     //todo decide if these variables are necessary
     QString time;
     QString battery;
@@ -21,6 +22,7 @@ public:
     btTopBar(btShell* parent);
     void btTopBar_setup();
     QWidget* returnTopBar();
+    void exitToggle(bool x);
     signals:
     void buttonPressed();
 };

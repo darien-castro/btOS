@@ -27,19 +27,19 @@ btShell::btShell(int h, int w) : height(h), width(w) {
 
     mainScreenManager->addWidget(mainHome->returnHomeScreen());
 
-    QWidget* localTopBar = topBar->returnTopBar();
-    localTopBar->setMaximumHeight(80);
+    topBar->setMaximumHeight(80);
 
 
     QVBoxLayout* mainScreen = new QVBoxLayout(shellScreen);
-    mainScreen->addWidget(localTopBar);
+    mainScreen->addWidget(topBar);
     mainScreen->addWidget(mainScreenManager->returnStack());
 
     connect(mainScreenManager, &screenManager::stateChanged,
         this, &btShell::updateUi);
 
-
-
+    shellScreen->setStyleSheet("QWidget{"
+                  "background-image: url(/home/pablovepo/CLionProjects/btOS/resources/themes/FrutigerAero/frutigeraero.png)"
+                  "}");
     shellScreen->setLayout(mainScreen);
     shellScreen->setFixedSize(width, height);
 
@@ -79,10 +79,12 @@ void btShell::updateUi(){
     if (mainScreenManager->returnStack()->currentWidget()->accessibleName() == "homescreen")
     {
         this->current = CURRAPP::HOMESCREEN;
+        this->topBar->exitToggle(false);
     }
     else
     {
         this->current = CURRAPP::APPLICATION;
+        this->topBar->exitToggle(true);
     }
     shellScreen->update();
     qDebug() << "update" << mainScreenManager->returnStack()->currentWidget();
