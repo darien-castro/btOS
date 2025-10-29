@@ -4,9 +4,14 @@
 
 #include "btShell.h"
 
+#include "src/applications/appViewer.h"
 #include "src/applications/homeScreen.h"
 #include "src/core/screenManager.h"
 #include "src/ui/btTopBar.h"
+#include <src/applications/appViewer.h>
+#include <thread>
+#include <chrono>
+
 
 void btShell::setupShellScreen(){
 
@@ -25,7 +30,7 @@ btShell::btShell(int h, int w) : height(h), width(w) {
     mainScreenManager = new screenManager;
     homeScreen* mainHome = new homeScreen(this);
 
-    mainScreenManager->addWidget(mainHome->returnHomeScreen());
+    mainScreenManager->addWidget(mainHome);
 
     topBar->setMaximumHeight(80);
 
@@ -34,14 +39,21 @@ btShell::btShell(int h, int w) : height(h), width(w) {
     mainScreen->addWidget(topBar);
     mainScreen->addWidget(mainScreenManager->returnStack());
 
+    setupKeys();
+
     connect(mainScreenManager, &screenManager::stateChanged,
         this, &btShell::updateUi);
 
-    shellScreen->setStyleSheet("QWidget{"
-                  "background-image: url(/home/pablovepo/CLionProjects/btOS/resources/themes/FrutigerAero/frutigeraero.png)"
-                  "}");
+
     shellScreen->setLayout(mainScreen);
     shellScreen->setFixedSize(width, height);
+    shellScreen->setObjectName("shell");
+    shellScreen->setStyleSheet("QWidget#shell{"
+                               "background:none;"
+                               "background-color: #FFFFFF;"
+                               "border: 3px solid #000000;"
+                               "}");
+
 
 }
 
@@ -91,3 +103,11 @@ void btShell::updateUi(){
 }
 
 
+void btShell::setupKeys(){
+    QShortcut* shortcut = new QShortcut(QKeySequence("Alt+A"), this->shellScreen);
+    connect (shortcut, &QShortcut::activated, [this]{
+        appViewer* app = new appViewer(this);
+        mainScreenManager->addWidget(app);
+        qDebug() << "pressed";
+    });
+}

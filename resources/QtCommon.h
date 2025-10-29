@@ -12,5 +12,6 @@
 #include <QDebug>
 #include <QPushButton>
 #include <QStackedWidget>
+#include <QShortcut>
 
 #endif //QTCOMMON_H

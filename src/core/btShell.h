@@ -31,6 +31,7 @@ public:
     screenManager* returnScreenManager() const;
     QWidget* returnCurrentScreen();
     bool onHome();
+    void setupKeys();
 private slots:
     void updateUi();
 };

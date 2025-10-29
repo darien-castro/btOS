@@ -9,24 +9,30 @@
 #include "src/core/screenManager.h"
 void homeScreen::buttonStyle(QWidget* button){
     button->setStyleSheet("QPushButton{"
-                         "color: #FFFFFF;"
-                         "background-color: rgba(255, 255, 255, 50);"
+                         "color: #000000;"
+                         "background-color: rgba(135, 133, 128,15);"
                          "width: 100px;"
                          "height: 30px;"
                          "border-radius: 6px;"
                          ""
                          "}"
                          "QPushButton:hover{"
-                         "background: solid rgba(187, 55, 123, 75);"
-                         "border: .5px solid #D3DAD9;"
+                         "background: rgba(207,212,198,100);"
+                         "border: none;"
                          ""
                          ""
-                         "}");
+                         "}"
+                         "QPushButton:hover:pressed {"
+                        "background-color: rgba(207,212,198,40);"
+                        "color: #FF0000;"
+                        "}");
 }
 
 
 homeScreen::homeScreen(btShell* shell){
     mainShell = shell;
+
+    setAccessibleName("homescreen");
 
     //toDo need button for applications, and way to print them on homescreen
     //toDo from some application list, for now, just buttons to set connections
@@ -59,6 +65,10 @@ homeScreen::homeScreen(btShell* shell){
     homeScreenLayout->addWidget(manga, 0, Qt::AlignCenter);
 
     setLayout(homeScreenLayout);
+    setObjectName("homeScreen");
+    setStyleSheet("QWidget#homeScreen{"
+                  "background-color: rgba(237,232,208,50)"
+                  "}");
 }
 
 QWidget* homeScreen::returnHomeScreen(){

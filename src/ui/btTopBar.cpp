@@ -16,16 +16,20 @@ btTopBar::btTopBar(btShell* btParent){
     QHBoxLayout* top_bar_hbox = new QHBoxLayout;
 
     //todo lank variables for testing
-    QLabel* label_battery = new QLabel("0");
-    QLabel* label_time = new QLabel("0");
-    QLabel* label_connection = new QLabel("0");
+    QLabel* label_battery = new QLabel("67%");
+    QLabel* label_time = new QLabel("10:30pm");
+    QLabel* label_connection = new QLabel("╭∩╮(•̀_·́)╭∩╮");
 
     //button logic for leaving current window
     QPushButton* close_window = new QPushButton("Quit");
     exitButton=close_window;
+    close_window->setStyleSheet("QPushButton{"
+                               "border: none rgba(0,0,0,0);"
+                               "background-color: #FFFFFF;"
+                               "}");
     close_window->setStyleSheet("QPushButton:hover{"
-                                "background-color: solid rgba(204, 192, 199, 62)"
-                                ""
+                                "background-color: solid rgba(20, 30, 0, 32);"
+                                "border: none;"
                                 "}");
 
     top_bar_hbox->addWidget(label_battery);
@@ -46,6 +50,9 @@ btTopBar::btTopBar(btShell* btParent){
     });
 
     top_bar_frame->setLayout(top_bar_hbox);
+    top_bar_frame->setStyleSheet("QFrame{"
+                                 "border: none;"
+                                 "}");
 
 
     QHBoxLayout* pushLayout = new QHBoxLayout;
@@ -57,13 +64,14 @@ btTopBar::btTopBar(btShell* btParent){
         exitToggle(false);
     }
 
-    this->setStyleSheet("QWidget{"
-                        "background: solid rgba(96, 76, 87, 62);"
-                        "border-radius: 10px;"
-                        "color: #FFFFFF"
-                        "}");
 
     this->setLayout(pushLayout);
+
+    this->setStyleSheet(""
+                        "border-radius: 5px;"
+                        "color: #000000;"
+                        "border: 2px solid rgba(56, 7, 42, 36);"
+                        "background-color: #FFFFFF");
 
 
 }

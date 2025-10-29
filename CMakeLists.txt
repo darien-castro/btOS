@@ -26,6 +26,8 @@ set(SOURCES
         src/applications/homeScreen.h
         src/applications/notesScreen.cpp
         src/applications/notesScreen.h
+        src/applications/appViewer.cpp
+        src/applications/appViewer.h
 )
 
 
