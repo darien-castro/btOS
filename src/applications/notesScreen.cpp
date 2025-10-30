@@ -1,8 +1,17 @@
 // notesScreen.cpp
 #include "notesScreen.h"
 #include <QGraphicsDropShadowEffect>
-notesScreen::notesScreen(QWidget* parent) : QWidget(parent) {
-    this->setObjectName("notesScreen");
+notesScreen::notesScreen() {
+    this->appName = "notes";
+}
+
+QWidget* notesScreen::returnNotesWindow() {
+    return this;
+}
+
+void notesScreen::btAPP_SETUP(){
+    this->application = new QWidget;
+    this->application->setObjectName("notesScreen");
     QVBoxLayout* layout = new QVBoxLayout(this);
     QLabel* text = new QLabel("Notes app is running...");
 
@@ -12,12 +21,23 @@ notesScreen::notesScreen(QWidget* parent) : QWidget(parent) {
                         "}");
     layout->addWidget(text, 0, Qt::AlignCenter);
 
-    setLayout(layout);
-    setStyleSheet("QWidget{"
+    this->application->setLayout(layout);
+    this->application->setStyleSheet("QWidget{"
                   ""
                   "}");
 }
 
-QWidget* notesScreen::returnNotesWindow() {
-    return this;
+
+QWidget* notesScreen::btAPP_RETURN(){
+    return this->application;
+}
+
+void notesScreen::btAPP_CLOSED(){
+    QWidget* toDel = application;
+    application = nullptr;
+    delete toDel;
+}
+
+QString notesScreen::returnAppName(){
+    return appName;
 }

@@ -8,6 +8,7 @@
 
 appViewer::appViewer(btShell* mS){
 
+    setObjectName("appViewer");
     QString saveLoc = "/home/pablovepo/CLionProjects/btOS/resources/temp/curr_screen";
     QString saveFile = saveLoc + "/screen_appViewer_temp.png";
     this->mainShell = mS;

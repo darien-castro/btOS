@@ -17,7 +17,9 @@ btTopBar::btTopBar(btShell* btParent){
 
     //todo lank variables for testing
     QLabel* label_battery = new QLabel("67%");
-    QLabel* label_time = new QLabel("10:30pm");
+    QLabel* label_time = new QLabel(shell->returnStateTime());
+    connect(shell->returnState(), &btState::timeUpdated, label_time, &QLabel::setText);
+
     QLabel* label_connection = new QLabel("╭∩╮(•̀_·́)╭∩╮");
 
     //button logic for leaving current window
@@ -46,6 +48,7 @@ btTopBar::btTopBar(btShell* btParent){
         }
         QWidget* toDel = shell->returnScreenManager()->returnCurrent();
         shell->returnScreenManager()->removeWidget(shell->returnScreenManager()->returnCurrent());
+        qDebug() << "toDelete: "<<  toDel;
         delete toDel;
     });
 

@@ -6,11 +6,18 @@
 #include <QVBoxLayout>
 #include <QLabel>
 
-class notesScreen : public QWidget {
+#include "src/core/btApplication.h"
+
+
+class notesScreen : public btApplication {
     Q_OBJECT
 public:
-    explicit notesScreen(QWidget* parent = nullptr);
+    notesScreen();
     QWidget* returnNotesWindow();
+    void btAPP_SETUP() override;
+    QWidget* btAPP_RETURN() override;
+    void btAPP_CLOSED() override;
+    QString returnAppName() override;
 };
 
 #endif

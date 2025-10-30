@@ -30,10 +30,12 @@ public:
     void setupShellScreen();
     screenManager* returnScreenManager() const;
     QWidget* returnCurrentScreen();
+    btState* returnState();
     bool onHome();
     void setupKeys();
 private slots:
     void updateUi();
+
 };
 
 #endif

@@ -106,8 +106,17 @@ void btShell::updateUi(){
 void btShell::setupKeys(){
     QShortcut* shortcut = new QShortcut(QKeySequence("Alt+A"), this->shellScreen);
     connect (shortcut, &QShortcut::activated, [this]{
-        appViewer* app = new appViewer(this);
-        mainScreenManager->addWidget(app);
+        if (this->returnScreenManager()->returnStack()->currentWidget()->objectName() == "appViewer")
+        {
+            qDebug() << "cannot change to same screen";
+            return;
+        }
+        mainScreenManager->addWidget(new appViewer(this));
         qDebug() << "pressed";
     });
 }
+
+btState* btShell::returnState(){
+    return this->mainState;
+}
+

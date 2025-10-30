@@ -28,6 +28,16 @@ set(SOURCES
         src/applications/notesScreen.h
         src/applications/appViewer.cpp
         src/applications/appViewer.h
+        src/core/btApplication.cpp
+        src/core/btApplication.h
+        src/applications/phoneScreen.cpp
+        src/applications/phoneScreen.h
+        src/applications/toDoApp.cpp
+        src/applications/toDoApp.h
+        src/applications/messaging.cpp
+        src/applications/messaging.h
+        src/applications/settings.cpp
+        src/applications/settings.h
 )
 
 

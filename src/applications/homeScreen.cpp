@@ -7,6 +7,29 @@
 #include "notesScreen.h"
 #include "src/core/btShell.h"
 #include "src/core/screenManager.h"
+
+void homeScreen::appButtonPressed(btApplication* app){
+    app->btAPP_SETUP();
+    this->mainShell->returnScreenManager()->addWidget(app->btAPP_RETURN());
+    this->mainShell->returnScreenManager()->returnStack()->setCurrentWidget(app->btAPP_RETURN());
+    qDebug() << "app location at creation: " << app->btAPP_RETURN();
+}
+
+void homeScreen::screenAppsSetup(QVBoxLayout* scrollArea){
+    std::vector<btApplication*> apps = mainShell->returnState()->returnAppVect();
+    for (int i = 0; i < apps.size(); i++)
+    {
+        QPushButton* curr = new QPushButton(apps[i]->appName);
+        scrollArea->addWidget(curr);
+        buttonStyle(curr);
+        QObject::connect(curr, &QPushButton::clicked, [this, apps, i]{
+        appButtonPressed(apps[i]);
+    });
+    }
+
+}
+
+
 void homeScreen::buttonStyle(QWidget* button){
     button->setStyleSheet("QPushButton{"
                          "color: #000000;"
@@ -38,7 +61,7 @@ homeScreen::homeScreen(btShell* shell){
     //toDo from some application list, for now, just buttons to set connections
 
 
-    QPushButton* phone = new QPushButton("Phone");
+    /*QPushButton* phone = new QPushButton("Phone");
     buttonStyle(phone);
     QPushButton* notes = new QPushButton("Notes");
     buttonStyle(notes);
@@ -46,25 +69,25 @@ homeScreen::homeScreen(btShell* shell){
     buttonStyle(text);
     QPushButton* manga = new QPushButton("Manga");
     buttonStyle(manga);
-
-    QObject::connect(notes, &QPushButton::clicked, [this]{
-        notesScreen* notes = new notesScreen;
-        this->mainShell->returnScreenManager()->addWidget(notes->returnNotesWindow());
-        this->mainShell->returnScreenManager()->returnStack()->setCurrentWidget(notes->returnNotesWindow());
-    });
+    */
 
 
-    QVBoxLayout* homeScreenLayout = new QVBoxLayout;
+    QWidget* content = new QWidget;
+    QVBoxLayout* homeScreenLayout = new QVBoxLayout(content);
     homeScreenLayout->setObjectName("homeScreen");
     homeScreenLayout->setSpacing(1);
     homeScreenLayout->setContentsMargins(4,2,4,2);
+    QScrollArea* scrollareaMain = new QScrollArea;
+    scrollareaMain->setWidgetResizable(true);
 
-    homeScreenLayout->addWidget(phone, 0, Qt::AlignCenter);
-    homeScreenLayout->addWidget(notes, 0, Qt::AlignCenter);
-    homeScreenLayout->addWidget(text, 0, Qt::AlignCenter);
-    homeScreenLayout->addWidget(manga, 0, Qt::AlignCenter);
+    screenAppsSetup(homeScreenLayout);
+    scrollareaMain->setWidget(content);
 
-    setLayout(homeScreenLayout);
+    QVBoxLayout* mainLayout = new QVBoxLayout(this);
+    mainLayout->addWidget(scrollareaMain);
+
+
+    setLayout(mainLayout);
     setObjectName("homeScreen");
     setStyleSheet("QWidget#homeScreen{"
                   "background-color: rgba(237,232,208,50)"

@@ -6,6 +6,8 @@
 #define BTSTATE_H
 #include <resources/QtCommon.h>
 
+#include "src/applications/notesScreen.h"
+#include "src/applications/phoneScreen.h"
 //state for device
 class btState : public QObject{
     //define as qObject so that we can use Object Functions when necessary like a state change
@@ -15,6 +17,9 @@ class btState : public QObject{
     QString connection;
     QTimer timeChange;
     QTimer connectionTest;
+    notesScreen* notes = new notesScreen;
+    phoneScreen* phone = new phoneScreen;
+    std::vector<btApplication*> applications = {notes, phone};
 public:
     btState();
     QString returnTime();
@@ -23,6 +28,10 @@ public:
     void updateTime();
     void updateBattery();
     void updateConnection();
+    std::vector<btApplication*> returnAppVect();
+    signals:
+    void timeUpdated(QString newTime);
+
 };
 
 
