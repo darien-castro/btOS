@@ -38,6 +38,10 @@ set(SOURCES
         src/applications/messaging.h
         src/applications/settings.cpp
         src/applications/settings.h
+        src/applications/calculatorScreen.cpp
+        src/applications/calculatorScreen.h
+        src/applications/weather.cpp
+        src/applications/weather.h
 )
 
 

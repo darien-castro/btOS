@@ -90,7 +90,7 @@ homeScreen::homeScreen(btShell* shell){
     setLayout(mainLayout);
     setObjectName("homeScreen");
     setStyleSheet("QWidget#homeScreen{"
-                  "background-color: rgba(237,232,208,50)"
+                  "background-color: rgba(0,0,0,0)"
                   "}");
 }
 

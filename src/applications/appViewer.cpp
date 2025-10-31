@@ -3,7 +3,8 @@
 //
 
 #include "appViewer.h"
-
+#include <thread>
+#include <chrono>
 #include "src/core/screenManager.h"
 
 appViewer::appViewer(btShell* mS){
@@ -15,8 +16,13 @@ appViewer::appViewer(btShell* mS){
     QWidget* prevScreen = mS->returnScreenManager()->returnStack()->currentWidget();
     QPixmap pix = prevScreen->grab();
 
+    qDebug() << "prevScreen palette:" << prevScreen->palette().color(QPalette::Window);
+    /*qDebug() << "mainShell palette:" << mS->palette().color(QPalette::Window);*/
+
+
     qDebug() << "Pixmap size:" << pix.size();
     qDebug() << "Save success:" << pix.save(saveFile, "PNG");
+
 
     QVBoxLayout* appViewer_topBox = new QVBoxLayout;
 

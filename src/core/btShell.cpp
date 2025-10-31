@@ -48,10 +48,8 @@ btShell::btShell(int h, int w) : height(h), width(w) {
     shellScreen->setLayout(mainScreen);
     shellScreen->setFixedSize(width, height);
     shellScreen->setObjectName("shell");
-    shellScreen->setStyleSheet("QWidget#shell{"
-                               "background:none;"
-                               "background-color: #FFFFFF;"
-                               "border: 3px solid #000000;"
+    shellScreen->setStyleSheet("QWidget{"
+                               "background-color: rgba(255,255,255,255);"
                                "}");
 
 
@@ -98,6 +96,7 @@ void btShell::updateUi(){
         this->current = CURRAPP::APPLICATION;
         this->topBar->exitToggle(true);
     }
+
     shellScreen->update();
     qDebug() << "update" << mainScreenManager->returnStack()->currentWidget();
 }

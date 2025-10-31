@@ -19,7 +19,7 @@ class btState : public QObject{
     QTimer connectionTest;
     notesScreen* notes = new notesScreen;
     phoneScreen* phone = new phoneScreen;
-    std::vector<btApplication*> applications = {notes, phone};
+    std::vector<btApplication*> applications = {phone, notes};
 public:
     btState();
     QString returnTime();
