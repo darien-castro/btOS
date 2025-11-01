@@ -13,6 +13,7 @@ class appViewer : public QWidget {
     btShell* mainShell;
 public:
     appViewer(btShell* mS);
+    void blurBackgroundImage();
 };
 
 

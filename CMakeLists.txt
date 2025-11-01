@@ -40,8 +40,8 @@ set(SOURCES
         src/applications/settings.h
         src/applications/calculatorScreen.cpp
         src/applications/calculatorScreen.h
-        src/applications/weather.cpp
-        src/applications/weather.h
+        src/applications/weatherScreen.cpp
+        src/applications/weatherScreen.h
 )
 
 

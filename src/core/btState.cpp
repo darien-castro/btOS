@@ -6,6 +6,7 @@
 
 
 btState::btState(){
+    getSettingsJson();
     time = QTime::currentTime().toString("hh:mm:ss");
     timeChange.setInterval(1000);
     connect(&timeChange, &QTimer::timeout, this, [this]{
@@ -27,4 +28,34 @@ QString btState::returnTime(){
 
 std::vector<btApplication*> btState::returnAppVect(){
     return this->applications;
+}
+
+void btState::getSettingsJson(){
+
+    //todo, make sure this isn't storing too much memory, and make sure by copy
+    qDebug() << "Settings File Loaded...";
+    configSettings = new QFile("/home/pablovepo/CLionProjects/btOS/resources/config/settings.json");
+    if (!configSettings->open(QIODevice::ReadOnly | QIODevice::Text)) {
+        qDebug() << "Failed to open file:" << configSettings->errorString();
+        return;
+    }
+    QByteArray jsonData = configSettings->readAll();
+    configSettings->close();
+    delete configSettings;
+    configSettings= nullptr;
+    QJsonParseError parseError;
+    QJsonDocument doc =QJsonDocument::fromJson(jsonData, &parseError);
+
+    // Step 3: Check for parsing errors
+    if (parseError.error != QJsonParseError::NoError) {
+        qDebug() << "JSON parse error:" << parseError.errorString();
+        return;
+    }
+    mainJson = doc.object();
+    apps = mainJson["applications"].toArray();
+}
+
+
+QJsonArray btState::returnJsonAppArray(){
+    return apps;
 }

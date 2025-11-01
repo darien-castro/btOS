@@ -5,14 +5,13 @@
 #include "phoneScreen.h"
 
 phoneScreen::phoneScreen(){
-    this->setObjectName("phone");
+    setObjectName("phoneScreen");
     this->appName = "phone";
 }
 
 
 
 void phoneScreen::btAPP_SETUP(){
-    setObjectName("phoneScreen");
     std::vector<std::string> numList = {"1","2","3","4","5","6","7","8","9" ,"*","0","#"};
     int row = 0;
     int column = 0;

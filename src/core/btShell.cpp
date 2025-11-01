@@ -52,11 +52,7 @@ btShell::btShell(int h, int w) : height(h), width(w) {
                                "background-color: rgba(255,255,255,255);"
                                "}");
 
-
 }
-
-
-
 
 QString btShell::returnStateTime(){
     return mainState->returnTime();
@@ -71,7 +67,6 @@ QWidget* btShell::returnCurrentScreen(){
     return shellScreen;
 }
 
-
 bool btShell::onHome(){
     if (current == CURRAPP::HOMESCREEN)
     {
@@ -82,7 +77,6 @@ bool btShell::onHome(){
         return false;
     }
 }
-
 
 
 void btShell::updateUi(){
@@ -105,10 +99,15 @@ void btShell::updateUi(){
 void btShell::setupKeys(){
     QShortcut* shortcut = new QShortcut(QKeySequence("Alt+A"), this->shellScreen);
     connect (shortcut, &QShortcut::activated, [this]{
+        QString saveLoc = "/home/pablovepo/CLionProjects/btOS/resources/temp/curr_screen";
+        QString saveFile = saveLoc + "/screen_appViewer_temp.png";
+        topBar->hide();
+        QPixmap pix = shellScreen->grab();
+        pix.save(saveFile);
+        topBar->show();
         if (this->returnScreenManager()->returnStack()->currentWidget()->objectName() == "appViewer")
         {
-            qDebug() << "cannot change to same screen";
-            return;
+            this->mainScreenManager->removeWidget(mainScreenManager->returnCurrent());
         }
         mainScreenManager->addWidget(new appViewer(this));
         qDebug() << "pressed";
@@ -119,3 +118,10 @@ btState* btShell::returnState(){
     return this->mainState;
 }
 
+QJsonArray* btShell::returnAppArray(){
+    return &appArray;
+}
+
+QWidget* btShell::returnShellScreen(){
+    return shellScreen;
+}

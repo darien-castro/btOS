@@ -3,6 +3,7 @@
 #include <QGraphicsDropShadowEffect>
 notesScreen::notesScreen() {
     this->appName = "notes";
+    setObjectName("notesScreen");
 }
 
 QWidget* notesScreen::returnNotesWindow() {
@@ -11,7 +12,6 @@ QWidget* notesScreen::returnNotesWindow() {
 
 void notesScreen::btAPP_SETUP(){
     this->application = new QWidget;
-    this->application->setObjectName("notesScreen");
     QVBoxLayout* layout = new QVBoxLayout(this);
     QLabel* text = new QLabel("Notes app is running...");
 

@@ -8,6 +8,8 @@
 
 #include "src/applications/notesScreen.h"
 #include "src/applications/phoneScreen.h"
+#include "src/applications/weatherScreen.h"
+#define configLoc "/home/pablovepo/CLionProjects/btOS/resources/config/settings.json"
 //state for device
 class btState : public QObject{
     //define as qObject so that we can use Object Functions when necessary like a state change
@@ -17,9 +19,14 @@ class btState : public QObject{
     QString connection;
     QTimer timeChange;
     QTimer connectionTest;
+    std::string configLocation = configLoc;
+    QFile* configSettings;
+    QJsonObject mainJson;
+    QJsonArray apps;
     notesScreen* notes = new notesScreen;
     phoneScreen* phone = new phoneScreen;
-    std::vector<btApplication*> applications = {phone, notes};
+    weatherScreen* weather = new weatherScreen;
+    std::vector<btApplication*> applications = {phone, notes, weather};
 public:
     btState();
     QString returnTime();
@@ -29,6 +36,9 @@ public:
     void updateBattery();
     void updateConnection();
     std::vector<btApplication*> returnAppVect();
+    void getSettingsJson();
+    void writeSettingsJson();
+    QJsonArray returnJsonAppArray();
     signals:
     void timeUpdated(QString newTime);
 

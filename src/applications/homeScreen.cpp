@@ -16,15 +16,26 @@ void homeScreen::appButtonPressed(btApplication* app){
 }
 
 void homeScreen::screenAppsSetup(QVBoxLayout* scrollArea){
+    qDebug() << "homeScreen Reached!";
     std::vector<btApplication*> apps = mainShell->returnState()->returnAppVect();
-    for (int i = 0; i < apps.size(); i++)
-    {
-        QPushButton* curr = new QPushButton(apps[i]->appName);
-        scrollArea->addWidget(curr);
-        buttonStyle(curr);
-        QObject::connect(curr, &QPushButton::clicked, [this, apps, i]{
-        appButtonPressed(apps[i]);
-    });
+    QJsonArray tempAppArr = mainShell->returnState()->returnJsonAppArray();
+    qDebug() << "App array size:" << tempAppArr.size();
+    for (int i = 0; i < apps.size(); i++){
+        for (int j = 0; j < tempAppArr.size(); j++) {
+            QJsonValue value = tempAppArr.at(j);
+            QJsonObject obj = value.toObject();
+            QString name = obj["base_object_name"].toString();
+            bool question = (name == apps[i]->objectName());
+            bool onHome = obj["on_home_screen"].toBool();
+            if (apps[i]->objectName() == name && onHome == true){
+                QPushButton* curr = new QPushButton(apps[i]->appName);
+                scrollArea->addWidget(curr);
+                buttonStyle(curr);
+                QObject::connect(curr, &QPushButton::clicked, [this, apps, i]{
+                appButtonPressed(apps[i]);
+            });
+        }
+    };
     }
 
 }

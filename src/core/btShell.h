@@ -28,11 +28,14 @@ public:
     QString returnStateBat();
     QString returnStateConnec();
     void setupShellScreen();
+    QWidget* returnShellScreen();
     screenManager* returnScreenManager() const;
     QWidget* returnCurrentScreen();
     btState* returnState();
     bool onHome();
     void setupKeys();
+    QJsonArray appArray;
+    QJsonArray* returnAppArray();
 private slots:
     void updateUi();
 

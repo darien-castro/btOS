@@ -7,38 +7,45 @@
 #include <chrono>
 #include "src/core/screenManager.h"
 
-appViewer::appViewer(btShell* mS){
+void appViewer::blurBackgroundImage() {
+    QString blurExecutable = "/home/pablovepo/CLionProjects/btOS/resources/utils/blurImage";
 
+    QProcess process;
+    QStringList args;
+    process.start(blurExecutable, args);
+    qDebug() << "ran";
+    process.waitForFinished(-1);
+    qDebug() <<"finished Here";
+
+}
+
+appViewer::appViewer(btShell* mS){
     setObjectName("appViewer");
     QString saveLoc = "/home/pablovepo/CLionProjects/btOS/resources/temp/curr_screen";
-    QString saveFile = saveLoc + "/screen_appViewer_temp.png";
+    QString saveFile = saveLoc + "/screen_appViewer_temp2.png";
     this->mainShell = mS;
-    QWidget* prevScreen = mS->returnScreenManager()->returnStack()->currentWidget();
-    QPixmap pix = prevScreen->grab();
+    blurBackgroundImage();
 
-    qDebug() << "prevScreen palette:" << prevScreen->palette().color(QPalette::Window);
-    /*qDebug() << "mainShell palette:" << mS->palette().color(QPalette::Window);*/
+    QVBoxLayout* main = new QVBoxLayout(this);
+    main->setContentsMargins(0, 0, 0, 0);
+    main->setSpacing(0);
+    main->setAlignment(Qt::AlignCenter);  // centers *all* child widgets
 
+    QLabel* mainLabel = new QLabel("hello World");
+    mainLabel->setStyleSheet("color: white; font-size: 24px;");
 
-    qDebug() << "Pixmap size:" << pix.size();
-    qDebug() << "Save success:" << pix.save(saveFile, "PNG");
+    main->addWidget(mainLabel, 0, Qt::AlignCenter);
 
+    setStyleSheet(
+    "QWidget {"
+    "background-image: url(/home/pablovepo/CLionProjects/btOS/resources/temp/curr_screen/screen_appViewer_temp2.png);"
+    "background-position: center;"
+    "background-repeat: no-repeat;"
+    "background-attachment: fixed;"
+    "background-origin: content;"
+    "background-size: cover;"   // ✅ makes it fill the whole area
+    "}"
+);
 
-    QVBoxLayout* appViewer_topBox = new QVBoxLayout;
-
-    QLabel* text = new QLabel("hello World");
-
-    appViewer_topBox->addWidget(text, 0, Qt::AlignCenter);
-
-    this->setLayout(appViewer_topBox);
-
-    this->setStyleSheet("QWidget{"
-                        "background-image: url(/home/pablovepo/CLionProjects/btOS/resources/temp/curr_screen/screen_appViewer_temp.png)"
-                        ""
-                        "}");
-
-    QGraphicsBlurEffect* blurEffect = new QGraphicsBlurEffect(this);
-    blurEffect->setBlurRadius(10);
-    setGraphicsEffect(blurEffect);
 
 }
