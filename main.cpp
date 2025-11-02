@@ -20,6 +20,7 @@ int main(int argc, char* argv[])
 
    btShell* thisShell = new btShell(800,500);
 
+
    QWidget* wait = thisShell->returnCurrentScreen();
 
    wait->show();

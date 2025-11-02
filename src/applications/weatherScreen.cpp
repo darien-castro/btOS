@@ -16,14 +16,14 @@ void weatherScreen::btAPP_SETUP(){
 
     QLabel* hello = new QLabel("weather");
     hello->setStyleSheet("QLabel{"
-                         "color: #000000;"
+                         "color: rgba(0,0,0,255);"
                          ""
                          "}");
 
     mainScreen->addWidget(hello, 0, Qt::AlignCenter);
-    this->setLayout(mainScreen);
+    this->application->setLayout(mainScreen);
     this->application->setStyleSheet("QWidget{"
-                  "background-color: rgba(0,0,0,100);"
+                  "background-color: rgba(255,255,255,255);"
                   "}");
 }
 

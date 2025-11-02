@@ -9,8 +9,6 @@
 #include "src/core/screenManager.h"
 #include "src/ui/btTopBar.h"
 #include <src/applications/appViewer.h>
-#include <thread>
-#include <chrono>
 
 
 void btShell::setupShellScreen(){
@@ -51,6 +49,10 @@ btShell::btShell(int h, int w) : height(h), width(w) {
     shellScreen->setStyleSheet("QWidget{"
                                "background-color: rgba(255,255,255,255);"
                                "}");
+    shellScreen->layout()->setContentsMargins(0, 0, 0, 0);
+
+    qDebug() << "Margins:" << shellScreen->layout()->contentsMargins();
+
 
 }
 
@@ -104,10 +106,11 @@ void btShell::setupKeys(){
         topBar->hide();
         QPixmap pix = shellScreen->grab();
         pix.save(saveFile);
-        topBar->show();
         if (this->returnScreenManager()->returnStack()->currentWidget()->objectName() == "appViewer")
         {
             this->mainScreenManager->removeWidget(mainScreenManager->returnCurrent());
+            topBar->show();
+            return;
         }
         mainScreenManager->addWidget(new appViewer(this));
         qDebug() << "pressed";

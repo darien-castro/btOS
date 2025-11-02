@@ -6,6 +6,7 @@
 #define BTSTATE_H
 #include <resources/QtCommon.h>
 
+#include "src/applications/messaging.h"
 #include "src/applications/notesScreen.h"
 #include "src/applications/phoneScreen.h"
 #include "src/applications/weatherScreen.h"
@@ -26,7 +27,8 @@ class btState : public QObject{
     notesScreen* notes = new notesScreen;
     phoneScreen* phone = new phoneScreen;
     weatherScreen* weather = new weatherScreen;
-    std::vector<btApplication*> applications = {phone, notes, weather};
+    messaging* messageScreen = new messaging;
+    std::vector<btApplication*> applications = {phone, messageScreen,notes, weather};
 public:
     btState();
     QString returnTime();

@@ -14,6 +14,7 @@ class appViewer : public QWidget {
 public:
     appViewer(btShell* mS);
     void blurBackgroundImage();
+    void buttonSetup(QPushButton* button);
 };
 
 
