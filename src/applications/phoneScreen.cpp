@@ -84,19 +84,14 @@ void phoneScreen::btAPP_SETUP(){
         }
         column++;
     }
-
-
     QWidget* grid = new QWidget;
     QWidget* topScreen = new QWidget;
     grid->setLayout(phoneButtons);
     topScreen->setLayout(topPhoneScreen);
     mainLayout->addWidget(topScreen);
     mainLayout->addWidget(grid);
-
     setAttribute(Qt::WA_TranslucentBackground);
     setAutoFillBackground(false);
-
-
 }
 
 QWidget* phoneScreen::btAPP_RETURN(){

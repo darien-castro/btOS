@@ -9,6 +9,9 @@
 
 class weatherScreen : public btApplication {
     Q_OBJECT;
+    std::string toChangeInfo = "";
+    std::string key;
+    std::string link;
     public:
     weatherScreen();
     QWidget* returnNotesWindow();

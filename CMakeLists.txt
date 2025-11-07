@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.5)
 project(btOS)
 
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 17)
 
 # Enable Qt5 features
 set(CMAKE_AUTOMOC ON)
@@ -9,6 +9,7 @@ set(CMAKE_AUTOUIC ON)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 find_package(Qt5 COMPONENTS Widgets REQUIRED)
+find_package(cpr REQUIRED)
 
 # Your source files
 set(SOURCES
@@ -47,4 +48,4 @@ set(SOURCES
 
 
 add_executable(btOS ${SOURCES} ${HEADERS} ${UIS})
-target_link_libraries(btOS Qt5::Widgets)
+target_link_libraries(btOS PRIVATE Qt5::Widgets cpr::cpr)
