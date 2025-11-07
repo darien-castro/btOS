@@ -46,9 +46,6 @@ btShell::btShell(int h, int w) : height(h), width(w) {
     shellScreen->setLayout(mainScreen);
     shellScreen->setFixedSize(width, height);
     shellScreen->setObjectName("shell");
-    shellScreen->setStyleSheet("QWidget{"
-                               "background-color: #BEBEBE;"
-                               "}");
     shellScreen->layout()->setContentsMargins(0, 0, 0, 0);
 
     qDebug() << "Margins:" << shellScreen->layout()->contentsMargins();

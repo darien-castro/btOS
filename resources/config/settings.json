@@ -24,7 +24,7 @@
     },
     {
       "base_object_name": "settingsScreen",
-      "on_home_screen" : "false"
+      "on_home_screen" : true
     },
     {
       "base_object_name": "toDoScreen",

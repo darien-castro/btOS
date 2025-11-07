@@ -14,7 +14,6 @@ class weatherScreen : public btApplication {
     std::string link;
     public:
     weatherScreen();
-    QWidget* returnNotesWindow();
     void btAPP_SETUP() override;
     QWidget* btAPP_RETURN() override;
     void btAPP_CLOSED() override;

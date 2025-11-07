@@ -9,6 +9,7 @@ int main(int argc, char* argv[])
    //toDo, really need to theme this, and make a real design, so that it comes together nicely!
 
 
+
    QApplication app(argc,argv);
 
    int id = QFontDatabase::addApplicationFont("../resources/fonts/Hack/HackNerdFont-Regular.ttf");
@@ -19,7 +20,18 @@ int main(int argc, char* argv[])
 
 
    QApplication::setFont(font);
-
+   QFile styleFile("../resources/themes/lightMode.qss");
+   if (styleFile.open(QIODevice::ReadOnly | QIODevice::Text))
+   {
+      QString styleSheet = QLatin1String(styleFile.readAll());
+      app.setStyleSheet(styleSheet);
+      qDebug() << "styleSheet done";
+      styleFile.close();
+   }
+   else
+   {
+      qDebug() << "not found";
+   }
    btShell* thisShell = new btShell(800,500);
 
 

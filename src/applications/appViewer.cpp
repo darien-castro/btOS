@@ -5,16 +5,17 @@
 #include "appViewer.h"
 #include "src/core/screenManager.h"
 
+/*
 void appViewer::buttonSetup(QPushButton* button){
     button->setStyleSheet("QPushButton{"
                           "height: 50px;"
                           "width: 5px;"
-                          "background: #D5B24D;"
                           "border-radius: 10px;"
                           "font-size: 16px;"
                           "color: #000000;"
                           "}");
 }
+*/
 
 void appViewer::blurBackgroundImage() {
     QString blurExecutable = "../resources/utils/blurImage";
@@ -47,7 +48,7 @@ appViewer::appViewer(btShell* mS){
     for (int i = 0; i < this->mainShell->returnState()->returnAppVect().size(); i++)
     {
         QPushButton* curr = new QPushButton(this->mainShell->returnState()->returnAppVect()[i]->appName);
-        buttonSetup(curr);
+        curr->setFixedWidth(100);
         appScreenGrid->addWidget(curr);
     }
 
@@ -57,9 +58,9 @@ appViewer::appViewer(btShell* mS){
 
     qDebug() << "Margins:" << layout()->contentsMargins();
 
-
+    //Leave be for now, this is a bti more complicated;
     setStyleSheet(
-    "QWidget {"
+    "QWidget#appViewer{"
     "background-image: url(../resources/temp/curr_screen/screen_appViewer_temp2.png);"
     "position: center;"
     "padding: 0px 0px 0px 0px;"

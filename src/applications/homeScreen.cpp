@@ -8,32 +8,31 @@
 #include "src/core/btShell.h"
 #include "src/core/screenManager.h"
 
-
+//function for
 void homeScreen::appButtonPressed(btApplication* app){
     app->btAPP_SETUP();
     this->mainShell->returnScreenManager()->addWidget(app->btAPP_RETURN());
     this->mainShell->returnScreenManager()->returnStack()->setCurrentWidget(app->btAPP_RETURN());
-    qDebug() << "app location at creation: " << app->btAPP_RETURN();
 }
 
+//although we may have many applications, the homescreen should only display the ones the user wants, function grabs a
+//vector of all variables (within the btState) and looks through config settings to see if "onScreen" bool is true, then places them if so.
 void homeScreen::screenAppsSetup(QVBoxLayout* scrollArea){
 
-    //font for homescreen widgets
+    //-----------------------------------------------------------------------------------------------
+    //font settings for homescreen widgets
 
     int id = QFontDatabase::addApplicationFont("../resources/fonts/MapleMono-TTF/MapleMono-SemiBoldItalic.ttf");
 
     QString family = QFontDatabase::applicationFontFamilies(id).at(0);
-
     QFont nerdFont (family);
     nerdFont.bold();
     nerdFont.setPointSize(24);
+    //----------------------------------------------------------------------------------------------
 
 
-
-    qDebug() << "homeScreen Reached!";
     std::vector<btApplication*> apps = mainShell->returnState()->returnAppVect();
     QJsonArray tempAppArr = mainShell->returnState()->returnJsonAppArray();
-    qDebug() << "App array size:" << tempAppArr.size();
     for (int i = 0; i < apps.size(); i++){
         for (int j = 0; j < tempAppArr.size(); j++) {
             QJsonValue value = tempAppArr.at(j);
@@ -59,26 +58,21 @@ void homeScreen::screenAppsSetup(QVBoxLayout* scrollArea){
 
 }
 
-
+// helper function for button styling in for loop
 void homeScreen::buttonStyle(QWidget* button){
     button->setStyleSheet("QPushButton{"
-                         "color: #000000;"
                          "font-size: 22px;"
-                         "background-color: rgba(135, 133, 128,0);"
                          "width: 50px;"
                          "height: 30px;"
                          "border-radius: 8px;"
                          ""
                          "}"
                          "QPushButton:focus {"
-                         "background: rgba(207,212,198,0);"
                          "border: none;"
-                         "color: #ff0000;"
                          ""
                          ""
                          "}"
                          "QPushButton:hover:pressed {"
-                        "background-color: rgba(207,212,198,40);"
                         "color: #273749;"
                         "}");
 }
@@ -89,29 +83,21 @@ homeScreen::homeScreen(btShell* shell){
 
     setAccessibleName("homescreen");
 
-    //toDo need button for applications, and way to print them on homescreen
-    //toDo from some application list, for now, just buttons to set connections
-
-
-    /*QPushButton* phone = new QPushButton("Phone");
-    buttonStyle(phone);
-    QPushButton* notes = new QPushButton("Notes");
-    buttonStyle(notes);
-    QPushButton* text = new QPushButton("Message");
-    buttonStyle(text);
-    QPushButton* manga = new QPushButton("Manga");
-    buttonStyle(manga);
-    */
-
 
     QWidget* content = new QWidget;
     QVBoxLayout* homeScreenLayout = new QVBoxLayout(content);
     homeScreenLayout->setObjectName("homeScreen");
+
+    //------------------------------
     homeScreenLayout->setSpacing(1);
     homeScreenLayout->setContentsMargins(4,2,4,2);
+    //magic numbers, need to change
+    //------------------------------
+
+
+
     QScrollArea* scrollareaMain = new QScrollArea;
     scrollareaMain->setWidgetResizable(true);
-
     screenAppsSetup(homeScreenLayout);
     scrollareaMain->setWidget(content);
 

@@ -9,6 +9,7 @@
 #include "src/applications/messaging.h"
 #include "src/applications/notesScreen.h"
 #include "src/applications/phoneScreen.h"
+#include "src/applications/settings.h"
 #include "src/applications/weatherScreen.h"
 #define configLoc "/home/pablovepo/CLionProjects/btOS/resources/config/settings.json"
 //state for device
@@ -28,7 +29,8 @@ class btState : public QObject{
     phoneScreen* phone = new phoneScreen;
     weatherScreen* weather = new weatherScreen;
     messaging* messageScreen = new messaging;
-    std::vector<btApplication*> applications = {phone, messageScreen,notes, weather};
+    settings* settingsApp = new settings;
+    std::vector<btApplication*> applications = {phone, messageScreen,notes, weather,settingsApp};
 public:
     btState();
     QString returnTime();

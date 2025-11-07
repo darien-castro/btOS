@@ -6,25 +6,18 @@ notesScreen::notesScreen() {
     setObjectName("notesScreen");
 }
 
-QWidget* notesScreen::returnNotesWindow() {
-    return this;
-}
-
 void notesScreen::btAPP_SETUP(){
     this->application = new QWidget;
     QVBoxLayout* layout = new QVBoxLayout(this);
     QLabel* text = new QLabel("Notes app is running...");
-
-    text->setStyleSheet("QLabel{"
-                        ""
+    text->setObjectName("test");
+    /*text->setStyleSheet("QLabel#test{"
+                        "background-color: #ff0000;"
                         "color: #000000;"
-                        "}");
+                        "}");*/
     layout->addWidget(text, 0, Qt::AlignCenter);
 
     this->application->setLayout(layout);
-    this->application->setStyleSheet("QWidget{"
-                  ""
-                  "}");
 }
 
 

@@ -13,7 +13,6 @@ class notesScreen : public btApplication {
     Q_OBJECT
 public:
     notesScreen();
-    QWidget* returnNotesWindow();
     void btAPP_SETUP() override;
     QWidget* btAPP_RETURN() override;
     void btAPP_CLOSED() override;
