@@ -8,6 +8,7 @@
 #include "src/core/btShell.h"
 #include "src/core/screenManager.h"
 
+
 void homeScreen::appButtonPressed(btApplication* app){
     app->btAPP_SETUP();
     this->mainShell->returnScreenManager()->addWidget(app->btAPP_RETURN());
@@ -16,6 +17,19 @@ void homeScreen::appButtonPressed(btApplication* app){
 }
 
 void homeScreen::screenAppsSetup(QVBoxLayout* scrollArea){
+
+    //font for homescreen widgets
+
+    int id = QFontDatabase::addApplicationFont("../resources/fonts/MapleMono-TTF/MapleMono-SemiBoldItalic.ttf");
+
+    QString family = QFontDatabase::applicationFontFamilies(id).at(0);
+
+    QFont nerdFont (family);
+    nerdFont.bold();
+    nerdFont.setPointSize(24);
+
+
+
     qDebug() << "homeScreen Reached!";
     std::vector<btApplication*> apps = mainShell->returnState()->returnAppVect();
     QJsonArray tempAppArr = mainShell->returnState()->returnJsonAppArray();
@@ -29,7 +43,12 @@ void homeScreen::screenAppsSetup(QVBoxLayout* scrollArea){
             bool onHome = obj["on_home_screen"].toBool();
             if (apps[i]->objectName() == name && onHome == true){
                 QPushButton* curr = new QPushButton(apps[i]->appName);
-                scrollArea->addWidget(curr);
+                onScreenButtons.push_back(curr);
+                curr->setFocusPolicy(Qt::StrongFocus);
+                curr->setFixedWidth(200);
+                curr->setFixedHeight(45);
+                curr->setFont(nerdFont);
+                scrollArea->addWidget(curr,0,Qt::AlignCenter);
                 buttonStyle(curr);
                 QObject::connect(curr, &QPushButton::clicked, [this, apps, i]{
                 appButtonPressed(apps[i]);
@@ -44,21 +63,23 @@ void homeScreen::screenAppsSetup(QVBoxLayout* scrollArea){
 void homeScreen::buttonStyle(QWidget* button){
     button->setStyleSheet("QPushButton{"
                          "color: #000000;"
-                         "background-color: rgba(135, 133, 128,15);"
-                         "width: 100px;"
+                         "font-size: 22px;"
+                         "background-color: rgba(135, 133, 128,0);"
+                         "width: 50px;"
                          "height: 30px;"
-                         "border-radius: 6px;"
+                         "border-radius: 8px;"
                          ""
                          "}"
-                         "QPushButton:hover{"
-                         "background: rgba(207,212,198,100);"
+                         "QPushButton:focus {"
+                         "background: rgba(207,212,198,0);"
                          "border: none;"
+                         "color: #ff0000;"
                          ""
                          ""
                          "}"
                          "QPushButton:hover:pressed {"
                         "background-color: rgba(207,212,198,40);"
-                        "color: #FF0000;"
+                        "color: #273749;"
                         "}");
 }
 
@@ -103,6 +124,7 @@ homeScreen::homeScreen(btShell* shell){
     setStyleSheet("QWidget#homeScreen{"
                   "background-color: rgba(0,0,0,0)"
                   "}");
+
 }
 
 QWidget* homeScreen::returnHomeScreen(){

@@ -7,7 +7,7 @@
 
 btState::btState(){
     getSettingsJson();
-    time = QTime::currentTime().toString("hh:mm:ss");
+    time = QTime::currentTime().toString("hh:mm a");
     timeChange.setInterval(1000);
     connect(&timeChange, &QTimer::timeout, this, [this]{
         updateTime();
@@ -19,7 +19,7 @@ btState::btState(){
 
 void btState::updateTime() {
     QTime currentTime = QTime::currentTime();
-    this->time = currentTime.toString("hh:mm:ss");
+    this->time = currentTime.toString("hh:mm a");
 }
 
 QString btState::returnTime(){

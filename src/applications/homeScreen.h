@@ -10,6 +10,7 @@ class btShell;
 
 class homeScreen : public QWidget {
     btShell* mainShell;
+    QList<QPushButton*> onScreenButtons;
 public:
     homeScreen(btShell* shell);
     QWidget* returnHomeScreen();

@@ -23,6 +23,7 @@ public:
     void btTopBar_setup();
     QWidget* returnTopBar();
     void exitToggle(bool x);
+    void styleWidget(QWidget* someWidget);
     signals:
     void buttonPressed();
 };

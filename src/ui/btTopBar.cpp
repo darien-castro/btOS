@@ -6,6 +6,16 @@
 #include "src/core/btShell.h"
 #include "src/core/screenManager.h"
 
+void btTopBar::styleWidget(QWidget* someWidget){
+    someWidget->setStyleSheet("QWidget{"
+                              "color: #ffffff;"
+                              "font-size: 16px;"
+                          "border: none;"
+                          "background-color: rgba(0,0,0,0);"
+                          "}");
+}
+
+
 
 btTopBar::btTopBar(btShell* btParent){
     shell = btParent;
@@ -17,27 +27,32 @@ btTopBar::btTopBar(btShell* btParent){
 
     //todo lank variables for testing
     QLabel* label_battery = new QLabel("67%");
+    styleWidget(label_battery);
     QLabel* label_time = new QLabel(shell->returnStateTime());
+    styleWidget(label_time);
     connect(shell->returnState(), &btState::timeUpdated, label_time, &QLabel::setText);
 
-    QLabel* label_connection = new QLabel("╭∩╮(•̀_·́)╭∩╮");
 
     //button logic for leaving current window
     QPushButton* close_window = new QPushButton("Quit");
     exitButton=close_window;
-    close_window->setStyleSheet("QPushButton{"
-                               "border: none rgba(0,0,0,0);"
+    exitButton->setStyleSheet("QPushButton{"
+                               ""
                                "background-color: #FFFFFF;"
+                               "background: #ffffff;"
+                               "border:none;"
+                               "color: #000000;"
+                               "padding: 5px;"
                                "}");
-    close_window->setStyleSheet("QPushButton:hover{"
-                                "background-color: solid rgba(20, 30, 0, 32);"
-                                "border: none;"
-                                "}");
 
     top_bar_hbox->addWidget(label_battery);
-    top_bar_hbox->addWidget(label_time);
-    top_bar_hbox->addWidget(label_connection);
+    top_bar_hbox->addStretch();
+    //toDo, not dynamic at all, due to size of other widgets, has to be a good way to set actual center, maybe by
+    //toDo, finding center of screen, and setting loc to there.
+    top_bar_hbox->addSpacing(30);
     top_bar_hbox->addWidget(close_window);
+    top_bar_hbox->addStretch();
+    top_bar_hbox->addWidget(label_time);
 
     QObject::connect(close_window, &QPushButton::clicked, [this](){
         if (shell->onHome())
@@ -54,7 +69,10 @@ btTopBar::btTopBar(btShell* btParent){
 
     top_bar_frame->setLayout(top_bar_hbox);
     top_bar_frame->setStyleSheet("QFrame{"
-                                 "border: none;"
+                                 "background: #000000; "
+                                 "border: solid;"
+                                 "border-width: 1upx;"
+                                 "border-color: #989816;"
                                  "}");
 
 
@@ -70,17 +88,16 @@ btTopBar::btTopBar(btShell* btParent){
 
     this->setLayout(pushLayout);
 
-    this->setStyleSheet(""
+    this->setStyleSheet("QWidget{"
                         "border-radius: 5px;"
-                        "color: #000000;"
-                        "border: 2px solid rgba(56, 7, 42, 36);"
-                        "background-color: #FFFFFF");
-
-
+                        "color: rgba(0,0,0,0);"
+                        "border: solid 10px #989816;"
+                        "background-color: rgba(0,0,0,0)};");
+    setFixedHeight(45);
 }
 
 QWidget* btTopBar::returnTopBar(){
-    return topBar;
+    return this;
 }
 
 

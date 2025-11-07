@@ -9,7 +9,7 @@ void appViewer::buttonSetup(QPushButton* button){
     button->setStyleSheet("QPushButton{"
                           "height: 50px;"
                           "width: 5px;"
-                          "background: #D8A65C;"
+                          "background: #D5B24D;"
                           "border-radius: 10px;"
                           "font-size: 16px;"
                           "color: #000000;"
@@ -17,7 +17,7 @@ void appViewer::buttonSetup(QPushButton* button){
 }
 
 void appViewer::blurBackgroundImage() {
-    QString blurExecutable = "/home/pablovepo/CLionProjects/btOS/resources/utils/blurImage";
+    QString blurExecutable = "../resources/utils/blurImage";
 
     QProcess process;
     QStringList args;
@@ -25,12 +25,11 @@ void appViewer::blurBackgroundImage() {
     qDebug() << "ran";
     process.waitForFinished(-1);
     qDebug() <<"finished Here";
-
 }
 
 appViewer::appViewer(btShell* mS){
     setObjectName("appViewer");
-    QString saveLoc = "/home/pablovepo/CLionProjects/btOS/resources/temp/curr_screen";
+    QString saveLoc = "../resources/temp/curr_screen";
     QString saveFile = saveLoc + "/screen_appViewer_temp2.png";
     this->mainShell = mS;
     blurBackgroundImage();
@@ -61,7 +60,7 @@ appViewer::appViewer(btShell* mS){
 
     setStyleSheet(
     "QWidget {"
-    "background-image: url(/home/pablovepo/CLionProjects/btOS/resources/temp/curr_screen/screen_appViewer_temp2.png);"
+    "background-image: url(../resources/temp/curr_screen/screen_appViewer_temp2.png);"
     "position: center;"
     "padding: 0px 0px 0px 0px;"
     "background-position: left center;"

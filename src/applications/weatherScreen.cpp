@@ -23,7 +23,7 @@ void weatherScreen::btAPP_SETUP(){
     mainScreen->addWidget(hello, 0, Qt::AlignCenter);
     this->application->setLayout(mainScreen);
     this->application->setStyleSheet("QWidget{"
-                  "background-color: rgba(255,255,255,255);"
+                  "background-color: rgba(255,255,255,0);"
                   "}");
 }
 
