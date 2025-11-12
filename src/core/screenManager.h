@@ -6,6 +6,8 @@
 #define SCREENMANAGER_H
 #include <resources/QtCommon.h>
 
+#include "btApplication.h"
+
 class btShell;
 
 class screenManager : public QObject{

@@ -101,9 +101,7 @@ QString weatherScreen::returnAppName(){
 }
 
 void weatherScreen::btAPP_CLOSED(){
-        QWidget* toDel = this->application;
-        this->application = nullptr;
-        delete toDel;
+
 }
 
 QWidget* weatherScreen::btAPP_RETURN(){

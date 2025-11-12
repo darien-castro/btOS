@@ -3,15 +3,16 @@ project(btOS)
 
 set(CMAKE_CXX_STANDARD 17)
 
-# Enable Qt5 features
+# Enable Qt5 automatic features
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
-find_package(Qt5 COMPONENTS Widgets REQUIRED)
+# Find all required Qt modules
+find_package(Qt5 COMPONENTS Widgets Sql REQUIRED)
 find_package(cpr REQUIRED)
 
-# Your source files
+# Source files
 set(SOURCES
         main.cpp
         src/core/btShell.cpp
@@ -45,7 +46,12 @@ set(SOURCES
         src/applications/weatherScreen.h
 )
 
+add_executable(btOS ${SOURCES})
 
-
-add_executable(btOS ${SOURCES} ${HEADERS} ${UIS})
-target_link_libraries(btOS PRIVATE Qt5::Widgets cpr::cpr)
+# Link Qt and cpr
+target_link_libraries(btOS
+        PRIVATE
+        Qt5::Widgets
+        Qt5::Sql
+        cpr::cpr
+)

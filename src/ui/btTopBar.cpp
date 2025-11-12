@@ -64,7 +64,7 @@ btTopBar::btTopBar(btShell* btParent){
         QWidget* toDel = shell->returnScreenManager()->returnCurrent();
         shell->returnScreenManager()->removeWidget(shell->returnScreenManager()->returnCurrent());
         qDebug() << "toDelete: "<<  toDel;
-        delete toDel;
+        toDel->deleteLater();
     });
 
     top_bar_frame->setLayout(top_bar_hbox);

@@ -94,9 +94,7 @@ QWidget* phoneScreen::btAPP_RETURN(){
 }
 
 void phoneScreen::btAPP_CLOSED(){
-    QWidget* toDel = application;
-    application = nullptr;
-    delete toDel;
+
 }
 
 QString phoneScreen::returnAppName(){
