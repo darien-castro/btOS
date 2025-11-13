@@ -6,35 +6,37 @@ notesScreen::notesScreen() {
     setObjectName("notesScreen");
 }
 void notesScreen::setup_layouts(){
-    _mainLayout= new QHBoxLayout(this->application);
+    _mainNotesLayout= new QHBoxLayout(this->application);
     _noteWindow = new QVBoxLayout();
     _leftScrollArea = new QScrollArea();
     _leftScrollArea->setWidgetResizable(false);
-    _leftAreaContainer = new QWidget();
-    _previousNotesContainer = new QVBoxLayout(_leftAreaContainer);
-    _rightScreen = new QWidget;
-    _buttonLayout = new QVBoxLayout;
+    _leftAreaWidget = new QWidget();
+    _previousNotesContainer = new QVBoxLayout();
+    _rightScreen = new QWidget();
+    _buttonLayout = new QVBoxLayout();
 }
-
 void notesScreen::setup_buttons(){
-    _compact = new QPushButton("compact");
-    _newNote = new QPushButton("New");
+    _compact = new QPushButton("<-");
+    _newNote = new QPushButton("+");
     _notesText = new QTextEdit();
     _buttons = new QWidget();
 }
 
 void notesScreen::add_widgits(){
-    _leftScrollArea->setWidget(_leftAreaContainer);
+    _leftScrollArea->setWidget(_leftAreaWidget);
     _noteWindow->addWidget(_notesText);
     _rightScreen->setLayout(_noteWindow);
-    _mainLayout->addWidget(_leftScrollArea);
-    _mainLayout->addWidget(_rightScreen);
+    _mainNotesLayout->addWidget(_leftScrollArea);
+    _mainNotesLayout->addWidget(_rightScreen);
     _compact->setFixedSize(100,50);
+    _newNote->setFixedSize(100,50);
 
     _buttonLayout->addWidget(_compact,0,Qt::AlignTop);
     _buttonLayout->addWidget(_newNote,0,Qt::AlignTop);
+    _buttonLayout->setSpacing(0);
+    _buttonLayout->setContentsMargins(0,0,0,0);
     _buttons->setLayout(_buttonLayout);
-    _mainLayout->addWidget(_buttons);
+    _mainNotesLayout->addWidget(_buttons);
 }
 
 
@@ -62,12 +64,14 @@ void notesScreen::populate_prev_notes(){
 }
 void notesScreen::initiate_connections(){
     connect(_compact, &QPushButton::pressed, this, [=]() {
-    if (_mainLayout->indexOf(_leftScrollArea) != -1) {
-        _mainLayout->removeWidget(_leftScrollArea);
+    if (_mainNotesLayout->indexOf(_leftScrollArea) != -1) {
+        _mainNotesLayout->removeWidget(_leftScrollArea);
         _leftScrollArea->hide();
+        _compact->setText("->");
     } else {
-        _mainLayout->insertWidget(0, _leftScrollArea);
+        _mainNotesLayout->insertWidget(0, _leftScrollArea);
         _leftScrollArea->show();
+        _compact->setText("<-");
     }
     });
     connect(this->application, &QObject::destroyed, this, [this]() {
@@ -188,8 +192,8 @@ void notesScreen::initiate_db() {
 }
 
 void notesScreen::setVariablesNull(){
-    _mainLayout = nullptr;
-    _leftAreaContainer = nullptr;
+    _mainNotesLayout = nullptr;
+    _leftAreaWidget = nullptr;
     _leftScrollArea = nullptr;
     _previousNotesContainer = nullptr;
     _noteWindow = nullptr;
@@ -203,5 +207,4 @@ void notesScreen::setVariablesNull(){
 
 notesScreen::~notesScreen(){
     notesScreen::btAPP_CLOSED();
-
 }
