@@ -11,7 +11,7 @@ void notesScreen::setup_layouts(){
     _leftScrollArea = new QScrollArea();
     _leftScrollArea->setWidgetResizable(false);
     _leftAreaWidget = new QWidget();
-    _previousNotesContainer = new QVBoxLayout();
+    _previousNotesContainer = new QVBoxLayout(_leftAreaWidget);
     _rightScreen = new QWidget();
     _buttonLayout = new QVBoxLayout();
 }
