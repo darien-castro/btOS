@@ -26,7 +26,7 @@ btTopBar::btTopBar(btShell* btParent){
     QHBoxLayout* top_bar_hbox = new QHBoxLayout;
 
     //todo lank variables for testing
-    QLabel* label_battery = new QLabel("67%");
+    QLabel* label_battery = new QLabel("77%");
     styleWidget(label_battery);
     QLabel* label_time = new QLabel(shell->returnStateTime());
     styleWidget(label_time);
