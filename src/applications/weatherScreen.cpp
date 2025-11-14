@@ -99,7 +99,6 @@ void weatherScreen::set_style_sheet(){
 void weatherScreen::set_styles(){
     top_weather_layout->setMargin(20);
     search_display->setFixedSize(200,55);
-
     time_date->setFixedSize(150,45);
     weather->setFixedSize(200,200);
     time_date_layout->setContentsMargins(0,0,0,0);
@@ -112,12 +111,10 @@ void weatherScreen::set_styles(){
     seperator->setGeometry(QRect(320, 150, 118, 3));
     seperator->setFrameShape(QFrame::VLine);
     seperator->setFrameShadow(QFrame::Sunken);
-
     search_display->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     search_display->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     search_display->setLineWrapMode(QTextEdit::NoWrap);
 }
-
 void weatherScreen::update_data(const QString& name){
     std::string fin_link = link + name.toStdString() + key + units;
     cpr::Response r = cpr::Get(cpr::Url(fin_link));
@@ -131,16 +128,12 @@ void weatherScreen::update_data(const QString& name){
     int curr_temp = j["main"]["temp"];
     std::string main_desc = j["weather"][0]["main"];
     std::string curr_s_temp = std::to_string(curr_temp) + "°F";
-
     //to Qstrings
     QString curr_q_temp = QString::fromStdString(curr_s_temp);
     QString curr_desc = QString::fromStdString(main_desc);
-
     temp->setText(curr_q_temp);
     weather->setText(curr_desc);
-
 }
-
 void weatherScreen::setup_connections(){
     connect(temp_button, &QPushButton::clicked, this, [this](){
         QString cityName = search_display->toPlainText();
@@ -163,12 +156,8 @@ void weatherScreen::btAPP_SETUP(){
 QString weatherScreen::returnAppName(){
     return appName;
 }
-
 void weatherScreen::btAPP_CLOSED(){
-
 }
-
 QWidget* weatherScreen::btAPP_RETURN(){
     return this->application;
 }
-
