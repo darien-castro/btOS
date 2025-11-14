@@ -123,6 +123,12 @@ void weatherScreen::update_data(const QString& name){
         qDebug() << "Error code: " << r.status_code;
         return;
     }
+    if (r.status_code == 404)
+    {
+        qDebug() << "No Such City: " << name;
+        qDebug() << "Error: " << r.status_code;
+        return;
+    }
     nlohmann::json j = nlohmann::json::parse(r.text);
     QString dump = QString::fromStdString(j.dump(4));
     int curr_temp = j["main"]["temp"];
@@ -134,6 +140,7 @@ void weatherScreen::update_data(const QString& name){
     temp->setText(curr_q_temp);
     weather->setText(curr_desc);
 }
+
 void weatherScreen::setup_connections(){
     connect(temp_button, &QPushButton::clicked, this, [this](){
         QString cityName = search_display->toPlainText();
@@ -146,6 +153,7 @@ void weatherScreen::setup_connections(){
         thread->start();
     });
 }
+
 void weatherScreen::btAPP_SETUP(){
     setup_layout();
     setup_widgets();

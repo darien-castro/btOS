@@ -20,7 +20,7 @@ int main(int argc, char* argv[])
 
 
    QApplication::setFont(font);
-   QFile styleFile("../resources/themes/styleSheets/neon.qss");
+   QFile styleFile("../resources/themes/lightMode.qss");
    if (styleFile.open(QIODevice::ReadOnly | QIODevice::Text))
    {
       QString styleSheet = QLatin1String(styleFile.readAll());
