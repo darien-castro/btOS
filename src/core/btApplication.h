@@ -12,6 +12,7 @@ class btApplication : public QWidget {
 public:
     QString appName;
     QWidget* application = nullptr;
+    QStackedWidget* _window_stack = nullptr;
     virtual void btAPP_SETUP() = 0;
     /*virtual void btAPP_OPENED() = 0;*/
     virtual QWidget* btAPP_RETURN() = 0;

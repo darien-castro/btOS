@@ -10,7 +10,9 @@ notesScreen::notesScreen() {
 }
 void notesScreen::setup_layouts(){
     // applications widget setup
-    this->application = new QWidget;
+    application = new QWidget;
+
+    _window_stack = new QStackedWidget();
 
     //layouts and areas setup
     top_notes_layout = new QVBoxLayout();
@@ -158,7 +160,7 @@ void notesScreen::initiate_connections(){
 
 
 void notesScreen::btAPP_SETUP(){
-
+    // application setup;
     setup_layouts();
     layout_styling();
     setup_widgets();
@@ -167,7 +169,7 @@ void notesScreen::btAPP_SETUP(){
     application->setLayout(top_notes_layout);
     application->setObjectName("notes");
     application->setStyleSheet("QWidget#notes{"
-                               "background-color: #000000;"
+                               "background-color: rgba(7, 13, 15,1);"
                                "}");
 }
 

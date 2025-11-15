@@ -4,15 +4,15 @@
 
 #include "btShell.h"
 
-#include "src/applications/appViewer.h"
-#include "src/applications/homeScreen.h"
-#include "src/applications/phoneScreen.h"
-#include "src/applications/settings.h"
-#include "src/applications/weatherScreen.h"
-#include "src/applications/notesScreen.h"
+#include "../applications/appViewer/appViewer.h"
+#include "../applications/homeScreen/homeScreen.h"
+#include "../applications/phone/phoneScreen.h"
+#include "../applications/Settings/settings.h"
+#include "../applications/Weather/weatherScreen.h"
+#include "../applications/Notes/notesScreen.h"
 #include "src/core/screenManager.h"
 #include "src/ui/btTopBar.h"
-#include <src/applications/appViewer.h>
+#include <../src/applications/appViewer/appViewer.h>
 
 
 void btShell::setupShellScreen(){

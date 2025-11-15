@@ -8,10 +8,10 @@
 
 #include "btApplicationManager.h"
 #include "src/applications/messaging.h"
-#include "src/applications/notesScreen.h"
-#include "src/applications/phoneScreen.h"
-#include "src/applications/settings.h"
-#include "src/applications/weatherScreen.h"
+#include "../applications/Notes/notesScreen.h"
+#include "../applications/phone/phoneScreen.h"
+#include "../applications/Settings/settings.h"
+#include "../applications/Weather/weatherScreen.h"
 #define configLoc "/home/pablovepo/CLionProjects/btOS/resources/config/settings.json"
 //state for device
 class btState : public QObject{

@@ -4,7 +4,7 @@
 
 #include "homeScreen.h"
 
-#include "notesScreen.h"
+#include "../Notes/notesScreen.h"
 #include "src/core/btShell.h"
 #include "src/core/screenManager.h"
 

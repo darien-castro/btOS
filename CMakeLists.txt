@@ -12,49 +12,55 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 find_package(Qt5 COMPONENTS Widgets Sql REQUIRED)
 find_package(cpr REQUIRED)
 
+# Header files
+set(HEADERS
+        src/core/btShell.h
+        src/ui/btTopBar.h
+        src/core/btState.h
+        resources/QtCommon.h
+        src/core/screenManager.h
+        src/applications/homeScreen/homeScreen.h
+        src/applications/Notes/notesScreen.h
+        src/applications/appViewer/appViewer.h
+        src/core/btApplication.h
+        src/applications/phone/phoneScreen.h
+        src/applications/toDoApp.h
+        src/applications/messaging.h
+        src/applications/Settings/settings.h
+        src/applications/calculatorScreen.h
+        src/applications/Weather/weatherScreen.h
+        resources/models/notesApp/noteCard.h
+        resources/models/notesApp/noteTag.h
+        resources/models/notesApp/newNote.h
+        src/core/btApplicationManager.h
+)
+
 # Source files
 set(SOURCES
         main.cpp
         src/core/btShell.cpp
-        src/core/btShell.h
         src/ui/btTopBar.cpp
-        src/ui/btTopBar.h
         src/core/btState.cpp
-        src/core/btState.h
-        resources/QtCommon.h
         src/core/screenManager.cpp
-        src/core/screenManager.h
-        src/applications/homeScreen.cpp
-        src/applications/homeScreen.h
-        src/applications/notesScreen.cpp
-        src/applications/notesScreen.h
-        src/applications/appViewer.cpp
-        src/applications/appViewer.h
+        src/applications/homeScreen/homeScreen.cpp
+        src/applications/Notes/notesScreen.cpp
+        src/applications/appViewer/appViewer.cpp
         src/core/btApplication.cpp
-        src/core/btApplication.h
-        src/applications/phoneScreen.cpp
-        src/applications/phoneScreen.h
+        src/applications/phone/phoneScreen.cpp
         src/applications/toDoApp.cpp
-        src/applications/toDoApp.h
         src/applications/messaging.cpp
-        src/applications/messaging.h
-        src/applications/settings.cpp
-        src/applications/settings.h
+        src/applications/Settings/settings.cpp
         src/applications/calculatorScreen.cpp
-        src/applications/calculatorScreen.h
-        src/applications/weatherScreen.cpp
-        src/applications/weatherScreen.h
+        src/applications/Weather/weatherScreen.cpp
         resources/models/notesApp/noteCard.cpp
-        resources/models/notesApp/noteCard.h
         resources/models/notesApp/noteTag.cpp
-        resources/models/notesApp/noteTag.h
         resources/models/notesApp/newNote.cpp
-        resources/models/notesApp/newNote.h
         src/core/btApplicationManager.cpp
-        src/core/btApplicationManager.h
+        src/applications/Notes/windows/note_edit_view.cpp
+        src/applications/Notes/windows/note_edit_view.h
 )
 
-add_executable(btOS ${SOURCES})
+add_executable(btOS ${SOURCES} ${HEADERS})
 
 # Link Qt and cpr
 target_link_libraries(btOS
