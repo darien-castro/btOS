@@ -11,6 +11,9 @@
 #include <QDir>
 #include <QDebug>
 #include "src/core/btApplication.h"
+#include <resources/models/notesApp/noteCard.h>
+#include <resources/models/notesApp/noteTag.h>
+
 class notesScreen : public btApplication {
     Q_OBJECT
     QSqlDatabase db;
@@ -18,45 +21,52 @@ class notesScreen : public btApplication {
     int _current_note;
 public:
     notesScreen();
-    //layout construction
+    // construction
     void setup_layouts();
-    void setup_buttons();
-    void populate_prev_notes();
+    void setup_widgets();
+    void layout_styling();
+    //styling
+    void widget_styling();
+
+    //connection
     void initiate_connections();
     //adding widgets
     void add_widgits();
-    //db functions
+    //helper function
+    //db
     void initiate_db();
     void add_note_db();
-    //destruction functions
-    //maybe not necessary, but objects exist
+    // deprecated, but can use logic for db
+    void populate_prev_notes();
+    // deprecated...
     void setVariablesNull();
+
+
+    //overridden
     void btAPP_SETUP() override;
     QWidget* btAPP_RETURN() override;
     void btAPP_CLOSED() override;
     QString returnAppName() override;
     ~notesScreen();
 private:
-    //main ui containers
-    QHBoxLayout* _mainNotesLayout;
-//----------------------------------
-        //left ui containers
-    QScrollArea* _leftScrollArea;
-    QVBoxLayout* _previousNotesContainer;
-    QWidget* _leftAreaWidget;
-        //left ui buttons
-            //none....
-//----------------------------------
-        //right ui
-    QVBoxLayout* _noteWindow;
-    QVBoxLayout* _buttonLayout;
-        //widgets
-    QWidget* _rightScreen;
-    QTextEdit* _notesText;
-    QWidget* _buttons;
-        //buttons
-    QPushButton* _compact;
-    QPushButton* _newNote;
+    // ui variables
+    // main containers
+    QVBoxLayout* top_notes_layout;
+    QWidget* top_notes_widget;
+    QHBoxLayout* header_layout;
+    QScrollArea* carousel_layout;
+    QHBoxLayout* carousel_hbox;
+    QWidget* carousel_widget;
+    QGridLayout* note_card_view;
+    QScrollArea* note_card_scroll;
+    // main widgets
+    QLabel* header_widget;
+    QPushButton* button;
+    noteTag* example_tag1;
+    noteTag* example_tag2;
+    NoteCardModern* card1;
+    NoteCardModern* card2;
+    NoteCardModern* card3;
+    NoteCardModern* card4;
 };
-
 #endif

@@ -118,10 +118,26 @@ void weatherScreen::set_styles(){
 void weatherScreen::update_data(const QString& name){
     std::string fin_link = link + name.toStdString() + key + units;
     cpr::Response r = cpr::Get(cpr::Url(fin_link));
+    //todo, switch case, cleaner
     if (r.error)
     {
         qDebug() << "Error code: " << r.status_code;
         return;
+    }
+    if (r.status_code == 400)
+    {
+        qDebug() << "Bad Request";
+        qDebug() << r.status_code;
+    }
+    if (r.status_code == 401)
+    {
+        qDebug() << "Unauthorized";
+        qDebug() << r.status_code;
+    }
+    if (r.status_code == 429)
+    {
+        qDebug() << "Too Many Requests";
+        qDebug() << r.status_code;
     }
     if (r.status_code == 404)
     {
@@ -131,14 +147,56 @@ void weatherScreen::update_data(const QString& name){
     }
     nlohmann::json j = nlohmann::json::parse(r.text);
     QString dump = QString::fromStdString(j.dump(4));
-    int curr_temp = j["main"]["temp"];
-    std::string main_desc = j["weather"][0]["main"];
-    std::string curr_s_temp = std::to_string(curr_temp) + "°F";
-    //to Qstrings
-    QString curr_q_temp = QString::fromStdString(curr_s_temp);
-    QString curr_desc = QString::fromStdString(main_desc);
-    temp->setText(curr_q_temp);
-    weather->setText(curr_desc);
+    int curr_temp;
+    std::string main_desc;
+    bool api_call_flag = true;
+    try
+    {
+        curr_temp = j["main"]["temp"];
+        main_desc = j["weather"][0]["main"];
+    }
+    catch (nlohmann::json_abi_v3_12_0::detail::type_error)
+    {
+
+        qDebug() << "not valid Integer or String";
+        api_call_flag = false;
+    }
+
+
+    /*if (main_desc == "Clear")
+    {
+        application->setStyleSheet("QWidget#weather{"
+                                   "background-image: url(../resources/appData/weather/clearDay.jpg);"
+                                  "}");
+    }
+    if (main_desc == "Clouds")
+    {
+        application->setStyleSheet("QWidget#weather{"
+                                    "background-image: url(../resources/appData/weather/cloudyDay.jpg);"
+                                   "}");
+    }
+    if (main_desc == "Rain")
+    {
+        application->setStyleSheet("QWidget#weather{"
+                                    "background-image: url(../resources/appData/weather/rainyDay.jpg);"
+                                   "}");
+
+    }
+    if (main_desc == "Snow")
+    {
+        application->setStyleSheet("QWidget#weather{"
+                                    "background-image: url(../resources/appData/weather/snowDay.jpg);"
+                                   "}");
+    }*/
+    if (api_call_flag == true)
+    {
+        std::string curr_s_temp = std::to_string(curr_temp) + "°F";
+        //to Qstrings
+        QString curr_q_temp = QString::fromStdString(curr_s_temp);
+        QString curr_desc = QString::fromStdString(main_desc);
+        temp->setText(curr_q_temp);
+        weather->setText(curr_desc);
+    }
 }
 
 void weatherScreen::setup_connections(){

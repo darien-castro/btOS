@@ -26,9 +26,11 @@ QString btState::returnTime(){
     return time;
 }
 
+/*
 std::vector<btApplication*> btState::returnAppVect(){
     return this->applications;
 }
+*/
 
 void btState::getSettingsJson(){
 
@@ -59,3 +61,4 @@ void btState::getSettingsJson(){
 QJsonArray btState::returnJsonAppArray(){
     return apps;
 }
+

@@ -1,3 +1,8 @@
+* {
+    font-family: "3270 Propo";
+}
+
+
 QWidget:window {					/* Borders around the code editor and debug window */
 	border: 0px solid #263238;
 	background-color: #263238;

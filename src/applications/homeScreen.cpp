@@ -31,17 +31,17 @@ void homeScreen::screenAppsSetup(QVBoxLayout* scrollArea){
     //----------------------------------------------------------------------------------------------
 
 
-    std::vector<btApplication*> apps = mainShell->returnState()->returnAppVect();
+    btApplicationManager* temp_app_manager = mainShell->returnAppManager();
     QJsonArray tempAppArr = mainShell->returnState()->returnJsonAppArray();
-    for (int i = 0; i < apps.size(); i++){
-        for (int j = 0; j < tempAppArr.size(); j++) {
+        qDebug() << temp_app_manager->size();
+        for (int j = 0; j <= tempAppArr.size(); j++) {
             QJsonValue value = tempAppArr.at(j);
             QJsonObject obj = value.toObject();
             QString name = obj["base_object_name"].toString();
-            bool question = (name == apps[i]->objectName());
+            bool question = (temp_app_manager->returnQMap().contains(name));
             bool onHome = obj["on_home_screen"].toBool();
-            if (apps[i]->objectName() == name && onHome == true){
-                QPushButton* curr = new QPushButton(apps[i]->appName);
+            if (question == true && onHome == true){
+                QPushButton* curr = new QPushButton(temp_app_manager->returnQMap()[name]->appName);
                 onScreenButtons.push_back(curr);
                 curr->setFocusPolicy(Qt::StrongFocus);
                 curr->setFixedWidth(200);
@@ -49,14 +49,13 @@ void homeScreen::screenAppsSetup(QVBoxLayout* scrollArea){
                 curr->setFont(nerdFont);
                 scrollArea->addWidget(curr,0,Qt::AlignCenter);
                 buttonStyle(curr);
-                QObject::connect(curr, &QPushButton::clicked, [this, apps, i]{
-                appButtonPressed(apps[i]);
+                QObject::connect(curr, &QPushButton::clicked, [this,temp_app_manager,name]{
+                appButtonPressed(temp_app_manager->returnQMap()[name]);
             });
         }
     };
     }
 
-}
 
 // helper function for button styling in for loop
 void homeScreen::buttonStyle(QWidget* button){

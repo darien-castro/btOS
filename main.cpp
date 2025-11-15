@@ -12,7 +12,7 @@ int main(int argc, char* argv[])
 
    QApplication app(argc,argv);
 
-   int id = QFontDatabase::addApplicationFont("../resources/fonts/Hack/HackNerdFont-Regular.ttf");
+   int id = QFontDatabase::addApplicationFont("../resources/fonts/3270/3270NerdFontPropo-Regular.ttf");
 
    QString family = QFontDatabase::applicationFontFamilies(id).at(0);
 
@@ -20,7 +20,7 @@ int main(int argc, char* argv[])
 
 
    QApplication::setFont(font);
-   QFile styleFile("../resources/themes/lightMode.qss");
+   QFile styleFile("../resources/themes/googleMode.qss");
    if (styleFile.open(QIODevice::ReadOnly | QIODevice::Text))
    {
       QString styleSheet = QLatin1String(styleFile.readAll());

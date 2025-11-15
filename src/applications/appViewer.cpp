@@ -45,10 +45,10 @@ appViewer::appViewer(btShell* mS){
 
     QGridLayout* appScreenGrid = new QGridLayout(this);
 
-    for (int i = 0; i < this->mainShell->returnState()->returnAppVect().size(); i++)
+    for (int i = 0; i < this->mainShell->returnAppManager()->appName().size(); i++)
     {
-        QPushButton* curr = new QPushButton(this->mainShell->returnState()->returnAppVect()[i]->appName);
-        curr->setFixedWidth(100);
+        QPushButton* curr = new QPushButton(mainShell->returnAppManager()->appName()[i]);
+        curr->setFixedWidth(500);
         appScreenGrid->addWidget(curr);
     }
 

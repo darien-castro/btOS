@@ -6,6 +6,10 @@
 
 #include "src/applications/appViewer.h"
 #include "src/applications/homeScreen.h"
+#include "src/applications/phoneScreen.h"
+#include "src/applications/settings.h"
+#include "src/applications/weatherScreen.h"
+#include "src/applications/notesScreen.h"
 #include "src/core/screenManager.h"
 #include "src/ui/btTopBar.h"
 #include <src/applications/appViewer.h>
@@ -17,40 +21,28 @@ void btShell::setupShellScreen(){
 
 
 btShell::btShell(int h, int w) : height(h), width(w) {
+    appManager = new btApplicationManager;
+    initializeApplications();
     mainState = new btState;
-
     // create the QWidget for the shell
     shellScreen = new QWidget();
-
     // create the btTopBar controller
     topBar = new btTopBar(this);
-
     mainScreenManager = new screenManager;
     homeScreen* mainHome = new homeScreen(this);
-
     mainScreenManager->addWidget(mainHome);
-
     topBar->setMaximumHeight(80);
-
-
     QVBoxLayout* mainScreen = new QVBoxLayout(shellScreen);
     mainScreen->addWidget(topBar);
     mainScreen->addWidget(mainScreenManager->returnStack());
-
     setupKeys();
-
     connect(mainScreenManager, &screenManager::stateChanged,
         this, &btShell::updateUi);
-
-
     shellScreen->setLayout(mainScreen);
     shellScreen->setFixedSize(width, height);
     shellScreen->setObjectName("shell");
     shellScreen->layout()->setContentsMargins(0, 0, 0, 0);
-
     qDebug() << "Margins:" << shellScreen->layout()->contentsMargins();
-
-
 }
 
 QString btShell::returnStateTime(){
@@ -124,4 +116,14 @@ QJsonArray* btShell::returnAppArray(){
 
 QWidget* btShell::returnShellScreen(){
     return shellScreen;
+}
+void btShell::initializeApplications(){
+    appManager->addApp<phoneScreen>("phoneScreen");
+    appManager->addApp<settings>("settingsScreen");
+    appManager->addApp<weatherScreen>("weatherScreen");
+    appManager->addApp<notesScreen>("notesScreen");
+}
+
+btApplicationManager* btShell::returnAppManager(){
+    return appManager;
 }

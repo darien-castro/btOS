@@ -3,6 +3,7 @@
 
 #include <resources/QtCommon.h>
 #include <src/core/btState.h>
+#include <src/core/btApplicationManager.h>
 
 // forward declarations to avoid include loops
 class btTopBar;
@@ -17,6 +18,7 @@ class btShell : public QObject {
     btTopBar* topBar;
     screenManager* mainScreenManager;
     QWidget* shellScreen;
+    btApplicationManager* appManager;
     //depends on settings
     int height;
     int width;
@@ -36,6 +38,8 @@ public:
     void setupKeys();
     QJsonArray appArray;
     QJsonArray* returnAppArray();
+    void initializeApplications();
+    btApplicationManager* returnAppManager();
 private slots:
     void updateUi();
 

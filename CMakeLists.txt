@@ -44,6 +44,14 @@ set(SOURCES
         src/applications/calculatorScreen.h
         src/applications/weatherScreen.cpp
         src/applications/weatherScreen.h
+        resources/models/notesApp/noteCard.cpp
+        resources/models/notesApp/noteCard.h
+        resources/models/notesApp/noteTag.cpp
+        resources/models/notesApp/noteTag.h
+        resources/models/notesApp/newNote.cpp
+        resources/models/notesApp/newNote.h
+        src/core/btApplicationManager.cpp
+        src/core/btApplicationManager.h
 )
 
 add_executable(btOS ${SOURCES})
