@@ -54,7 +54,7 @@ class weatherScreen : public btApplication {
     //------------------------------------------
 
     public:
-    weatherScreen();
+    weatherScreen(QWidget* parent);
     void setup_layout();
     void setup_widgets();
     void setup_connections();

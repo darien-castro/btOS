@@ -11,7 +11,7 @@
 class settings : public btApplication {
     Q_OBJECT;
 public:
-    settings();
+    settings(QWidget* parent);
     void btAPP_SETUP() override;
     QWidget* btAPP_RETURN() override;
     void btAPP_CLOSED() override;

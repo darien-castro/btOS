@@ -21,11 +21,15 @@ void btShell::setupShellScreen(){
 
 
 btShell::btShell(int h, int w) : height(h), width(w) {
-    appManager = new btApplicationManager;
+    shellScreen = new QWidget();
+    shellScreen->setFixedSize(w,h);
+    qDebug() << "shell Screen width" << shellScreen->width();
+
+    appManager = new btApplicationManager(shellScreen);
     initializeApplications();
     mainState = new btState;
     // create the QWidget for the shell
-    shellScreen = new QWidget();
+
     // create the btTopBar controller
     topBar = new btTopBar(this);
     mainScreenManager = new screenManager;

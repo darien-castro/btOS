@@ -80,7 +80,6 @@ void NoteCardModern::leaveEvent(QEvent* event){
     QWidget::leaveEvent(event);
 }
 void NoteCardModern::mousePressEvent(QMouseEvent* event){
-
     emit clicked();
 }
 

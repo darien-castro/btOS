@@ -10,7 +10,7 @@
 //toDo, weather API, coming soon!.
 
 
-weatherScreen::weatherScreen(){
+weatherScreen::weatherScreen(QWidget* parent) : btApplication(parent){
     link = "https://api.openweathermap.org/data/2.5/weather?q=";
     key = "&appid=14a0c28171ba4e585da8f25871450521";
     units = "&units=imperial";

@@ -4,9 +4,9 @@
 
 #include "phoneScreen.h"
 
-phoneScreen::phoneScreen(){
+phoneScreen::phoneScreen(QWidget* parent) : btApplication(parent){
     setObjectName("phoneScreen");
-    this->appName = "phone";
+    this->appName = "Phone";
 }
 
 

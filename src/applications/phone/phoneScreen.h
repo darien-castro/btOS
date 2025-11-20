@@ -11,7 +11,7 @@ class phoneScreen : public btApplication{
     Q_OBJECT
     QString phoneNumberInput;
     public:
-    phoneScreen();
+    phoneScreen(QWidget* parent = nullptr);
     QWidget* returnPhoneWindow();
     void btAPP_SETUP() override;
     QWidget* btAPP_RETURN() override;

@@ -10,6 +10,9 @@
 class btApplication : public QWidget {
     Q_OBJECT
 public:
+    explicit btApplication(QWidget* parent = nullptr)
+        : QWidget(parent) {}
+
     QString appName;
     QWidget* application = nullptr;
     QStackedWidget* _window_stack = nullptr;

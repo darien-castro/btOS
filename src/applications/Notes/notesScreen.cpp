@@ -3,14 +3,17 @@
 #include <QGraphicsDropShadowEffect>
 
 #include "resources/models/notesApp/newNote.h"
+#include "windows/note_edit_view.h"
 
-notesScreen::notesScreen() {
+notesScreen::notesScreen(QWidget* parent) : btApplication(parent) {
     this->appName = "notes";
     setObjectName("notesScreen");
+    setFixedWidth(parent->width());
+    qDebug() << "notesScreen Width: " << width();
 }
 void notesScreen::setup_layouts(){
     // applications widget setup
-    application = new QWidget;
+    application = new QWidget(this->parentWidget());
 
     _window_stack = new QStackedWidget();
 
@@ -117,6 +120,11 @@ void notesScreen::add_widgits(){
     {
         NoteCardModern* curr = new NoteCardModern("Hello World", "my name is darien");
         note_card_view->addWidget(curr);
+        connect(curr, &NoteCardModern::clicked, this, [this](){
+            NoteEditView* lol = new NoteEditView(this);
+            _window_stack->addWidget(lol);
+            _window_stack->setCurrentWidget(lol);
+        });
     }
 
     // addding widgets to "top_screen"
@@ -153,7 +161,12 @@ void notesScreen::populate_prev_notes(){
     }
 }
 void notesScreen::initiate_connections(){
-
+    qDebug() << "Pressed: New Note Button";
+    connect(button, &QPushButton::clicked, this,[this](){
+        NoteEditView* lol = new NoteEditView(this);
+        _window_stack->addWidget(lol);
+        _window_stack->setCurrentWidget(lol);
+    });
 }
 
 
@@ -166,11 +179,19 @@ void notesScreen::btAPP_SETUP(){
     setup_widgets();
     widget_styling();
     add_widgits();
-    application->setLayout(top_notes_layout);
+    initiate_connections();
+    QWidget* main_screen = new QWidget();
+    main_screen->setLayout(top_notes_layout);
+    _window_stack->addWidget(main_screen);
+    QVBoxLayout* vbox = new QVBoxLayout;
+    vbox->addWidget(_window_stack);
+
+    application->setLayout(vbox);
     application->setObjectName("notes");
     application->setStyleSheet("QWidget#notes{"
                                "background-color: rgba(7, 13, 15,1);"
                                "}");
+    qDebug() <<"application width: " << application->parentWidget()->width();
 }
 
 

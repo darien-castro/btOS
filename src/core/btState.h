@@ -26,14 +26,6 @@ class btState : public QObject{
     QFile* configSettings;
     QJsonObject mainJson;
     QJsonArray apps;
-    notesScreen* notes = new notesScreen;
-    phoneScreen* phone = new phoneScreen;
-    weatherScreen* weather = new weatherScreen;
-    messaging* messageScreen = new messaging;
-    settings* settingsApp = new settings;
-    /*
-    std::vector<btApplication*> applications = {phone, messageScreen,notes, weather,settingsApp};
-*/
 public:
     btState();
     QString returnTime();

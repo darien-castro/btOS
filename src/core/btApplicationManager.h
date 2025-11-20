@@ -11,11 +11,12 @@
 
 
 class btApplicationManager{
+    QWidget* m_parent;
     public:
-    btApplicationManager() = default;
+    btApplicationManager(QWidget* parent = nullptr) : m_parent(parent){};
     template <typename AppType>
     AppType* addApp(const QString& name) {
-        AppType* app = new AppType();
+        AppType* app = new AppType(m_parent);
         _applications[name] = app;
         return app;
     }

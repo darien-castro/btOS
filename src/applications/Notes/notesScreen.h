@@ -20,7 +20,7 @@ class notesScreen : public btApplication {
     int _current_db_size;
     int _current_note;
 public:
-    notesScreen();
+    notesScreen(QWidget* parent);
     // construction
     void setup_layouts();
     void setup_widgets();

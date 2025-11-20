@@ -5,7 +5,7 @@
 #include "settings.h"
 
 
-settings::settings(){
+settings::settings(QWidget* parent) : btApplication(parent){
     this->appName = "settings";
     setObjectName("settingsScreen");
 }

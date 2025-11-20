@@ -17,7 +17,7 @@ class NoteEditView : public QWidget {
     int m_noteId = -1;
 public:
     // todo... need to intake some db variable, so that, we can input some note
-    NoteEditView(QSqlDatabase* parent, int noteId);
+    NoteEditView(QWidget* parent = nullptr, QSqlDatabase* dbparent = nullptr, int noteId = -1);
 
 private:
 
@@ -25,6 +25,8 @@ private:
     void initializeLayouts();
     void initializeWidgets();
     void styleWidgets();
+    void attatchWidgets();
+    void setupConnections();
     // depending on if db is inputed as value or not
     QString loadNoteFromDatabase(int index);
     void saveNoteToDatabase();
@@ -39,16 +41,12 @@ private:
     // may need other variables for scrollArea to work
 
     //----------- UI Variables ------------------
-    QTextEdit* m_note_title;
+    QLineEdit* m_note_title;
     QTextEdit* m_note_text_edit;
     QPushButton* m_back_button;
     QPushButton* m_settings_button;
 
     // some of these may change due to stylistic features needed...
-
-
-
-
     signals:
     void closed();
 };
