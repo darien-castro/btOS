@@ -2,6 +2,10 @@
 // Created by pablovepo on 10/29/25.
 //
 
+// toDo, reDesign screen, no numpad.
+// will only show "recents", and will gather info from contacts db, then place info in scrollArea.
+
+
 #include "phoneScreen.h"
 
 phoneScreen::phoneScreen(QWidget* parent) : btApplication(parent){

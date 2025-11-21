@@ -4,6 +4,8 @@
 #include "src/core/btState.h"
 #include "src/core/screenManager.h"
 
+// toDo, main toDo next, is to get save logic into db, and tags save, as well as sorting logic.
+
 int main(int argc, char* argv[])
 {
    //toDo, really need to theme this, and make a real design, so that it comes together nicely!
@@ -12,7 +14,7 @@ int main(int argc, char* argv[])
    QString family = QFontDatabase::applicationFontFamilies(id).at(0);
    QFont font (family);
    QApplication::setFont(font);
-   QFile styleFile("../resources/themes/styleSheets/dracula.qss");
+   QFile styleFile("../resources/themes/personal/testing.qss");
    if (styleFile.open(QIODevice::ReadOnly | QIODevice::Text))
    {
       QString styleSheet = QLatin1String(styleFile.readAll());

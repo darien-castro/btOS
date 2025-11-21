@@ -58,6 +58,7 @@ set(SOURCES
         src/core/btApplicationManager.cpp
         src/applications/Notes/windows/note_edit_view.cpp
         src/applications/Notes/windows/note_edit_view.h
+        resources/models/notesApp/NoteStruct.h
 )
 
 add_executable(btOS ${SOURCES} ${HEADERS})

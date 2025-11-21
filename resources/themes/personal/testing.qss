@@ -1,0 +1,19 @@
+*{
+    font-family: Maple Mono;
+}
+
+QWidget{
+background-color: #777C6D;
+border: none;
+}
+
+QPushButton{
+    background-color: #B7B89F;
+}
+QPushButton:hover{
+    background-color: #CBCBCB;
+}
+QPushButton:pressed{
+    background-color: #EEEEEE;
+    color: #FF0000;
+}

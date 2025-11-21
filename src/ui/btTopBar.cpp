@@ -11,7 +11,7 @@ void btTopBar::styleWidget(QWidget* someWidget){
                               "color: #ffffff;"
                               "font-size: 16px;"
                           "border: none;"
-                          "background-color: rgba(0,0,0,0);"
+
                           "}");
 }
 

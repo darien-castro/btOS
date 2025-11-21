@@ -11,14 +11,18 @@
 #include <QDir>
 #include <QDebug>
 #include "src/core/btApplication.h"
+#include <resources/models/notesApp/NoteStruct.h>
 #include <resources/models/notesApp/noteCard.h>
-#include <resources/models/notesApp/noteTag.h>
 
+using noteQMap = QMap<int, NoteStruct>;
+
+
+class noteTag;
 class notesScreen : public btApplication {
     Q_OBJECT
     QSqlDatabase db;
+    std::shared_ptr<noteQMap> QMap_dataBase;
     int _current_db_size;
-    int _current_note;
 public:
     notesScreen(QWidget* parent);
     // construction
@@ -35,7 +39,9 @@ public:
     //helper function
     //db
     void initiate_db();
-    void add_note_db();
+    void data_to_qmap();
+    void qmap_to_data();
+    void from_db_to_card();
     // deprecated, but can use logic for db
     void populate_prev_notes();
     // deprecated...
@@ -68,5 +74,7 @@ private:
     NoteCardModern* card2;
     NoteCardModern* card3;
     NoteCardModern* card4;
+    signals:
+    void screenChanged();
 };
 #endif
