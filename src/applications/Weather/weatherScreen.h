@@ -44,7 +44,7 @@ class weatherScreen : public btApplication {
     void update_response(const QString& name);
     void update_data(const QString& name);
     bool data_error(cpr::Response response);
-    void parse_api_call();
+    bool parse_api_call();
 
     void weather_api_call(const QString& city);
 

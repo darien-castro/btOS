@@ -10,7 +10,7 @@ int main(int argc, char* argv[])
 {
    //toDo, really need to theme this, and make a real design, so that it comes together nicely!
    QApplication app(argc,argv);
-   int id = QFontDatabase::addApplicationFont("../resources/fonts/3270/3270NerdFontPropo-Regular.ttf");
+   int id = QFontDatabase::addApplicationFont("../resources/fonts/Trykker/Trykker-Regular.ttf");
    QString family = QFontDatabase::applicationFontFamilies(id).at(0);
    QFont font (family);
    QApplication::setFont(font);

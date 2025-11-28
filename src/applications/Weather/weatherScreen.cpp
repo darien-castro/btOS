@@ -67,9 +67,19 @@ void weatherScreen::update_response(const QString& name)
     }
     m_response = l_temp_response;
 }
-void weatherScreen::parse_api_call()
+bool weatherScreen::parse_api_call()
 {
-    nlohmann::json j = nlohmann::json::parse(m_response.text);
+    nlohmann::json j;
+    try
+    {
+        j=nlohmann::json::parse(m_response.text);
+    }
+    catch (nlohmann::json_abi_v3_12_0::detail::parse_error)
+    {
+        qDebug() << "not a valid var";
+        return false;
+    }
+
     QString dump = QString::fromStdString(j.dump(4));
     int curr_temp;
     std::string main_desc;
@@ -94,11 +104,15 @@ void weatherScreen::parse_api_call()
         qDebug() << "temperature: " + curr_q_temp;
         qDebug() << "description: " + curr_desc;
     }
+    return true;
 }
 
 void weatherScreen::update_data(const QString& name){
     update_response(name);
-    parse_api_call();
+    if (!parse_api_call())
+    {
+        qDebug() << "something went wrong parsing";
+    }
     //update onScreen logic
 
 }
