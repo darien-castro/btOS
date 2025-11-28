@@ -227,7 +227,7 @@ void notesScreen::initiate_db() {
         "CREATE TABLE IF NOT EXISTS notes ("
         "id INTEGER PRIMARY KEY AUTOINCREMENT, "
         "title TEXT NOT NULL, "
-        "content TEXT)"
+        "content TEXT,"
     );
     if (!ok) {
         qDebug() << "Error creating notes table:" << query.lastError().text();

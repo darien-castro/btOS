@@ -13,5 +13,8 @@
 #include <QPushButton>
 #include <QStackedWidget>
 #include <QShortcut>
+#include <QtWebEngine/QtWebEngine>
+#include <QtQuick/QtQuick>
+#include <QtQuickWidgets/QQuickWidget>
 
 #endif //QTCOMMON_H

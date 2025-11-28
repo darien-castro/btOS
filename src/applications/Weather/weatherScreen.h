@@ -4,8 +4,10 @@
 
 #ifndef WEATHER_H
 #define WEATHER_H
+#include <cpr/cpr.h>
 #include <src/core/btApplication.h>
-
+#include <resources/models/weatherApp/weatherWebApp.h>
+#include <nlohmann/json.hpp>
 
 class weatherScreen : public btApplication {
     Q_OBJECT;
@@ -14,40 +16,18 @@ class weatherScreen : public btApplication {
     std::string link;
     std::string units;
     QString name;
-
+    cpr::Response m_response;
     //------------ui_setup----------------------
+    QHBoxLayout* m_qml_holder;
 
-    QVBoxLayout* top_weather_layout;
-    QWidget* top_widget;
-    QHBoxLayout* loc_layout;
-    QHBoxLayout* time_date_layout;
-    QHBoxLayout* temp_weather_layout;
-    QHBoxLayout* next_temps;
-    QHBoxLayout* multi_info_layout;
-    QWidget* multi_info_widget;
-    QHBoxLayout* final_layout;
         //--------widgets------------------
 
-    QTextEdit* search_display;
-    QLabel* time_date;
-    QLabel* temp;
-    QLabel* weather;
-    QLabel* next_hour;
-    QFrame* seperator;
-    QLabel* next_two_hour;
-    QPushButton* temp_button;
 
+
+    weatherWebApp* weather_qml;
 
     // ----------Multi info layouts--------------
 
-    QVBoxLayout* rain_chance_layout;
-    QLabel* rain_chance;
-
-    QVBoxLayout* wind_speed_layout;
-    QLabel* wind_speed;
-
-    QVBoxLayout* uv_layout;
-    QLabel* uv_info;
 
 
 
@@ -58,11 +38,16 @@ class weatherScreen : public btApplication {
     void setup_layout();
     void setup_widgets();
     void setup_connections();
-    void set_styles();
-    void set_style_sheet();
+    void initiate_application();
 
     // api call functions
+    void update_response(const QString& name);
     void update_data(const QString& name);
+    bool data_error(cpr::Response response);
+    void parse_api_call();
+
+    void weather_api_call(const QString& city);
+
 
     void btAPP_SETUP() override;
     QWidget* btAPP_RETURN() override;

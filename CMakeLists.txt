@@ -9,7 +9,17 @@ set(CMAKE_AUTOUIC ON)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 # Find all required Qt modules
-find_package(Qt5 COMPONENTS Widgets Sql REQUIRED)
+find_package(Qt5 COMPONENTS
+        Widgets
+        Gui
+        Core
+        Sql
+        Quick
+        Qml
+        QuickWidgets
+        REQUIRED
+)
+
 find_package(cpr REQUIRED)
 
 # Header files
@@ -59,14 +69,22 @@ set(SOURCES
         src/applications/Notes/windows/note_edit_view.cpp
         src/applications/Notes/windows/note_edit_view.h
         resources/models/notesApp/NoteStruct.h
+        resources/models/weatherApp/weatherWebApp.cpp
+        resources/models/weatherApp/weatherWebApp.h
+        resources/models/weatherApp/qmlFiles/weatherObj.cpp
+        resources/models/weatherApp/qmlFiles/weatherObj.h
 )
 
 add_executable(btOS ${SOURCES} ${HEADERS})
 
 # Link Qt and cpr
 target_link_libraries(btOS
-        PRIVATE
         Qt5::Widgets
+        Qt5::Gui
+        Qt5::Core
         Qt5::Sql
+        Qt5::Quick
+        Qt5::Qml
+        Qt5::QuickWidgets    # <-- REQUIRED
         cpr::cpr
 )
