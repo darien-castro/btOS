@@ -13,11 +13,12 @@ weatherScreen::weatherScreen(QWidget* parent) : btApplication(parent){
     units = "&units=imperial";
     this->appName = "weather";
     this->setObjectName("weatherScreen");
-    application = new QWidget;
-    this->application->setObjectName("weatherApp");
+
 }
 void weatherScreen::setup_layout(){
-    m_qml_holder = new QHBoxLayout(application);
+    application = new QWidget;
+    this->application->setObjectName("weatherApp");
+    m_qml_holder = new QHBoxLayout(this);
 }
 
 void weatherScreen::setup_widgets(){
@@ -83,11 +84,18 @@ bool weatherScreen::parse_api_call()
     QString dump = QString::fromStdString(j.dump(4));
     int curr_temp;
     std::string main_desc;
+    std::string country;
+    std::string curr_city;
     bool api_call_flag = true;
     try
     {
+        qDebug() << dump;
+        curr_city = j["name"];
         curr_temp = j["main"]["temp"];
         main_desc = j["weather"][0]["main"];
+        country = j["sys"]["country"];
+
+        qDebug() <<  QString::fromStdString(country);
     }
     catch (nlohmann::json_abi_v3_12_0::detail::type_error)
     {
@@ -97,12 +105,13 @@ bool weatherScreen::parse_api_call()
     }
     if (api_call_flag == true)
     {
-        std::string curr_s_temp = std::to_string(curr_temp) + "°F";
-        //to Qstrings
-        QString curr_q_temp = QString::fromStdString(curr_s_temp);
         QString curr_desc = QString::fromStdString(main_desc);
-        qDebug() << "temperature: " + curr_q_temp;
-        qDebug() << "description: " + curr_desc;
+        m_curr_country = QString::fromStdString(country);
+        QString blah = QString::fromStdString(curr_city);
+        weather_qml->return_weatherObj()->update_state(m_curr_country);
+        setTemperature(curr_temp);
+        setDescription(curr_desc);
+
     }
     return true;
 }

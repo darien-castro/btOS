@@ -16,6 +16,7 @@ weatherWebApp::weatherWebApp(QWidget* parent)
     view->rootContext()->setContextProperty("qmlobj", qml_obj);
     view->rootContext()->setContextProperty("appWidth", parent->width());
     view->rootContext()->setContextProperty("appHeight", parent->height());
+    view->rootContext()->setContextProperty("weatherScreen", parent);
     view->setResizeMode(QQuickWidget::SizeRootObjectToView);
 
     view->setSource(QUrl::fromLocalFile("/home/pablovepo/CLionProjects/btOS/resources/models/weatherApp/qmlFiles/weather.qml"));
