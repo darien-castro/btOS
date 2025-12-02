@@ -4,6 +4,13 @@ import "."
 
 Item {
     anchors.fill: parent
+    property var weatherObj: null
+    Connections{
+        target: weatherObj
+        function onweatherConditionChanged(){
+
+        }
+    }
 
     ListView {
         anchors.fill: parent
@@ -11,11 +18,11 @@ Item {
         clip: true
         orientation: ListView.Horizontal
         spacing: 10
-        model: 24  // 24 hours in a day
+        model: 7
 
         delegate: ForecastInfoCard {
-            label: "hourly"
-
+            label: weatherObj.weatherCondition, weatherObj.getTimeAtIndex(index)
+            temperature: weatherObj.weatherCondition, weatherObj.getTempAtIndex(index) + "°F"
         }
 
         ScrollBar.horizontal: ScrollBar { }

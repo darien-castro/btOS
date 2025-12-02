@@ -28,6 +28,8 @@ public:
     QWidget* return_widget_state();
     QString return_city_from_qml();
     weatherObj* return_weatherObj();
+    void weatherObjEmit();
+    void updateQmlState(QString data);
 
 };
 

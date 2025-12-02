@@ -9,11 +9,17 @@
 //toDo, weather API, coming soon!.
 weatherScreen::weatherScreen(QWidget* parent) : btApplication(parent){
     link = "https://api.openweathermap.org/data/2.5/weather?q=";
+    temp_link = "api.openweathermap.org/data/2.5/forecast?q=";
     key = "&appid=14a0c28171ba4e585da8f25871450521";
     units = "&units=imperial";
     this->appName = "weather";
     this->setObjectName("weatherScreen");
-
+    m_futureMap = new QMap<int, FutureData>();
+    for (int i = 0; i < 8;i++)
+    {
+        FutureData curr("6","7");
+        m_futureMap->insert(i,curr);
+    }
 }
 void weatherScreen::setup_layout(){
     application = new QWidget;
@@ -61,12 +67,21 @@ bool weatherScreen::data_error(cpr::Response response)
 void weatherScreen::update_response(const QString& name)
 {
     std::string fin_link = link + name.toStdString() + key + units;
+
+    std::string temp_string = temp_link + name.toStdString() + key + units;
+    test_daily_call(temp_string);
+
+
     cpr::Response l_temp_response = cpr::Get(cpr::Url(fin_link));
     if (data_error(l_temp_response))
     {
         return;
     }
     m_response = l_temp_response;
+    if (!parse_api_call())
+    {
+        qDebug() << "something went wrong parsing";
+    }
 }
 bool weatherScreen::parse_api_call()
 {
@@ -86,6 +101,7 @@ bool weatherScreen::parse_api_call()
     std::string main_desc;
     std::string country;
     std::string curr_city;
+    std::string condition;
     bool api_call_flag = true;
     try
     {
@@ -94,6 +110,7 @@ bool weatherScreen::parse_api_call()
         curr_temp = j["main"]["temp"];
         main_desc = j["weather"][0]["main"];
         country = j["sys"]["country"];
+        condition = j["weather"][0]["main"];
 
         qDebug() <<  QString::fromStdString(country);
     }
@@ -108,9 +125,11 @@ bool weatherScreen::parse_api_call()
         QString curr_desc = QString::fromStdString(main_desc);
         m_curr_country = QString::fromStdString(country);
         QString blah = QString::fromStdString(curr_city);
-        weather_qml->return_weatherObj()->update_state(m_curr_country);
         setTemperature(curr_temp);
         setDescription(curr_desc);
+        set_condition(condition.data());
+        weather_qml->updateQmlState(m_curr_country);
+        weather_qml->weatherObjEmit();
 
     }
     return true;
@@ -118,16 +137,11 @@ bool weatherScreen::parse_api_call()
 
 void weatherScreen::update_data(const QString& name){
     update_response(name);
-    if (!parse_api_call())
-    {
-        qDebug() << "something went wrong parsing";
-    }
-    //update onScreen logic
 
 }
 
 void weatherScreen::setup_connections(){
-    connect(weather_qml->return_weatherObj(), &weatherObj::resultsReady, this, [this]()
+    connect(weather_qml->return_weatherObj(), &weatherObj::initialresults, this, [this]()
         {
             QString var = weather_qml->return_city_from_qml();
             update_data(var);
@@ -141,6 +155,7 @@ void weatherScreen::initiate_application(){
 void weatherScreen::btAPP_SETUP(){
     setup_layout();
     setup_widgets();
+    this->weather_qml->return_weatherObj()->set_qmap(m_futureMap);
     setup_connections();
     initiate_application();
     qDebug()<< "got here";
@@ -153,4 +168,87 @@ void weatherScreen::btAPP_CLOSED(){
 }
 QWidget* weatherScreen::btAPP_RETURN(){
     return this->application;
+}
+
+void weatherScreen::set_condition(const QString& condition)
+{
+    if (condition == "Rain")
+    {
+        weather_qml->return_weatherObj()->update_condition(weatherObj::STORMY);
+        return;
+    }
+    if (condition == "Thunderstorm")
+    {
+        weather_qml->return_weatherObj()->update_condition(weatherObj::STORMY);
+        return;
+    }
+    if (condition == "Drizzle")
+    {
+        weather_qml->return_weatherObj()->update_condition(weatherObj::DRIZZLY);
+        return;
+
+    }
+    if (condition == "Snow")
+    {
+        weather_qml->return_weatherObj()->update_condition(weatherObj::SNOWY);\
+        return;
+
+    }
+    if (condition == "Clear")
+    {
+        weather_qml->return_weatherObj()->update_condition(weatherObj::CLEAR);
+        return;
+
+    }
+    if (condition == "Clouds")
+    {
+        weather_qml->return_weatherObj()->update_condition(weatherObj::CLOUDY);
+        return;
+    }
+
+    weather_qml->return_weatherObj()->update_condition(weatherObj::NONE);
+
+}
+
+void weatherScreen::test_daily_call(const std::string& link)
+{
+    cpr::Response temp_temp = cpr::Get(cpr::Url(link));
+    nlohmann::json j;
+    if (m_futureMap->count() != 0)
+    {
+        m_futureMap->clear();
+    }
+    try
+    {
+        j = nlohmann::json::parse(temp_temp.text);
+    }
+    catch (nlohmann::json_abi_v3_12_0::detail::parse_error)
+    {
+        qDebug() << "error parsing";
+    }
+
+    try
+    {
+        for (int i = 0; i < 7; i++){
+            int temp = j["list"][i]["main"]["temp"];
+            long timestamp = j["list"][i]["dt"];
+            QDateTime utcTime = QDateTime::fromSecsSinceEpoch(timestamp, QTimeZone::utc());
+            QDateTime estTime = utcTime.toTimeZone(QTimeZone("America/New_York"));
+            QString time = estTime.toString("hh:mm AP");
+
+            FutureData curr(time, QString::number(temp));
+            m_futureMap->insert(i, curr);
+        }
+        for (int i = 0; i < m_futureMap->size(); i++)
+        {
+            qDebug() << "time: " << m_futureMap->find(i).value().m_time;
+            qDebug() << "time: " << m_futureMap->find(i).value().m_temp;
+
+        }
+    }
+    catch (nlohmann::json_abi_v3_12_0::detail::type_error)
+    {
+        qDebug() << "type error";
+    }
+    emit qMapChanged();
 }

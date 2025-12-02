@@ -17,9 +17,12 @@ Rectangle {
         spacing: 4
 
         Text {
+            font.family: "Hack"
             text: label
-            font.pixelSize: 16
+            font.pixelSize: 14
+            font.letterSpacing: 1
             color: "black"
+            font.bold: true
         }
 
         Image {
@@ -29,9 +32,10 @@ Rectangle {
         }
 
         Text {
+            font.family: "BigBlueTerminal"
             text: temperature
             font.pixelSize: 22
-            color: "black"
+            color: "#93B1DA"
             font.bold: true
         }
     }

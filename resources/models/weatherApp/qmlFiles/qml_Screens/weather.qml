@@ -4,13 +4,13 @@ import QtQuick.Layouts 1.15
 import QtGraphicalEffects 1.15
 import QtQuick.Particles 2.15
 import "."  // Import current directory explicitly
+import ".."
+import "../WeatherConditionsQML"
+import "../UI_Components"
 
+
+import com.weather 1.0
 Rectangle {
-    Component.onCompleted: {
-        console.log("THIS weather.qml instance:", this, "qmlobj is:", typeof qmlobj)
-    }
-
-    // ----------- SIGNAL CONNECTION (CORRECTLY ADDED) -----------
     Connections {
         target: qmlobj
         function onResultsReady(formatted) {
@@ -18,7 +18,6 @@ Rectangle {
         }
     }
     // ------------------------------------------------------------
-
     width: 200
     height: 200
     layer.enabled: true
@@ -39,7 +38,7 @@ Rectangle {
     }
 
     Rectangle {
-        width: 180
+        width: 240
         height: 75
         anchors.left: parent.left
         anchors.margins: 25
@@ -82,7 +81,7 @@ Rectangle {
         Image {
             source: "/home/pablovepo/CLionProjects/btOS/resources/models/weatherApp/svg/menu.svg"
             anchors.topMargin: 5
-            height: 35
+            height: 3
             width: 35
         }
     }
@@ -103,6 +102,29 @@ Rectangle {
             anchors.verticalCenterOffset: -150
         }
     }
+    Rectangle {
+        property string weatherCondition: "cloudy" // your state variable
+
+        color: "transparent"
+        anchors.centerIn: parent
+        anchors.verticalCenterOffset: -45
+
+        Image {
+            anchors.centerIn: parent
+            height: 100
+            width: 100
+            source: {
+                if (qmlobj.weatherCondition === WeatherCondition.CLOUDY)
+                    return "/home/pablovepo/CLionProjects/btOS/resources/models/weatherApp/conditionIcons/cloud.png"
+                else if (qmlobj.weatherCondition === WeatherCondition.RAINY)
+                    return "/home/pablovepo/CLionProjects/btOS/resources/models/weatherApp/conditionIcons/rainy-day.png"
+                else if (qmlobj.weatherCondition === WeatherCondition.STORMY)
+                    return "/home/pablovepo/CLionProjects/btOS/resources/models/weatherApp/conditionIcons/storm.png"
+                else
+                    return "/home/pablovepo/CLionProjects/btOS/resources/models/weatherApp/conditionIcons/sun.png"
+            }
+        }
+    }
 
     Row {
         id: pageSwitcher
@@ -113,11 +135,17 @@ Rectangle {
 
         Button {
             text: "Hourly"
-            onClicked: weatherStack.replace("/home/pablovepo/CLionProjects/btOS/resources/models/weatherApp/qmlFiles/HourlyView.qml")
+            onClicked: weatherStack.replace(
+                "/home/pablovepo/CLionProjects/btOS/resources/models/weatherApp/qmlFiles/UI_Components/HourlyView.qml",
+                { weatherObj: qmlobj }  // ✅ Second parameter, same line
+            )
         }
         Button {
             text: "Weekly"
-            onClicked: weatherStack.replace("/home/pablovepo/CLionProjects/btOS/resources/models/weatherApp/qmlFiles/WeeklyView.qml")
+            onClicked: weatherStack.replace(
+                "/home/pablovepo/CLionProjects/btOS/resources/models/weatherApp/qmlFiles/UI_Components/WeeklyView.qml",
+                { weatherObj: qmlobj }  // ✅ Second parameter, same line
+            )
         }
     }
 
@@ -128,7 +156,10 @@ Rectangle {
         anchors.bottom: pageSwitcher.top
         height: 250
 
-        initialItem: "/home/pablovepo/CLionProjects/btOS/resources/models/weatherApp/qmlFiles/HourlyView.qml"
+        initialItem: Qt.createComponent("/home/pablovepo/CLionProjects/btOS/resources/models/weatherApp/qmlFiles/UI_Components/HourlyView.qml")
+            .createObject(weatherStack, { weatherObj: qmlobj })
+
+
     }
 
     Image {
@@ -138,56 +169,13 @@ Rectangle {
         opacity: 0.03
         smooth: true
     }
-
-    ParticleSystem {
-        anchors.fill: parent
-
-        Emitter {
-            anchors.fill: parent
-            anchors.top: parent.top
-            emitRate: 100
-            lifeSpan: 1000
-
-            velocity: AngleDirection {
-                angle: 90
-                magnitude: 760
-            }
-
-            size: 4
-            sizeVariation: 1
-        }
-
-        ImageParticle {
-            source: "qrc:///particleresources/glowdot.png"
-            color: "#cee0e0"
-            colorVariation: 0.3
-        }
+    Stormy {
+        visible: qmlobj.weatherCondition === WeatherCondition.STORMY
     }
-
-    Rectangle {
-        id: lightningFlash
-        anchors.fill: parent
-        color: "white"
-        opacity: 0
-        z: 100
-
-        Timer {
-            interval: 6000 + Math.random() * 4000
-            running: true
-            repeat: true
-            onTriggered: lightningAnimation.start()
-        }
-
-        SequentialAnimation {
-            id: lightningAnimation
-
-            NumberAnimation { target: lightningFlash; property: "opacity"; to: 0.4; duration: 40 }
-            NumberAnimation { target: lightningFlash; property: "opacity"; to: 0; duration: 60 }
-
-            PauseAnimation { duration: 80 }
-
-            NumberAnimation { target: lightningFlash; property: "opacity"; to: 0.6; duration: 30 }
-            NumberAnimation { target: lightningFlash; property: "opacity"; to: 0; duration: 150 }
-        }
+    Rainy{
+        visible: qmlobj.weatherCondition === WeatherCondition.RAINY
+    }
+    Cloudy{
+        visible: qmlobj.weatherCondition === WeatherCondition.CLOUDY
     }
 }

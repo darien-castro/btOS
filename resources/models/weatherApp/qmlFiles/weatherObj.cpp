@@ -3,15 +3,20 @@
 //
 
 #include "weatherObj.h"
+#include "src/applications/Weather/weatherScreen.h"  // ✅ Include here instead
 
-weatherObj::weatherObj(QObject* parent) : QObject(parent){}
+// Now you can use weatherScreen methods
+weatherObj::weatherObj(QObject* parent) : QObject(parent)
+{
+}
 
 
 
 void weatherObj::store_city(QString city)
 {
     m_city = city;
-    emit resultsReady(m_city);
+    emit initialresults(city);
+    qDebug() << "store city called";
 
 }
 QString weatherObj::returnCity(){
@@ -29,3 +34,11 @@ void weatherObj::update_state(QString state)
     m_state = state;
     qDebug() << "weather obj: " + m_state;
 }
+
+void weatherObj::update_condition(currentWeather condition)
+{
+    m_weatherCondition = condition;
+    emit weatherConditionChanged();
+    qDebug() << "function update_condition: " << m_weatherCondition;
+}
+

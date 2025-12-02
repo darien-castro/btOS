@@ -6,8 +6,10 @@
 #define WEATHER_H
 #include <cpr/cpr.h>
 #include <src/core/btApplication.h>
+#include <resources/models/weatherApp/FutureData.h>
 #include <resources/models/weatherApp/weatherWebApp.h>
 #include <nlohmann/json.hpp>
+
 
 class weatherScreen : public btApplication {
     Q_OBJECT
@@ -21,6 +23,14 @@ private:
     std::string units;
     QString name;
     cpr::Response m_response;
+
+    //! may need to seperate, qmap and logic for future dates
+    QMap<int,FutureData>* m_futureMap;
+
+    //! ----------------------------------------------------
+
+
+    std::string temp_link; // testing list call
 
     int m_curr_temp = 0;
     QString m_curr_desc = "lmao";
@@ -41,6 +51,9 @@ public:
     bool data_error(cpr::Response response);
     bool parse_api_call();
     void weather_api_call(const QString& city);
+    void set_condition(const QString& condition);
+
+    void test_daily_call(const std::string& link);
 
     void btAPP_SETUP() override;
     QWidget* btAPP_RETURN() override;
@@ -68,9 +81,11 @@ public:
         }
     }
 
+
     signals:
         void temperatureChanged();
         void descriptionChanged();
+        void qMapChanged();
 };
 
 

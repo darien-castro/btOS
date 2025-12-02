@@ -73,6 +73,7 @@ set(SOURCES
         resources/models/weatherApp/weatherWebApp.h
         resources/models/weatherApp/qmlFiles/weatherObj.cpp
         resources/models/weatherApp/qmlFiles/weatherObj.h
+        resources/models/weatherApp/FutureData.h
 )
 
 add_executable(btOS ${SOURCES} ${HEADERS})
