@@ -6,10 +6,7 @@
 #include "src/applications/Weather/weatherScreen.h"  // ✅ Include here instead
 
 // Now you can use weatherScreen methods
-weatherObj::weatherObj(QObject* parent) : QObject(parent)
-{
-}
-
+weatherObj::weatherObj(QObject* parent) : QObject(parent){}
 
 
 void weatherObj::store_city(QString city)
@@ -19,6 +16,7 @@ void weatherObj::store_city(QString city)
     qDebug() << "store city called";
 
 }
+
 QString weatherObj::returnCity(){
     return m_city;
 }

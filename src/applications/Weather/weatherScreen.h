@@ -17,6 +17,9 @@ class weatherScreen : public btApplication {
     Q_PROPERTY(QString description READ description WRITE setDescription NOTIFY descriptionChanged)
 
 private:
+
+    //! ================ Variables =======================
+
     std::string toChangeInfo = "";
     std::string key;
     std::string link;
@@ -24,47 +27,52 @@ private:
     QString name;
     cpr::Response m_response;
 
-    //! may need to seperate, qmap and logic for future dates
-    QMap<int,FutureData>* m_futureMap;
-
-    //! ----------------------------------------------------
-
-
-    std::string temp_link; // testing list call
-
     int m_curr_temp = 0;
-    QString m_curr_desc = "lmao";
+    QString m_curr_desc;
     QString m_curr_country;
 
     QHBoxLayout* m_qml_holder;
     weatherWebApp* weather_qml;
 
+    //! may need to seperate, qmap and logic for future dates
+    QMap<int,FutureData>* m_futureMap;
+    std::string temp_link; // testing list call
+
+    //! ----------------------------------------------------
+
+
 public:
+
     weatherScreen(QWidget* parent);
+
+    //! ================ Setup Functions =======================
+
+
     void setup_layout();
     void setup_widgets();
     void setup_connections();
     void initiate_application();
+
+    //! ----------------------------------------------------
+
+
+    //! ================ API call Functions =======================
+
 
     void update_response(const QString& name);
     void update_data(const QString& name);
     bool data_error(cpr::Response response);
     bool parse_api_call();
     void weather_api_call(const QString& city);
-    void set_condition(const QString& condition);
-
     void test_daily_call(const std::string& link);
 
-    void btAPP_SETUP() override;
-    QWidget* btAPP_RETURN() override;
-    void btAPP_CLOSED() override;
-    QString returnAppName() override;
+    //! ----------------------------------------------------
 
-    // Getters
-    int temperature() const { return m_curr_temp; }
-    QString description() const { return m_curr_desc; }
 
-    // Setters - FIXED
+    //! ================ Setter Functions =======================
+
+    void set_condition(const QString& condition);
+
     void setTemperature(int temp) {
         if (m_curr_temp != temp) {
             m_curr_temp = temp;  // ✅ Fixed: assign to m_curr_temp
@@ -81,6 +89,27 @@ public:
         }
     }
 
+    //! ----------------------------------------------------
+
+
+    //! ================ Virtual Functions =======================
+
+    void btAPP_SETUP() override;
+    QWidget* btAPP_RETURN() override;
+    void btAPP_CLOSED() override;
+    QString returnAppName() override;
+
+    //! ----------------------------------------------------
+
+
+    //! ================ Getter Functions =======================
+    int temperature() const { return m_curr_temp; }
+    QString description() const { return m_curr_desc; }
+
+    //! ----------------------------------------------------
+
+
+    //! ================ Signals =======================
 
     signals:
         void temperatureChanged();

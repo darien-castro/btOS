@@ -25,9 +25,14 @@ class weatherWebApp : public QWidget {
     void set_context(QObject* object);
 public:
     weatherWebApp(QWidget* parent = nullptr);
+
+    //! ------------ getter Functions ------------------
+
     QWidget* return_widget_state();
     QString return_city_from_qml();
     weatherObj* return_weatherObj();
+
+    //! ------------ Signals ------------------
     void weatherObjEmit();
     void updateQmlState(QString data);
 
