@@ -4,7 +4,6 @@
 
 #include "note_edit_view.h"
 
-//todo refresh screen on quit, delete button somewehre
 
 void NoteEditView::initializeLayouts(){
     m_top_layout = new QVBoxLayout();

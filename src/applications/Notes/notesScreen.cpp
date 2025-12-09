@@ -112,6 +112,58 @@ void notesScreen::setup_widgets(){
     //example cards, needed for inital grid placement
     qDebug() << "Finished Setting Up Widgets";
 }
+
+void notesScreen::populateNotes(NotesDbManager* database)
+{
+    if (!note_card_view->isEmpty())
+    {
+        QLayoutItem* child;
+        while ((child = note_card_view->takeAt(0)) != nullptr)
+        {
+            delete child->widget();
+            delete child;
+        }
+    }
+
+    int row = 0;
+    int col = 0;
+    noteQMap notes = database->getAllNotes();
+
+
+    for (auto it = notes.begin(); it != notes.end(); ++it) {
+        int currID = it.key();
+        QString title = it.value().Title;
+        QString content = it.value().Content;
+
+        NoteCardModern* curr = new NoteCardModern(title, content);
+        note_card_view->addWidget(curr, row, col);
+
+        col++;
+        if (col == 2) {  // 2 columns
+            col = 0;
+            row++;
+        }
+        connect(curr, &NoteCardModern::clicked, this, [this, currID, title, content](){
+            NoteEditView* lol = new NoteEditView(this, currID,title, content, databaseManager);
+            _window_stack->addWidget(lol);
+            _window_stack->setCurrentWidget(lol);
+            connect(lol, &NoteEditView::closed, this, [this, lol]()
+            {
+                populateNotes(databaseManager);
+                _window_stack->removeWidget(lol);
+            });
+        });
+    }
+    note_card_view->invalidate();
+    note_card_view->activate();
+
+    QWidget* w = note_card_scroll->widget();
+    if (w) {
+        w->adjustSize();
+    }
+    note_card_scroll->updateGeometry();
+}
+
 void notesScreen::add_widgits(){
     //attach header
     header_layout->addWidget(header_widget);
@@ -131,39 +183,10 @@ void notesScreen::add_widgits(){
     carousel_layout->setWidget(carousel_widget);
     //---------------------------------------------
 
-    // Qmap to Card logic
-    int row = 0;
-    int col = 0;
-    noteQMap notes = databaseManager->getAllNotes();
+    note_card_scroll->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
+    populateNotes(databaseManager);
 
-    for (auto it = notes.begin(); it != notes.end(); ++it) {
-        int currID = it.key();
-        QString title = it.value().Title;
-        QString content = it.value().Content;
-
-        NoteCardModern* curr = new NoteCardModern(title, content);
-        note_card_view->addWidget(curr, row, col);
-
-        col++;
-        if (col == 2) {  // 2 columns
-            col = 0;
-            row++;
-        }
-
-        connect(curr, &NoteCardModern::clicked, this, [this, currID, title, content](){
-            NoteEditView* lol = new NoteEditView(this, currID,title, content, databaseManager);
-            _window_stack->addWidget(lol);
-            _window_stack->setCurrentWidget(lol);
-            connect(lol, &NoteEditView::closed, this, [this, lol]()
-            {
-                _window_stack->removeWidget(lol);
-            });
-        });
-    }
-
-
-    // addding widgets to "top_screen"
     top_notes_layout->addLayout(header_layout);
     top_notes_layout->addWidget(carousel_layout);
     QWidget* test = new QWidget;
@@ -190,6 +213,7 @@ void notesScreen::initiate_connections(){
         _window_stack->setCurrentWidget(lol);
         connect(lol, &NoteEditView::closed, this, [this, lol]()
             {
+                this->populateNotes(this->databaseManager);
                 _window_stack->removeWidget(lol);
                 lol->deleteLater();
             });

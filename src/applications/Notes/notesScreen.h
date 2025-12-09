@@ -42,6 +42,7 @@ public:
     void initiate_connections();
     //adding widgets
     void add_widgits();
+    void populateNotes(NotesDbManager* database);
     //helper function
     //db
     /*void initiate_db();
@@ -72,6 +73,7 @@ private:
     QWidget* carousel_widget;
     QGridLayout* note_card_view;
     QScrollArea* note_card_scroll;
+    QWidget* note_cards_container;
     // main widgets
     QLabel* header_widget;
     QPushButton* button;
