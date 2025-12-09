@@ -72,6 +72,9 @@ set(SOURCES
         resources/models/weatherApp/qmlFiles/weatherObj.cpp
         resources/models/weatherApp/qmlFiles/weatherObj.h
         resources/models/weatherApp/FutureData.h
+        src/applications/Notes/NotesDbManager.cpp
+        src/applications/Notes/NotesDbManager.h
+        resources/models/notesApp/tagStruct.h
 )
 
 add_executable(btOS ${SOURCES} ${HEADERS})

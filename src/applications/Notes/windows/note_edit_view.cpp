@@ -4,6 +4,7 @@
 
 #include "note_edit_view.h"
 
+//todo refresh screen on quit, delete button somewehre
 
 void NoteEditView::initializeLayouts(){
     m_top_layout = new QVBoxLayout();
@@ -50,8 +51,37 @@ void NoteEditView::setupConnections(){
     connect(m_note_title, &QLineEdit::returnPressed, this, [this](){
         m_note_text_edit->setFocus();
     });
+
     connect(buttonLol, &QPushButton::clicked, this, [this](){
-        toParentQmap();
+        QString title = m_note_title->text();
+        QString content = m_note_text_edit->toPlainText();
+        if (m_noteId == -1 && title!="")
+        {
+            // Creating new note - createNote returns int (the new ID)
+            int newId = m_parent_db->createNote(title, content);
+            if (newId == -1)
+            {
+                qDebug() << "Error: Failed to create note";
+            }
+            else
+            {
+                qDebug() << "Note created with ID:" << newId;
+                m_noteId = newId;  // Store the new ID
+            }
+        }
+        else if (m_noteId >= 0)
+        {
+            // Updating existing note - updateNote returns bool
+            if (!m_parent_db->updateNote(m_noteId, title, content))
+            {
+                qDebug() << "Error: Failed to update note";
+            }
+            else
+            {
+                qDebug() << "Note updated successfully";
+            }
+        }
+        // ALWAYS emit closed at the end, regardless of success/failure
         emit closed();
     });
 }
@@ -66,8 +96,8 @@ void NoteEditView::attatchWidgets(){
     m_top_layout->addWidget(m_text_area, 1);
 }
 
-NoteEditView::NoteEditView(QWidget* parent, int noteId, QString title, QString content, std::shared_ptr<noteQMap> parent_qmap)
-    : QWidget(parent),m_noteId(noteId), m_title(title), m_note_content(content), parentQmap(parent_qmap){
+NoteEditView::NoteEditView(QWidget* parent, int noteId, QString title, QString content, NotesDbManager* db)
+    : QWidget(parent),m_noteId(noteId), m_title(title), m_note_content(content), m_parent_db(db){
     this->setObjectName("noteEditView");
     initializeLayouts();
     initializeWidgets();
@@ -76,21 +106,4 @@ NoteEditView::NoteEditView(QWidget* parent, int noteId, QString title, QString c
     setupConnections();
     this->setLayout(m_top_layout);
     qDebug() << "note index: " << noteId;
-}
-
-void NoteEditView::toParentQmap(){
-    QString Title = m_note_title->text();
-    QString Content = m_note_text_edit->toPlainText();
-    qDebug() << "noteID: " <<m_noteId;
-    qDebug() << "at closing title: " << Title;
-    if (!parentQmap->contains(m_noteId) && Title != "")
-    {
-        parentQmap->insert(m_noteId, {Title, Content});
-        qDebug() << "saved to Qmap (not db)";
-        emit closed();
-        return;
-    }
-    qDebug() << "didnt' save to Qmap (not db), note exists &/or Title is blank";
-    emit closed();
-
 }

@@ -12,13 +12,10 @@
 #include <QDebug>
 #include "src/core/btApplication.h"
 #include <resources/models/notesApp/NoteStruct.h>
+#include <resources/models/notesApp/tagStruct.h>
+#include <src/applications/Notes/NotesDbManager.h>
 #include <resources/models/notesApp/noteCard.h>
 
-struct tagStruct
-{
-    int tag_id;
-    QString tag_name;
-};
 
 
 using noteQMap = QMap<int, NoteStruct>;
@@ -28,6 +25,7 @@ class noteTag;
 class notesScreen : public btApplication {
     Q_OBJECT
     QSqlDatabase db;
+    NotesDbManager* databaseManager;
     std::shared_ptr<noteQMap> QMap_dataBase;
     std::shared_ptr<tagQMap> QMap_Tags;
     int _current_db_size;
@@ -46,10 +44,11 @@ public:
     void add_widgits();
     //helper function
     //db
-    void initiate_db();
+    /*void initiate_db();
     void data_to_qmap();
     void qmap_to_data();
-    void from_db_to_card();
+    notesScreen(QWidget* parent);
+    void from_db_to_card();*/
     // deprecated, but can use logic for db
     void populate_prev_notes();
     // deprecated...

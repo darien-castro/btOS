@@ -9,10 +9,10 @@
  */
 
 void notesScreen::btAPP_SETUP(){
-    // application setup;
-    initiate_db();
-    data_to_qmap();
-    qDebug() << QMap_dataBase->size();
+
+    databaseManager->initialQuery();
+    _current_db_size = databaseManager->returnDbSize();
+
     setup_layouts();
     layout_styling();
     setup_widgets();
@@ -134,9 +134,11 @@ void notesScreen::add_widgits(){
     // Qmap to Card logic
     int row = 0;
     int col = 0;
+    noteQMap notes = databaseManager->getAllNotes();
 
-    for (auto it = QMap_dataBase->begin(); it != QMap_dataBase->end(); ++it) {
-        int id = it.key();
+
+    for (auto it = notes.begin(); it != notes.end(); ++it) {
+        int currID = it.key();
         QString title = it.value().Title;
         QString content = it.value().Content;
 
@@ -149,8 +151,8 @@ void notesScreen::add_widgits(){
             row++;
         }
 
-        connect(curr, &NoteCardModern::clicked, this, [this, id, title, content](){
-            NoteEditView* lol = new NoteEditView(this, id, title, content,QMap_dataBase);
+        connect(curr, &NoteCardModern::clicked, this, [this, currID, title, content](){
+            NoteEditView* lol = new NoteEditView(this, currID,title, content, databaseManager);
             _window_stack->addWidget(lol);
             _window_stack->setCurrentWidget(lol);
             connect(lol, &NoteEditView::closed, this, [this, lol]()
@@ -183,131 +185,31 @@ void notesScreen::initiate_connections(){
     qDebug() << "Pressed: New Note Button";
     _current_db_size++;
     connect(button, &QPushButton::clicked, this,[this](){
-        NoteEditView* lol = new NoteEditView(this,_current_db_size,"","",QMap_dataBase);
+        NoteEditView* lol = new NoteEditView(this,-1,"","", databaseManager);
         _window_stack->addWidget(lol);
         _window_stack->setCurrentWidget(lol);
         connect(lol, &NoteEditView::closed, this, [this, lol]()
             {
                 _window_stack->removeWidget(lol);
+                lol->deleteLater();
             });
     });
-
     connect(_window_stack, &QStackedWidget::currentChanged, this, [this](){
         qDebug() << "logic to save to db here!";
     });
-
 }
-
-/*
- ! -----------------------------------Database Functions---------------------------------------------------------------------
- */
-void notesScreen::initiate_db() {
-    QString connectionName = "notes_connection";
-
-    // Ensure directory exists before touching the file
-    QDir().mkpath("../resources/appData/Notes");
-
-    // Reuse the existing connection if it already exists
-    if (QSqlDatabase::contains(connectionName)) {
-        db = QSqlDatabase::database(connectionName);
-    } else {
-        db = QSqlDatabase::addDatabase("QSQLITE", connectionName);
-        db.setDatabaseName("../resources/appData/Notes/notes.db");
-    }
-    if (!db.open()) {
-        qDebug() << "Couldn't open Notes Database:" << db.lastError().text();
-        return;
-    }
-    // Use QSqlQuery to execute SQL on this connection
-    QSqlQuery query(db);
-
-    // notes
-    if (!query.exec(
-        "CREATE TABLE IF NOT EXISTS notes ("
-        "id INTEGER PRIMARY KEY AUTOINCREMENT, "
-        "title TEXT NOT NULL, "
-        "content TEXT"
-        ")"
-    )) {
-        qDebug() << "Notes table error:" << query.lastError();
-    }
-
-    // tags
-    if (!query.exec(
-        "CREATE TABLE IF NOT EXISTS tags ("
-        "id INTEGER PRIMARY KEY AUTOINCREMENT, "
-        "name TEXT UNIQUE NOT NULL"
-        ")"
-    )) {
-        qDebug() << "Tags table error:" << query.lastError();
-    }
-
-    // note_tags (join table)
-    if (!query.exec(
-        "CREATE TABLE IF NOT EXISTS note_tags ("
-        "note_id INTEGER NOT NULL, "
-        "tag_id INTEGER NOT NULL, "
-        "PRIMARY KEY (note_id, tag_id), "
-        "FOREIGN KEY (note_id) REFERENCES notes(id), "
-        "FOREIGN KEY (tag_id) REFERENCES tags(id)"
-        ")"
-    )) {
-        qDebug() << "NoteTags table error:" << query.lastError();
-    }
-
-if (!query.exec("INSERT OR IGNORE INTO tags (id, name) VALUES (0, 'General')"))
-{
-    qDebug() << "couldn't insert into tags";
-}
-
-    QMap_dataBase = std::make_shared<QMap<int, NoteStruct>>();
-}
-void notesScreen::data_to_qmap(){
-    if (db.isOpen())
-    {
-        QSqlQuery query(db);
-        if (!query.exec("SELECT id, title, content FROM notes"))
-        {
-            qDebug() << "cannot retrieve values: 'id', 'title, 'content' from 'notes'";
-            return;
-        }
-        while (query.next())
-        {
-            int id = query.value(0).toInt();
-            QString title = query.value(1).toString();
-            QString content = query.value(2).toString();
-            QMap_dataBase->insert(id, {title,content});
-        }
-        qDebug() << "Copy from DB to QMap Complete";
-        qDebug() << "QMap Size: " << QMap_dataBase->size();
-    }
-    else
-    {
-        qDebug() << "error copying";
-        return;
-    }
-
-    _current_db_size = QMap_dataBase->size();
-
-}
-
-
-// toDo, neex to fix logic, assumes values don't get deleted, and starts at 0? obviously not correct, maybe we should always gatehr from db every time? idk
-
-// ? not pushing to db, because logic is flawed on how we store it.
-void notesScreen::qmap_to_data(){
-
-}
-
 /*
  ! -----------------------------------Constructor/Destructor/Virtual---------------------------------------------------------------------
  */
-notesScreen::notesScreen(QWidget* parent) : btApplication(parent) {
+notesScreen::notesScreen(QWidget* parent) : btApplication(parent)
+{
     this->appName = "notes";
     setObjectName("notesScreen");
     setFixedWidth(parent->width());
+    databaseManager = new NotesDbManager("../resources/appData/Notes/notes.db");
     qDebug() << "notesScreen Width: " << width();
 }
+
 notesScreen::~notesScreen(){
     notesScreen::btAPP_CLOSED();
 }
@@ -317,10 +219,7 @@ QWidget* notesScreen::btAPP_RETURN(){
 }
 
 void notesScreen::btAPP_CLOSED(){
-    if (db.isOpen())
-    {
-        db.close();
-    }
+
 }
 
 QString notesScreen::returnAppName(){

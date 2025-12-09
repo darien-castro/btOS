@@ -6,6 +6,7 @@
 #define NOTE_EDIT_VIEW_H
 #include <resources/QtCommon.h>
 #include <resources/models/notesApp/NoteStruct.h>
+#include <src/applications/Notes/NotesDbManager.h>
 
 using noteQMap = QMap<int, NoteStruct>;
 
@@ -14,15 +15,14 @@ class notesScreen;
 
 class NoteEditView : public QWidget {
     Q_OBJECT
-    QSqlDatabase* m_parent_db;
-    std::shared_ptr<noteQMap> parentQmap;
+    NotesDbManager* m_parent_db;
 
     QString m_title;
     QString m_note_content;
     int m_noteId = -1;
 public:
     // todo... need to intake some db variable, so that, we can input some note
-    NoteEditView(QWidget* parent = nullptr, int noteId = -1, QString title = "", QString content = "", std::shared_ptr<noteQMap> parent_qmap = nullptr);
+    NoteEditView(QWidget* parent = nullptr, int noteId = -1, QString title = "", QString content = "", NotesDbManager* db = nullptr);
 
 private:
 
