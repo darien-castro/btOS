@@ -4,7 +4,7 @@
 
 #include "noteTag.h"
 
-noteTag::noteTag(QWidget* parent, QString tagName, QString count) : QWidget(parent), _tag_name(tagName), _count(count){
+noteTag::noteTag(QWidget* parent, QString tagName, QString count, int tag_id) : QWidget(parent), _tag_name(tagName), _count(count), m_tag_id(tag_id){
     // naming object, and setting stylesheet, and other stuff
     setAttribute(Qt::WA_StyledBackground, true);
     setObjectName("noteTag");

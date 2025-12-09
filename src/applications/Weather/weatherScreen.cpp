@@ -66,9 +66,25 @@ bool weatherScreen::data_error(cpr::Response response)
 
 void weatherScreen::update_response(const QString& name)
 {
-    std::string fin_link = link + name.toStdString() + key + units;
+    std::string string_name = name.toStdString();
+    std::string encoded_name;
 
-    std::string temp_string = temp_link + name.toStdString() + key + units;
+    for (int i = 0; i < string_name.length(); i++)
+    {
+        if (string_name[i] == ' ')
+        {
+            encoded_name += "%20";  // <-- IMPORTANT
+        }
+        else
+        {
+            encoded_name += string_name[i];
+        }
+    }
+
+    std::string fin_link = link + encoded_name + key + units;
+    qDebug() << QString::fromStdString(fin_link);
+
+    std::string temp_string = temp_link + encoded_name + key + units;
     test_daily_call(temp_string);
 
 

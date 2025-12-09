@@ -13,8 +13,9 @@ class noteTag : public QWidget {
     QString _count;
     QRect orignal_pos;
     bool _clicked = false;
+    int m_tag_id;
 public:
-    noteTag(QWidget* parent = nullptr, QString tagName = "basic", QString count = "#0");
+    noteTag(QWidget* parent = nullptr, QString tagName = "basic", QString count = "#0", int tag_id = 0);
 protected:
     void enterEvent(QEvent* event) override;
     void leaveEvent(QEvent* event) override;

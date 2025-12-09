@@ -2,14 +2,11 @@
 #include "notesScreen.h"
 #include <QGraphicsDropShadowEffect>
 
-#include "resources/models/notesApp/newNote.h"
 #include "resources/models/notesApp/noteTag.h"
 #include "windows/note_edit_view.h"
 /*
  ! -----------------------------------Application Setup---------------------------------------------------------------------
  */
-
-
 
 void notesScreen::btAPP_SETUP(){
     // application setup;
@@ -223,17 +220,46 @@ void notesScreen::initiate_db() {
     }
     // Use QSqlQuery to execute SQL on this connection
     QSqlQuery query(db);
-    bool ok = query.exec(
+
+    // notes
+    if (!query.exec(
         "CREATE TABLE IF NOT EXISTS notes ("
         "id INTEGER PRIMARY KEY AUTOINCREMENT, "
         "title TEXT NOT NULL, "
-        "content TEXT,"
-    );
-    if (!ok) {
-        qDebug() << "Error creating notes table:" << query.lastError().text();
-    } else {
-        qDebug() << "Notes database opened successfully.";
+        "content TEXT"
+        ")"
+    )) {
+        qDebug() << "Notes table error:" << query.lastError();
     }
+
+    // tags
+    if (!query.exec(
+        "CREATE TABLE IF NOT EXISTS tags ("
+        "id INTEGER PRIMARY KEY AUTOINCREMENT, "
+        "name TEXT UNIQUE NOT NULL"
+        ")"
+    )) {
+        qDebug() << "Tags table error:" << query.lastError();
+    }
+
+    // note_tags (join table)
+    if (!query.exec(
+        "CREATE TABLE IF NOT EXISTS note_tags ("
+        "note_id INTEGER NOT NULL, "
+        "tag_id INTEGER NOT NULL, "
+        "PRIMARY KEY (note_id, tag_id), "
+        "FOREIGN KEY (note_id) REFERENCES notes(id), "
+        "FOREIGN KEY (tag_id) REFERENCES tags(id)"
+        ")"
+    )) {
+        qDebug() << "NoteTags table error:" << query.lastError();
+    }
+
+if (!query.exec("INSERT OR IGNORE INTO tags (id, name) VALUES (0, 'General')"))
+{
+    qDebug() << "couldn't insert into tags";
+}
+
     QMap_dataBase = std::make_shared<QMap<int, NoteStruct>>();
 }
 void notesScreen::data_to_qmap(){
@@ -260,7 +286,9 @@ void notesScreen::data_to_qmap(){
         qDebug() << "error copying";
         return;
     }
+
     _current_db_size = QMap_dataBase->size();
+
 }
 
 

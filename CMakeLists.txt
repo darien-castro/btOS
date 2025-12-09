@@ -41,7 +41,6 @@ set(HEADERS
         src/applications/Weather/weatherScreen.h
         resources/models/notesApp/noteCard.h
         resources/models/notesApp/noteTag.h
-        resources/models/notesApp/newNote.h
         src/core/btApplicationManager.h
 )
 
@@ -64,7 +63,6 @@ set(SOURCES
         src/applications/Weather/weatherScreen.cpp
         resources/models/notesApp/noteCard.cpp
         resources/models/notesApp/noteTag.cpp
-        resources/models/notesApp/newNote.cpp
         src/core/btApplicationManager.cpp
         src/applications/Notes/windows/note_edit_view.cpp
         src/applications/Notes/windows/note_edit_view.h

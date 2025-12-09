@@ -14,14 +14,22 @@
 #include <resources/models/notesApp/NoteStruct.h>
 #include <resources/models/notesApp/noteCard.h>
 
-using noteQMap = QMap<int, NoteStruct>;
+struct tagStruct
+{
+    int tag_id;
+    QString tag_name;
+};
 
+
+using noteQMap = QMap<int, NoteStruct>;
+using tagQMap = QMap<int, tagStruct>;
 
 class noteTag;
 class notesScreen : public btApplication {
     Q_OBJECT
     QSqlDatabase db;
     std::shared_ptr<noteQMap> QMap_dataBase;
+    std::shared_ptr<tagQMap> QMap_Tags;
     int _current_db_size;
 public:
     notesScreen(QWidget* parent);

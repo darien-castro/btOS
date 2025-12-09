@@ -38,7 +38,7 @@ Rectangle {
     }
 
     Rectangle {
-        width: 240
+        width: 300
         height: 75
         anchors.left: parent.left
         anchors.margins: 25
