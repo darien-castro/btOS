@@ -26,7 +26,7 @@ public:
 
 
     // Note Functions
-    bool createNote(const QString& title, const QString& data);
+    int createNote(const QString& title, const QString& data);
     bool deleteNote(int id);
     bool updateNote(int id, const QString& title, const QString& data);
     int nextNoteID();
@@ -34,6 +34,10 @@ public:
     NoteStruct getNote(int id);
 
     // Tag Functions
+    std::vector<QString> parseForTags(const QString& content);
+    std::vector<int> vectQtoInt(std::vector<QString>);
+
+    bool pushAllTags(const std::vector<QString>& tags);
     int createTag(const QString& title);
     tagStruct getTag(int id);
     tagQMap getAllTags();
@@ -41,7 +45,7 @@ public:
     // note-tag relationships
     bool addTagToNote(int tag_id, int note_id);
     bool removeTagFromNote(int tag_id, int note_id);
-    bool setTagsForNote(int note_id, const QStringList& tags_list);
+    bool setTagsForNote(int note_id, const std::vector<int>& tags);
     bool clearTagsFromNote(int note_id, const QStringList& tags_list);
 
 

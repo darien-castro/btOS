@@ -139,11 +139,10 @@ int NotesDbManager::nextNoteID()
             return maxId + 1;
         }
     }
-
     return 1;
 }
 
-bool NotesDbManager::createNote(const QString& title, const QString& data)
+int NotesDbManager::createNote(const QString& title, const QString& data)
 {
     QSqlQuery query(m_db);
     query.prepare("INSERT INTO notes (title, content) VALUES (:title, :content)");
@@ -152,10 +151,13 @@ bool NotesDbManager::createNote(const QString& title, const QString& data)
     if (!query.exec())
     {
         qDebug() << query.lastError().text();
-        return false;
+        qDebug() << "didnt' save";
+        return -1;
     }
-    qDebug() << "saved";
-    return true;
+
+    int id = query.lastInsertId().toInt();
+    qDebug() << "saved: " << id;
+    return id;
 }
 
 bool NotesDbManager::updateNote(int id, const QString& title, const QString& data)
@@ -171,4 +173,99 @@ bool NotesDbManager::updateNote(int id, const QString& title, const QString& dat
         return false;
     }
     return true;
+}
+
+std::vector<QString> NotesDbManager::parseForTags(const QString& content)
+{
+    QString tag = "";
+    std::vector<QString> tags;
+    bool curr_tag = false;
+    for (int i = 0; i < content.length(); i++)
+    {
+        if (curr_tag == true)
+        {
+            if (content[i] != ' ' && content[i] != '\n')
+            {
+                tag += content[i];
+            }
+            else
+            {
+                tags.push_back(tag);
+                tag = "";
+                curr_tag = false;
+            }
+        }
+        if (content[i] == '#')
+        {
+            curr_tag = true;
+        }
+    }
+    if (tag != "")
+    {
+        tags.push_back(tag);
+    }
+    return tags;
+};
+
+bool NotesDbManager::pushAllTags(const std::vector<QString>& tags)
+{
+    QSqlQuery query(m_db);
+    query.prepare("INSERT INTO tags (name) VALUES (:name)");
+    for (int i = 0; i < tags.size(); i++)
+    {
+        QString name = tags[i];
+        query.bindValue(":name", name);
+        query.exec();
+    }
+    return true;
+};
+
+bool NotesDbManager::addTagToNote(int tag_id, int note_id)
+{
+    QSqlQuery query(m_db);
+    query.prepare("INSERT INTO note_tags (note_id, tag_id) VALUES (:note_id, :tag_id)");
+    query.bindValue(":tag_id", tag_id);
+    query.bindValue(":note_id", note_id);
+    if (!query.exec())
+    {
+        qDebug() << "error in file NotesDbManager (line 228)";
+        return false;
+    }
+    return true;
+}
+
+
+std::vector<int> NotesDbManager::vectQtoInt(std::vector<QString> example)
+{
+    std::vector<int> vect;
+    QSqlQuery query(m_db);
+    query.prepare("SELECT id FROM tags WHERE name = :name LIMIT 1");
+    for (int i = 0; i < example.size(); i++)
+    {
+        QString name = example[i];
+        query.bindValue(":name", name);
+        if (!query.exec())
+            continue;
+        if (query.next()) {
+            vect.push_back(query.value(0).toInt());
+        }
+    }
+    return vect;
+}
+
+bool NotesDbManager::setTagsForNote(int note_id, const std::vector<int>& tags)
+{
+    QSqlQuery query(m_db);
+    query.prepare("INSERT INTO note_tags (note_id, tag_id) VALUES (:note_id,:tag_id)");
+    query.bindValue(":note_id", note_id);
+    for (int i = 0; i < tags.size(); i++)
+    {
+        query.bindValue(":tag_id", tags[i]);
+        if (!query.exec())
+        {
+            qDebug() << "Error in NotesDbManager (line 261)";
+        };
+    }
+    return true;
+
 }

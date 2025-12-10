@@ -54,7 +54,8 @@ void NoteEditView::setupConnections(){
     connect(buttonLol, &QPushButton::clicked, this, [this](){
         QString title = m_note_title->text();
         QString content = m_note_text_edit->toPlainText();
-        if (m_noteId == -1 && title!="")
+        std::vector<QString> test = m_parent_db->parseForTags(content);
+        if (m_noteId == -1 && title != "")
         {
             // Creating new note - createNote returns int (the new ID)
             int newId = m_parent_db->createNote(title, content);
@@ -64,13 +65,19 @@ void NoteEditView::setupConnections(){
             }
             else
             {
-                qDebug() << "Note created with ID:" << newId;
                 m_noteId = newId;  // Store the new ID
+                if (!m_parent_db->pushAllTags(test))
+                {
+                    qDebug() << "saving notes failed at 'note_edit_view' (line 71)";
+                };
+                if (!m_parent_db->setTagsForNote(m_noteId, m_parent_db->vectQtoInt(test)))
+                {
+                    qDebug() << "failed to save notes to note_tags";
+                };
             }
         }
         else if (m_noteId >= 0)
         {
-            // Updating existing note - updateNote returns bool
             if (!m_parent_db->updateNote(m_noteId, title, content))
             {
                 qDebug() << "Error: Failed to update note";
@@ -80,7 +87,9 @@ void NoteEditView::setupConnections(){
                 qDebug() << "Note updated successfully";
             }
         }
-        // ALWAYS emit closed at the end, regardless of success/failure
+
+        // then combine, save every note in vector, to said note id
+
         emit closed();
     });
 }
