@@ -10,6 +10,7 @@
 struct NoteStruct {
     QString Title;
     QString Content;
+    NoteStruct(QString title, QString content) : Title(title), Content(content){};
 };
 
 

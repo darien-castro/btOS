@@ -4,7 +4,7 @@
 
 #include "noteTag.h"
 
-noteTag::noteTag(QWidget* parent, QString tagName, QString count, int tag_id) : QWidget(parent), _tag_name(tagName), _count(count), m_tag_id(tag_id){
+noteTag::noteTag(QWidget* parent, QString tagName, int tag_id) : QWidget(parent), _tag_name(tagName),  m_tag_id(tag_id){
     // naming object, and setting stylesheet, and other stuff
     setAttribute(Qt::WA_StyledBackground, true);
     setObjectName("noteTag");
@@ -67,7 +67,6 @@ void noteTag::leaveEvent(QEvent* event){
 void noteTag::mousePressEvent(QMouseEvent* event){
     if (_clicked == false)
     {
-        _clicked = true;
         setStyleSheet("QWidget#noteTag{"
                       "background: transparent;"
                       "border: 3px solid rgba(255,255,197,255);"
@@ -87,6 +86,7 @@ void noteTag::mousePressEvent(QMouseEvent* event){
         anim->start(QPropertyAnimation::DeleteWhenStopped);
         QWidget::enterEvent(event);
         QWidget::leaveEvent(event);
+        _clicked = true;
         emit clicked();
     }
     else
@@ -99,8 +99,6 @@ void noteTag::mousePressEvent(QMouseEvent* event){
         anim->start(QPropertyAnimation::DeleteWhenStopped);
         QWidget::enterEvent(event);
         QWidget::leaveEvent(event);
-        emit clicked();
-        _clicked = false;
         setStyleSheet("QWidget#noteTag{"
                   "background: transparent;"
                   "color: white;"
@@ -113,6 +111,8 @@ void noteTag::mousePressEvent(QMouseEvent* event){
                          "font-weight: bold;"
                          "font-size: 16px;"
                          "}");
+        _clicked = false;
+        emit clicked();
     }
 
 }

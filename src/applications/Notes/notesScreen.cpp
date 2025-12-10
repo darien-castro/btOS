@@ -106,7 +106,7 @@ void notesScreen::setup_widgets(){
     //Widget Setup
 
     //Title
-    header_widget = new QLabel("Hello Darien");
+    header_widget = new QLabel("Notes");
     //new note button
     button = new QPushButton();
     //example cards, needed for inital grid placement
@@ -115,11 +115,9 @@ void notesScreen::setup_widgets(){
 
 void notesScreen::populateNotes(NotesDbManager* database)
 {
-    if (!note_card_view->isEmpty())
-    {
+    if (!note_card_view->isEmpty()) {
         QLayoutItem* child;
-        while ((child = note_card_view->takeAt(0)) != nullptr)
-        {
+        while ((child = note_card_view->takeAt(0)) != nullptr) {
             delete child->widget();
             delete child;
         }
@@ -127,10 +125,34 @@ void notesScreen::populateNotes(NotesDbManager* database)
 
     int row = 0;
     int col = 0;
-    noteQMap notes = database->getAllNotes();
 
+    noteQMap notesToRender;
 
-    for (auto it = notes.begin(); it != notes.end(); ++it) {
+    if (m_activeFilters.isEmpty()) {
+        // CASE 1: No filters? Show EVERYTHING.
+        notesToRender = database->getAllNotes();
+    }
+    else {
+        // CASE 2: Filters active? Find specific IDs.
+        QSet<int> noteIds;
+        for (auto it = m_activeFilters.begin(); it != m_activeFilters.end(); it++) {
+            qDebug() << "it: " << *it;
+            std::vector<int> curr = database->getIdFromTags(*it);
+            for (int id : curr) {
+                qDebug() <<"id: " << id;
+                noteIds.insert(id);
+            }
+        }
+        qDebug() << "noteId Size: " << noteIds.size();
+
+        // Now fetch the note details for these specific IDs
+        for (int id : noteIds) {
+            noteQMap curr;
+            notesToRender.insert(id, database->getNote(id));
+        }
+    }
+    qDebug() << "notesToRender Size: " << notesToRender.size();
+    for (auto it = notesToRender.begin(); it != notesToRender.end(); ++it) {
         int currID = it.key();
         QString title = it.value().Title;
         QString content = it.value().Content;
@@ -138,31 +160,34 @@ void notesScreen::populateNotes(NotesDbManager* database)
         NoteCardModern* curr = new NoteCardModern(title, content);
         note_card_view->addWidget(curr, row, col);
 
+        // FIX 1: Explicitly show the widget (just to be safe)
+        curr->show();
+
         col++;
-        if (col == 2) {  // 2 columns
+        if (col == 2) {
             col = 0;
             row++;
         }
+
+        // Connections...
         connect(curr, &NoteCardModern::clicked, this, [this, currID, title, content](){
-            NoteEditView* lol = new NoteEditView(this, currID,title, content, databaseManager);
+            NoteEditView* lol = new NoteEditView(this, currID, title, content, databaseManager);
             _window_stack->addWidget(lol);
             _window_stack->setCurrentWidget(lol);
-            connect(lol, &NoteEditView::closed, this, [this, lol]()
-            {
+            connect(lol, &NoteEditView::closed, this, [this, lol]() {
                 populateNotes(databaseManager);
                 _window_stack->removeWidget(lol);
             });
         });
     }
-    note_card_view->invalidate();
-    note_card_view->activate();
 
-    QWidget* w = note_card_scroll->widget();
-    if (w) {
-        w->adjustSize();
+    // FIX 2: Refresh the container OUTSIDE the loop
+    // This forces the "test" widget (inside the scroll area) to snap to the new grid size
+    QWidget* container = note_card_scroll->widget();
+    if (container) {
+        container->adjustSize();
     }
-    note_card_scroll->updateGeometry();
-}
+};
 
 void notesScreen::add_widgits(){
     //attach header
@@ -171,10 +196,29 @@ void notesScreen::add_widgits(){
 
     // example of scroll capability
     // attatching tags
-    std::vector<QString> tagsVect = databaseManager->getAllTagNames();
+    QList<QPair<int, QString>> tagsVect = databaseManager->getAllTags();
+
     for (int i = 0; i < tagsVect.size(); i++)
     {
-        noteTag* curr = new noteTag(this, tagsVect[i]);
+        noteTag* curr = new noteTag(this,tagsVect[i].second,tagsVect[i].first);
+        connect(curr, &noteTag::clicked, this, [this, curr]()
+        {
+            // Debugging print to ensure timing is right
+            qDebug() << "Tag Clicked:" << curr->returnTagId() << " New State:" << curr->Active();
+
+            if (curr->Active())
+            {
+                m_activeFilters.insert(curr->returnTagId());
+                qDebug() << "m_activeFilters size: "<< m_activeFilters.size();
+            }
+            else
+            {
+                m_activeFilters.remove(curr->returnTagId());
+            }
+
+            // You don't need the 'return' statement if you use if/else
+            populateNotes(databaseManager);
+        });
         carousel_hbox->addWidget(curr);
     }
     // widget needed for attaching to hbox

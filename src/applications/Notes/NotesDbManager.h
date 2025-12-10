@@ -49,6 +49,9 @@ public:
     bool setTagsForNote(int note_id, const std::vector<int>& tags);
     bool clearTagsFromNote(int note_id, const QStringList& tags_list);
 
+    std::vector<int> getIdFromTags(int tag_id);
+    QList<QPair<int, QString>> getAllTags();
+
 
     signals:
     void noteCreated();

@@ -18,7 +18,9 @@ class noteTag : public QWidget {
     QLabel* title;
 
 public:
-    noteTag(QWidget* parent = nullptr, QString tagName = "basic", QString count = "#0", int tag_id = 0);
+    noteTag(QWidget* parent = nullptr, QString tagName = "basic", int tag_id = -1);
+    int returnTagId(){ return m_tag_id;};
+    bool Active(){return _clicked;};
 protected:
     void enterEvent(QEvent* event) override;
     void leaveEvent(QEvent* event) override;

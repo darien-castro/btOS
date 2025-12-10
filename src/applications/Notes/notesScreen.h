@@ -26,6 +26,7 @@ class notesScreen : public btApplication {
     Q_OBJECT
     QSqlDatabase db;
     NotesDbManager* databaseManager;
+    QSet<int> m_activeFilters;
     std::shared_ptr<noteQMap> QMap_dataBase;
     std::shared_ptr<tagQMap> QMap_Tags;
     int _current_db_size;
@@ -54,6 +55,8 @@ public:
     void populate_prev_notes();
     // deprecated...
     void setVariablesNull();
+
+
 
 
     //overridden

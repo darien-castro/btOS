@@ -292,3 +292,67 @@ std::vector<QString> NotesDbManager::getAllTagNames()
     }
     return vect;
 }
+
+NoteStruct NotesDbManager::getNote(int id)
+{
+    NoteStruct result("Error","Error");
+
+    QSqlQuery query(m_db);
+    query.prepare("SELECT title, content FROM notes WHERE id = :id LIMIT 1");
+    query.bindValue(":id", id);
+
+    if (query.exec() && query.next()) {
+        result.Title = query.value(0).toString();
+        result.Content = query.value(1).toString();
+        return result;
+    }
+
+    qDebug() << "Note not found or DB error:" << query.lastError();
+    return result;   // return empty instead of UB
+}
+
+
+std::vector<int> NotesDbManager::getIdFromTags(int tag_id)
+{
+    QSqlQuery query(m_db);
+    std::vector<int> note_ids;
+
+    query.prepare("SELECT note_id FROM note_tags WHERE tag_id = :tag_id");
+    query.bindValue(":tag_id", tag_id);
+
+    if (!query.exec()) {
+        qDebug() << "Query failed:" << query.lastError();
+        return note_ids;
+    }
+
+    while (query.next()) {
+        note_ids.push_back(query.value(0).toInt());
+    }
+
+    return note_ids;
+}
+
+
+QList<QPair<int, QString>> NotesDbManager::getAllTags()
+{
+    QSqlQuery query(m_db);
+    QList<QPair<int, QString>> tags;
+
+    query.prepare("SELECT id, name FROM tags");
+
+    if (!query.exec()) {
+        qDebug() << "Failed to fetch tags:" << query.lastError();
+        return tags;
+    }
+
+
+    while (query.next())
+    {
+        QPair<int,QString> curr;
+        curr.first = query.value(0).toInt();
+        curr.second = query.value(1).toString();
+
+        tags.push_back(curr);
+    }
+    return tags;
+}
