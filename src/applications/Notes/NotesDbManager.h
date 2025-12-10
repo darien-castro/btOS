@@ -40,7 +40,8 @@ public:
     bool pushAllTags(const std::vector<QString>& tags);
     int createTag(const QString& title);
     tagStruct getTag(int id);
-    tagQMap getAllTags();
+    std::vector<QString> getAllTagNames();
+    bool updateTagsFromNT();
 
     // note-tag relationships
     bool addTagToNote(int tag_id, int note_id);

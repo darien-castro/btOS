@@ -171,9 +171,10 @@ void notesScreen::add_widgits(){
 
     // example of scroll capability
     // attatching tags
-    for (int i = 0; i < 100; i++)
+    std::vector<QString> tagsVect = databaseManager->getAllTagNames();
+    for (int i = 0; i < tagsVect.size(); i++)
     {
-        noteTag* curr = new noteTag;
+        noteTag* curr = new noteTag(this, tagsVect[i]);
         carousel_hbox->addWidget(curr);
     }
     // widget needed for attaching to hbox

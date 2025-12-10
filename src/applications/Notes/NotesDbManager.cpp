@@ -269,3 +269,26 @@ bool NotesDbManager::setTagsForNote(int note_id, const std::vector<int>& tags)
     return true;
 
 }
+
+bool NotesDbManager::updateTagsFromNT()
+{
+    // thought is, check if tags are included in
+}
+
+
+std::vector<QString> NotesDbManager::getAllTagNames()
+{
+    std::vector<QString> vect;
+    QSqlQuery query(m_db);
+    query.prepare("SELECT name FROM tags");
+    if (!query.exec())
+    {
+        qDebug() << "ERROR in NotesDbManager (line 285)";
+    }
+    while (query.next())
+    {
+        QString name = query.value(0).toString();
+        vect.push_back(name);
+    }
+    return vect;
+}

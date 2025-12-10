@@ -19,7 +19,7 @@ noteTag::noteTag(QWidget* parent, QString tagName, QString count, int tag_id) : 
     tag_layout->setSpacing(10);
 
     // tag label
-    QLabel* title = new QLabel(_tag_name, this);
+    title = new QLabel(_tag_name, this);
     title->setWordWrap(true);
     title->setStyleSheet("QLabel{"
                          "background: transparent;"
@@ -73,6 +73,12 @@ void noteTag::mousePressEvent(QMouseEvent* event){
                       "border: 3px solid rgba(255,255,197,255);"
                       "border-radius: 22px;"
                       "}");
+        title->setStyleSheet("QLabel{"
+                         "background: transparent;"
+                         "color: #A7C7E7;"
+                         "font-weight: bold;"
+                         "font-size: 16px;"
+                         "}");
         QPropertyAnimation* anim = new QPropertyAnimation(this, "geometry");
         anim->setDuration(30);
         orignal_pos = geometry();
@@ -97,9 +103,16 @@ void noteTag::mousePressEvent(QMouseEvent* event){
         _clicked = false;
         setStyleSheet("QWidget#noteTag{"
                   "background: transparent;"
+                  "color: white;"
                   "border: 2px solid rgba(255,255,255,255);"
                   "border-radius: 22px;"
                   "}");
+        title->setStyleSheet("QLabel{"
+                         "background: transparent;"
+                         "color: white;"
+                         "font-weight: bold;"
+                         "font-size: 16px;"
+                         "}");
     }
 
 }

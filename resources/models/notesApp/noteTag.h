@@ -14,6 +14,9 @@ class noteTag : public QWidget {
     QRect orignal_pos;
     bool _clicked = false;
     int m_tag_id;
+
+    QLabel* title;
+
 public:
     noteTag(QWidget* parent = nullptr, QString tagName = "basic", QString count = "#0", int tag_id = 0);
 protected:
