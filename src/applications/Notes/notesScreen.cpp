@@ -80,7 +80,9 @@ void notesScreen::layout_styling(){
     // no scroll bar
     carousel_layout->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     carousel_layout->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+
     // hiding, and setting children colors
+
     carousel_layout->setStyleSheet("QScrollArea{"
                                   "background: transparent;"
                                   "color: white;"
