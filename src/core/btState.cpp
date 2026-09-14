@@ -35,8 +35,9 @@ std::vector<btApplication*> btState::returnAppVect(){
 void btState::getSettingsJson(){
 
     //todo, make sure this isn't storing too much memory, and make sure by copy
-    qDebug() << "Settings File Loaded...";
-    configSettings = new QFile("/home/pablovepo/CLionProjects/btOS/resources/config/settings.json");
+    qDebug() << "Settings File Loading...";
+    QString dir = QDir().absolutePath();
+    configSettings = new QFile(dir + "/../resources/config/settings.json");
     if (!configSettings->open(QIODevice::ReadOnly | QIODevice::Text)) {
         qDebug() << "Failed to open file:" << configSettings->errorString();
         return;
@@ -48,7 +49,6 @@ void btState::getSettingsJson(){
     QJsonParseError parseError;
     QJsonDocument doc =QJsonDocument::fromJson(jsonData, &parseError);
 
-    // Step 3: Check for parsing errors
     if (parseError.error != QJsonParseError::NoError) {
         qDebug() << "JSON parse error:" << parseError.errorString();
         return;
