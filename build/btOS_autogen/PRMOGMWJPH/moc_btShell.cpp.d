@@ -1,18 +1,7 @@
 /home/pablovepo/main/githubProjs/btOS/build/btOS_autogen/PRMOGMWJPH/moc_btShell.cpp: /home/pablovepo/main/githubProjs/btOS/src/core/btShell.h \
   /home/pablovepo/main/githubProjs/btOS/build/btOS_autogen/moc_predefs.h \
-  /home/pablovepo/main/githubProjs/btOS/resources/QtCommon.h \
-  /home/pablovepo/main/githubProjs/btOS/resources/models/notesApp/NoteStruct.h \
-  /home/pablovepo/main/githubProjs/btOS/resources/models/notesApp/noteCard.h \
-  /home/pablovepo/main/githubProjs/btOS/resources/models/notesApp/tagStruct.h \
-  /home/pablovepo/main/githubProjs/btOS/resources/models/weatherApp/FutureData.h \
-  /home/pablovepo/main/githubProjs/btOS/resources/models/weatherApp/qmlFiles/weatherObj.h \
-  /home/pablovepo/main/githubProjs/btOS/resources/models/weatherApp/weatherWebApp.h \
-  /home/pablovepo/main/githubProjs/btOS/src/applications/Notes/NotesDbManager.h \
-  /home/pablovepo/main/githubProjs/btOS/src/applications/Notes/notesScreen.h \
+  /home/pablovepo/main/githubProjs/btOS/assets/QtCommon.h \
   /home/pablovepo/main/githubProjs/btOS/src/applications/Settings/settings.h \
-  /home/pablovepo/main/githubProjs/btOS/src/applications/Weather/weatherScreen.h \
-  /home/pablovepo/main/githubProjs/btOS/src/applications/messaging.h \
-  /home/pablovepo/main/githubProjs/btOS/src/applications/phone/phoneScreen.h \
   /home/pablovepo/main/githubProjs/btOS/src/core/btApplication.h \
   /home/pablovepo/main/githubProjs/btOS/src/core/btApplicationManager.h \
   /home/pablovepo/main/githubProjs/btOS/src/core/btState.h \
@@ -23,15 +12,11 @@
   /usr/include/asm-generic/errno.h \
   /usr/include/asm-generic/int-ll64.h \
   /usr/include/asm-generic/posix_types.h \
-  /usr/include/asm-generic/socket.h \
-  /usr/include/asm-generic/sockios.h \
   /usr/include/asm-generic/types.h \
   /usr/include/asm/bitsperlong.h \
   /usr/include/asm/errno.h \
   /usr/include/asm/posix_types.h \
   /usr/include/asm/posix_types_64.h \
-  /usr/include/asm/socket.h \
-  /usr/include/asm/sockios.h \
   /usr/include/asm/types.h \
   /usr/include/assert.h \
   /usr/include/bits/atomic_wide_counter.h \
@@ -54,9 +39,6 @@
   /usr/include/bits/sched.h \
   /usr/include/bits/select.h \
   /usr/include/bits/setjmp.h \
-  /usr/include/bits/sockaddr.h \
-  /usr/include/bits/socket.h \
-  /usr/include/bits/socket_type.h \
   /usr/include/bits/stdint-intn.h \
   /usr/include/bits/stdint-least.h \
   /usr/include/bits/stdint-uintn.h \
@@ -86,9 +68,7 @@
   /usr/include/bits/types/sigset_t.h \
   /usr/include/bits/types/struct_FILE.h \
   /usr/include/bits/types/struct___jmp_buf_tag.h \
-  /usr/include/bits/types/struct_iovec.h \
   /usr/include/bits/types/struct_itimerspec.h \
-  /usr/include/bits/types/struct_osockaddr.h \
   /usr/include/bits/types/struct_sched_param.h \
   /usr/include/bits/types/struct_timespec.h \
   /usr/include/bits/types/struct_timeval.h \
@@ -106,7 +86,6 @@
   /usr/include/bits/wordsize.h \
   /usr/include/bits/xopen_lim.h \
   /usr/include/c++/16/algorithm \
-  /usr/include/c++/16/any \
   /usr/include/c++/16/array \
   /usr/include/c++/16/atomic \
   /usr/include/c++/16/backward/auto_ptr.h \
@@ -128,43 +107,32 @@
   /usr/include/c++/16/bits/c++0x_warning.h \
   /usr/include/c++/16/bits/char_traits.h \
   /usr/include/c++/16/bits/charconv.h \
-  /usr/include/c++/16/bits/codecvt.h \
   /usr/include/c++/16/bits/concept_check.h \
   /usr/include/c++/16/bits/cpp_type_traits.h \
   /usr/include/c++/16/bits/cpyfunc_impl.h \
   /usr/include/c++/16/bits/cxxabi_forced.h \
   /usr/include/c++/16/bits/cxxabi_init_exception.h \
-  /usr/include/c++/16/bits/deque.tcc \
   /usr/include/c++/16/bits/erase_if.h \
   /usr/include/c++/16/bits/exception.h \
   /usr/include/c++/16/bits/exception_defines.h \
   /usr/include/c++/16/bits/exception_ptr.h \
   /usr/include/c++/16/bits/formatfwd.h \
-  /usr/include/c++/16/bits/fstream.tcc \
   /usr/include/c++/16/bits/funcref_impl.h \
   /usr/include/c++/16/bits/functexcept.h \
   /usr/include/c++/16/bits/functional_hash.h \
   /usr/include/c++/16/bits/funcwrap.h \
-  /usr/include/c++/16/bits/gslice.h \
-  /usr/include/c++/16/bits/gslice_array.h \
   /usr/include/c++/16/bits/hash_bytes.h \
   /usr/include/c++/16/bits/indirect.h \
-  /usr/include/c++/16/bits/indirect_array.h \
   /usr/include/c++/16/bits/intcmp.h \
   /usr/include/c++/16/bits/invoke.h \
   /usr/include/c++/16/bits/ios_base.h \
-  /usr/include/c++/16/bits/istream.tcc \
   /usr/include/c++/16/bits/iterator_concepts.h \
   /usr/include/c++/16/bits/list.tcc \
   /usr/include/c++/16/bits/locale_classes.h \
   /usr/include/c++/16/bits/locale_classes.tcc \
-  /usr/include/c++/16/bits/locale_conv.h \
   /usr/include/c++/16/bits/locale_facets.h \
   /usr/include/c++/16/bits/locale_facets.tcc \
-  /usr/include/c++/16/bits/locale_facets_nonio.h \
-  /usr/include/c++/16/bits/locale_facets_nonio.tcc \
   /usr/include/c++/16/bits/localefwd.h \
-  /usr/include/c++/16/bits/mask_array.h \
   /usr/include/c++/16/bits/max_size_type.h \
   /usr/include/c++/16/bits/memory_resource.h \
   /usr/include/c++/16/bits/memoryfwd.h \
@@ -177,14 +145,11 @@
   /usr/include/c++/16/bits/new_throw.h \
   /usr/include/c++/16/bits/node_handle.h \
   /usr/include/c++/16/bits/ostream.h \
-  /usr/include/c++/16/bits/ostream.tcc \
   /usr/include/c++/16/bits/ostream_insert.h \
-  /usr/include/c++/16/bits/ostream_print.h \
   /usr/include/c++/16/bits/out_ptr.h \
   /usr/include/c++/16/bits/postypes.h \
   /usr/include/c++/16/bits/predefined_ops.h \
   /usr/include/c++/16/bits/ptr_traits.h \
-  /usr/include/c++/16/bits/quoted_string.h \
   /usr/include/c++/16/bits/range_access.h \
   /usr/include/c++/16/bits/ranges_algo.h \
   /usr/include/c++/16/bits/ranges_algobase.h \
@@ -198,7 +163,6 @@
   /usr/include/c++/16/bits/shared_ptr.h \
   /usr/include/c++/16/bits/shared_ptr_atomic.h \
   /usr/include/c++/16/bits/shared_ptr_base.h \
-  /usr/include/c++/16/bits/slice_array.h \
   /usr/include/c++/16/bits/specfun.h \
   /usr/include/c++/16/bits/std_abs.h \
   /usr/include/c++/16/bits/std_function.h \
@@ -209,7 +173,6 @@
   /usr/include/c++/16/bits/stl_algobase.h \
   /usr/include/c++/16/bits/stl_bvector.h \
   /usr/include/c++/16/bits/stl_construct.h \
-  /usr/include/c++/16/bits/stl_deque.h \
   /usr/include/c++/16/bits/stl_function.h \
   /usr/include/c++/16/bits/stl_heap.h \
   /usr/include/c++/16/bits/stl_iterator.h \
@@ -218,13 +181,10 @@
   /usr/include/c++/16/bits/stl_list.h \
   /usr/include/c++/16/bits/stl_map.h \
   /usr/include/c++/16/bits/stl_multimap.h \
-  /usr/include/c++/16/bits/stl_multiset.h \
   /usr/include/c++/16/bits/stl_numeric.h \
   /usr/include/c++/16/bits/stl_pair.h \
-  /usr/include/c++/16/bits/stl_queue.h \
   /usr/include/c++/16/bits/stl_raw_storage_iter.h \
   /usr/include/c++/16/bits/stl_relops.h \
-  /usr/include/c++/16/bits/stl_set.h \
   /usr/include/c++/16/bits/stl_tempbuf.h \
   /usr/include/c++/16/bits/stl_tree.h \
   /usr/include/c++/16/bits/stl_uninitialized.h \
@@ -239,33 +199,21 @@
   /usr/include/c++/16/bits/uses_allocator.h \
   /usr/include/c++/16/bits/uses_allocator_args.h \
   /usr/include/c++/16/bits/utility.h \
-  /usr/include/c++/16/bits/valarray_after.h \
-  /usr/include/c++/16/bits/valarray_array.h \
-  /usr/include/c++/16/bits/valarray_array.tcc \
-  /usr/include/c++/16/bits/valarray_before.h \
   /usr/include/c++/16/bits/vector.tcc \
   /usr/include/c++/16/bits/version.h \
-  /usr/include/c++/16/cassert \
   /usr/include/c++/16/cctype \
   /usr/include/c++/16/cerrno \
   /usr/include/c++/16/charconv \
-  /usr/include/c++/16/chrono \
   /usr/include/c++/16/clocale \
   /usr/include/c++/16/cmath \
   /usr/include/c++/16/compare \
   /usr/include/c++/16/concepts \
-  /usr/include/c++/16/condition_variable \
   /usr/include/c++/16/cstddef \
-  /usr/include/c++/16/cstdint \
-  /usr/include/c++/16/cstdio \
   /usr/include/c++/16/cstdlib \
-  /usr/include/c++/16/cstring \
-  /usr/include/c++/16/ctime \
   /usr/include/c++/16/cwchar \
   /usr/include/c++/16/cwctype \
   /usr/include/c++/16/debug/assertions.h \
   /usr/include/c++/16/debug/debug.h \
-  /usr/include/c++/16/deque \
   /usr/include/c++/16/exception \
   /usr/include/c++/16/ext/aligned_buffer.h \
   /usr/include/c++/16/ext/alloc_traits.h \
@@ -274,21 +222,14 @@
   /usr/include/c++/16/ext/numeric_traits.h \
   /usr/include/c++/16/ext/string_conversions.h \
   /usr/include/c++/16/ext/type_traits.h \
-  /usr/include/c++/16/format \
-  /usr/include/c++/16/forward_list \
-  /usr/include/c++/16/fstream \
   /usr/include/c++/16/functional \
   /usr/include/c++/16/future \
   /usr/include/c++/16/initializer_list \
-  /usr/include/c++/16/iomanip \
   /usr/include/c++/16/ios \
   /usr/include/c++/16/iosfwd \
-  /usr/include/c++/16/iostream \
-  /usr/include/c++/16/istream \
   /usr/include/c++/16/iterator \
   /usr/include/c++/16/limits \
   /usr/include/c++/16/list \
-  /usr/include/c++/16/locale \
   /usr/include/c++/16/map \
   /usr/include/c++/16/memory \
   /usr/include/c++/16/mutex \
@@ -296,19 +237,14 @@
   /usr/include/c++/16/numbers \
   /usr/include/c++/16/numeric \
   /usr/include/c++/16/optional \
-  /usr/include/c++/16/ostream \
   /usr/include/c++/16/pstl/execution_defs.h \
   /usr/include/c++/16/pstl/glue_numeric_defs.h \
-  /usr/include/c++/16/queue \
   /usr/include/c++/16/random \
-  /usr/include/c++/16/ranges \
-  /usr/include/c++/16/set \
   /usr/include/c++/16/stdexcept \
   /usr/include/c++/16/streambuf \
   /usr/include/c++/16/string \
   /usr/include/c++/16/string_view \
   /usr/include/c++/16/text_encoding \
-  /usr/include/c++/16/thread \
   /usr/include/c++/16/tr1/bessel_function.tcc \
   /usr/include/c++/16/tr1/beta_function.tcc \
   /usr/include/c++/16/tr1/ell_integral.tcc \
@@ -325,16 +261,11 @@
   /usr/include/c++/16/type_traits \
   /usr/include/c++/16/typeinfo \
   /usr/include/c++/16/unordered_map \
-  /usr/include/c++/16/unordered_set \
   /usr/include/c++/16/utility \
-  /usr/include/c++/16/valarray \
-  /usr/include/c++/16/variant \
   /usr/include/c++/16/vector \
   /usr/include/c++/16/x86_64-pc-linux-gnu/bits/atomic_word.h \
-  /usr/include/c++/16/x86_64-pc-linux-gnu/bits/basic_file.h \
   /usr/include/c++/16/x86_64-pc-linux-gnu/bits/c++allocator.h \
   /usr/include/c++/16/x86_64-pc-linux-gnu/bits/c++config.h \
-  /usr/include/c++/16/x86_64-pc-linux-gnu/bits/c++io.h \
   /usr/include/c++/16/x86_64-pc-linux-gnu/bits/c++locale.h \
   /usr/include/c++/16/x86_64-pc-linux-gnu/bits/cpu_defines.h \
   /usr/include/c++/16/x86_64-pc-linux-gnu/bits/ctype_base.h \
@@ -342,70 +273,8 @@
   /usr/include/c++/16/x86_64-pc-linux-gnu/bits/error_constants.h \
   /usr/include/c++/16/x86_64-pc-linux-gnu/bits/gthr-default.h \
   /usr/include/c++/16/x86_64-pc-linux-gnu/bits/gthr.h \
-  /usr/include/c++/16/x86_64-pc-linux-gnu/bits/messages_members.h \
   /usr/include/c++/16/x86_64-pc-linux-gnu/bits/os_defines.h \
-  /usr/include/c++/16/x86_64-pc-linux-gnu/bits/time_members.h \
-  /usr/include/cpr/accept_encoding.h \
-  /usr/include/cpr/api.h \
-  /usr/include/cpr/async.h \
-  /usr/include/cpr/async_wrapper.h \
-  /usr/include/cpr/auth.h \
-  /usr/include/cpr/bearer.h \
-  /usr/include/cpr/body.h \
-  /usr/include/cpr/buffer.h \
-  /usr/include/cpr/callback.h \
-  /usr/include/cpr/cert_info.h \
-  /usr/include/cpr/connect_timeout.h \
-  /usr/include/cpr/cookies.h \
-  /usr/include/cpr/cpr.h \
-  /usr/include/cpr/cprtypes.h \
-  /usr/include/cpr/cprver.h \
-  /usr/include/cpr/curl_container.h \
-  /usr/include/cpr/curlholder.h \
-  /usr/include/cpr/curlmultiholder.h \
-  /usr/include/cpr/error.h \
-  /usr/include/cpr/file.h \
-  /usr/include/cpr/filesystem.h \
-  /usr/include/cpr/http_version.h \
-  /usr/include/cpr/interceptor.h \
-  /usr/include/cpr/interface.h \
-  /usr/include/cpr/limit_rate.h \
-  /usr/include/cpr/local_port.h \
-  /usr/include/cpr/local_port_range.h \
-  /usr/include/cpr/low_speed.h \
-  /usr/include/cpr/multipart.h \
-  /usr/include/cpr/multiperform.h \
-  /usr/include/cpr/parameters.h \
-  /usr/include/cpr/payload.h \
-  /usr/include/cpr/proxies.h \
-  /usr/include/cpr/proxyauth.h \
-  /usr/include/cpr/range.h \
-  /usr/include/cpr/redirect.h \
-  /usr/include/cpr/reserve_size.h \
-  /usr/include/cpr/resolve.h \
-  /usr/include/cpr/response.h \
-  /usr/include/cpr/session.h \
-  /usr/include/cpr/singleton.h \
-  /usr/include/cpr/ssl_ctx.h \
-  /usr/include/cpr/ssl_options.h \
-  /usr/include/cpr/status_codes.h \
-  /usr/include/cpr/threadpool.h \
-  /usr/include/cpr/timeout.h \
-  /usr/include/cpr/unix_socket.h \
-  /usr/include/cpr/user_agent.h \
-  /usr/include/cpr/util.h \
-  /usr/include/cpr/verbose.h \
   /usr/include/ctype.h \
-  /usr/include/curl/curl.h \
-  /usr/include/curl/curlver.h \
-  /usr/include/curl/easy.h \
-  /usr/include/curl/header.h \
-  /usr/include/curl/mprintf.h \
-  /usr/include/curl/multi.h \
-  /usr/include/curl/options.h \
-  /usr/include/curl/system.h \
-  /usr/include/curl/urlapi.h \
-  /usr/include/curl/websockets.h \
   /usr/include/endian.h \
   /usr/include/errno.h \
   /usr/include/features-time64.h \
@@ -413,7 +282,6 @@
   /usr/include/gnu/stubs-64.h \
   /usr/include/gnu/stubs.h \
   /usr/include/inttypes.h \
-  /usr/include/libintl.h \
   /usr/include/limits.h \
   /usr/include/linux/errno.h \
   /usr/include/linux/limits.h \
@@ -421,59 +289,12 @@
   /usr/include/linux/stddef.h \
   /usr/include/linux/types.h \
   /usr/include/locale.h \
-  /usr/include/nlohmann/adl_serializer.hpp \
-  /usr/include/nlohmann/byte_container_with_subtype.hpp \
-  /usr/include/nlohmann/detail/abi_macros.hpp \
-  /usr/include/nlohmann/detail/conversions/from_json.hpp \
-  /usr/include/nlohmann/detail/conversions/to_chars.hpp \
-  /usr/include/nlohmann/detail/conversions/to_json.hpp \
-  /usr/include/nlohmann/detail/exceptions.hpp \
-  /usr/include/nlohmann/detail/hash.hpp \
-  /usr/include/nlohmann/detail/input/binary_reader.hpp \
-  /usr/include/nlohmann/detail/input/input_adapters.hpp \
-  /usr/include/nlohmann/detail/input/json_sax.hpp \
-  /usr/include/nlohmann/detail/input/lexer.hpp \
-  /usr/include/nlohmann/detail/input/parser.hpp \
-  /usr/include/nlohmann/detail/input/position_t.hpp \
-  /usr/include/nlohmann/detail/iterators/internal_iterator.hpp \
-  /usr/include/nlohmann/detail/iterators/iter_impl.hpp \
-  /usr/include/nlohmann/detail/iterators/iteration_proxy.hpp \
-  /usr/include/nlohmann/detail/iterators/iterator_traits.hpp \
-  /usr/include/nlohmann/detail/iterators/json_reverse_iterator.hpp \
-  /usr/include/nlohmann/detail/iterators/primitive_iterator.hpp \
-  /usr/include/nlohmann/detail/json_custom_base_class.hpp \
-  /usr/include/nlohmann/detail/json_pointer.hpp \
-  /usr/include/nlohmann/detail/json_ref.hpp \
-  /usr/include/nlohmann/detail/macro_scope.hpp \
-  /usr/include/nlohmann/detail/macro_unscope.hpp \
-  /usr/include/nlohmann/detail/meta/call_std/begin.hpp \
-  /usr/include/nlohmann/detail/meta/call_std/end.hpp \
-  /usr/include/nlohmann/detail/meta/cpp_future.hpp \
-  /usr/include/nlohmann/detail/meta/detected.hpp \
-  /usr/include/nlohmann/detail/meta/identity_tag.hpp \
-  /usr/include/nlohmann/detail/meta/is_sax.hpp \
-  /usr/include/nlohmann/detail/meta/std_fs.hpp \
-  /usr/include/nlohmann/detail/meta/type_traits.hpp \
-  /usr/include/nlohmann/detail/meta/void_t.hpp \
-  /usr/include/nlohmann/detail/output/binary_writer.hpp \
-  /usr/include/nlohmann/detail/output/output_adapters.hpp \
-  /usr/include/nlohmann/detail/output/serializer.hpp \
-  /usr/include/nlohmann/detail/string_concat.hpp \
-  /usr/include/nlohmann/detail/string_escape.hpp \
-  /usr/include/nlohmann/detail/string_utils.hpp \
-  /usr/include/nlohmann/detail/value_t.hpp \
-  /usr/include/nlohmann/json.hpp \
-  /usr/include/nlohmann/json_fwd.hpp \
-  /usr/include/nlohmann/ordered_map.hpp \
-  /usr/include/nlohmann/thirdparty/hedley/hedley.hpp \
-  /usr/include/nlohmann/thirdparty/hedley/hedley_undef.hpp \
   /usr/include/pthread.h \
   /usr/include/qt/QtCore/QByteArray \
   /usr/include/qt/QtCore/QCryptographicHash \
   /usr/include/qt/QtCore/QDateTime \
   /usr/include/qt/QtCore/QDeadlineTimer \
   /usr/include/qt/QtCore/QDebug \
-  /usr/include/qt/QtCore/QDir \
   /usr/include/qt/QtCore/QEvent \
   /usr/include/qt/QtCore/QFlags \
   /usr/include/qt/QtCore/QHash \
@@ -978,14 +799,6 @@
   /usr/include/qt/QtQuickWidgets/QQuickWidget \
   /usr/include/qt/QtQuickWidgets/qquickwidget.h \
   /usr/include/qt/QtQuickWidgets/qtquickwidgetsglobal.h \
-  /usr/include/qt/QtSql/QSqlDatabase \
-  /usr/include/qt/QtSql/QSqlError \
-  /usr/include/qt/QtSql/QSqlQuery \
-  /usr/include/qt/QtSql/qsqldatabase.h \
-  /usr/include/qt/QtSql/qsqlerror.h \
-  /usr/include/qt/QtSql/qsqlquery.h \
-  /usr/include/qt/QtSql/qtsql-config.h \
-  /usr/include/qt/QtSql/qtsqlglobal.h \
   /usr/include/qt/QtWebChannel/QWebChannel \
   /usr/include/qt/QtWebChannel/QtWebChannel \
   /usr/include/qt/QtWebChannel/QtWebChannelDepends \
@@ -1022,7 +835,6 @@
   /usr/include/qt/QtWidgets/QCommonStyle \
   /usr/include/qt/QtWidgets/QFrame \
   /usr/include/qt/QtWidgets/QHBoxLayout \
-  /usr/include/qt/QtWidgets/QLabel \
   /usr/include/qt/QtWidgets/QLayout \
   /usr/include/qt/QtWidgets/QPushButton \
   /usr/include/qt/QtWidgets/QScrollerProperties \
@@ -1170,8 +982,6 @@
   /usr/include/strings.h \
   /usr/include/sys/cdefs.h \
   /usr/include/sys/select.h \
-  /usr/include/sys/socket.h \
-  /usr/include/sys/time.h \
   /usr/include/sys/types.h \
   /usr/include/time.h \
   /usr/include/wchar.h \

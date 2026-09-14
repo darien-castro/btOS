@@ -1,6 +1,6 @@
 /home/pablovepo/main/githubProjs/btOS/build/btOS_autogen/PRMOGMWJPH/moc_screenManager.cpp: /home/pablovepo/main/githubProjs/btOS/src/core/screenManager.h \
   /home/pablovepo/main/githubProjs/btOS/build/btOS_autogen/moc_predefs.h \
-  /home/pablovepo/main/githubProjs/btOS/resources/QtCommon.h \
+  /home/pablovepo/main/githubProjs/btOS/assets/QtCommon.h \
   /home/pablovepo/main/githubProjs/btOS/src/core/btApplication.h \
   /usr/include/GL/gl.h \
   /usr/include/alloca.h \

@@ -1,6 +1,6 @@
 /home/pablovepo/main/githubProjs/btOS/build/btOS_autogen/PRMOGMWJPH/moc_btApplication.cpp: /home/pablovepo/main/githubProjs/btOS/src/core/btApplication.h \
   /home/pablovepo/main/githubProjs/btOS/build/btOS_autogen/moc_predefs.h \
-  /home/pablovepo/main/githubProjs/btOS/resources/QtCommon.h \
+  /home/pablovepo/main/githubProjs/btOS/assets/QtCommon.h \
   /usr/include/GL/gl.h \
   /usr/include/alloca.h \
   /usr/include/asm-generic/bitsperlong.h \
