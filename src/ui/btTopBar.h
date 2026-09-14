@@ -4,7 +4,7 @@
 
 #ifndef BTTOPBAR_H
 #define BTTOPBAR_H
-#include <resources/QtCommon.h>
+#include <assets/QtCommon.h>
 #include <src/core/btState.h>
 
 class btShell;

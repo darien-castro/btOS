@@ -4,14 +4,10 @@
 
 #ifndef BTSTATE_H
 #define BTSTATE_H
-#include <resources/QtCommon.h>
+#include <assets/QtCommon.h>
 
 #include "btApplicationManager.h"
-#include "src/applications/messaging.h"
-#include "../applications/Notes/notesScreen.h"
-#include "../applications/phone/phoneScreen.h"
 #include "../applications/Settings/settings.h"
-#include "../applications/Weather/weatherScreen.h"
 #define configLoc "/home/pablovepo/CLionProjects/btOS/resources/config/settings.json"
 //state for device
 class btState : public QObject{

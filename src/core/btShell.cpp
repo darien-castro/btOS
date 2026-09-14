@@ -4,15 +4,10 @@
 
 #include "btShell.h"
 
-#include "../applications/appViewer/appViewer.h"
 #include "../applications/homeScreen/homeScreen.h"
-#include "../applications/phone/phoneScreen.h"
 #include "../applications/Settings/settings.h"
-#include "../applications/Weather/weatherScreen.h"
-#include "../applications/Notes/notesScreen.h"
 #include "src/core/screenManager.h"
 #include "src/ui/btTopBar.h"
-#include <../src/applications/appViewer/appViewer.h>
 
 
 void btShell::setupShellScreen(){
@@ -26,27 +21,35 @@ btShell::btShell(int h, int w) : height(h), width(w) {
     qDebug() << "shell Screen width" << shellScreen->width();
 
     appManager = new btApplicationManager(shellScreen);
+
+
     initializeApplications();
+
+
     mainState = new btState;
     // create the QWidget for the shell
 
     // create the btTopBar controller
     topBar = new btTopBar(this);
     mainScreenManager = new screenManager;
+    qDebug() << "Debug Here";
     homeScreen* mainHome = new homeScreen(this);
     mainScreenManager->addWidget(mainHome);
     topBar->setMaximumHeight(80);
     QVBoxLayout* mainScreen = new QVBoxLayout(shellScreen);
     mainScreen->addWidget(topBar);
     mainScreen->addWidget(mainScreenManager->returnStack());
-    setupKeys();
+
+
     connect(mainScreenManager, &screenManager::stateChanged,
         this, &btShell::updateUi);
     shellScreen->setLayout(mainScreen);
     shellScreen->setFixedSize(width, height);
     shellScreen->setObjectName("shell");
     shellScreen->layout()->setContentsMargins(0, 0, 0, 0);
+
     qDebug() << "Margins:" << shellScreen->layout()->contentsMargins();
+
 }
 
 QString btShell::returnStateTime(){
@@ -90,26 +93,6 @@ void btShell::updateUi(){
     qDebug() << "update" << mainScreenManager->returnStack()->currentWidget();
 }
 
-
-void btShell::setupKeys(){
-    QShortcut* shortcut = new QShortcut(QKeySequence("Alt+A"), this->shellScreen);
-    connect (shortcut, &QShortcut::activated, [this]{
-        QString saveLoc = "/home/pablovepo/CLionProjects/btOS/resources/temp/curr_screen";
-        QString saveFile = saveLoc + "/screen_appViewer_temp.png";
-        topBar->hide();
-        QPixmap pix = shellScreen->grab();
-        pix.save(saveFile);
-        if (this->returnScreenManager()->returnStack()->currentWidget()->objectName() == "appViewer")
-        {
-            this->mainScreenManager->removeWidget(mainScreenManager->returnCurrent());
-            topBar->show();
-            return;
-        }
-        mainScreenManager->addWidget(new appViewer(this));
-        qDebug() << "pressed";
-    });
-}
-
 btState* btShell::returnState(){
     return this->mainState;
 }
@@ -122,10 +105,7 @@ QWidget* btShell::returnShellScreen(){
     return shellScreen;
 }
 void btShell::initializeApplications(){
-    appManager->addApp<phoneScreen>("phoneScreen");
     appManager->addApp<settings>("settingsScreen");
-    appManager->addApp<weatherScreen>("weatherScreen");
-    appManager->addApp<notesScreen>("notesScreen");
 }
 
 btApplicationManager* btShell::returnAppManager(){

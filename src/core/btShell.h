@@ -1,7 +1,7 @@
 #ifndef BTSHELL_H
 #define BTSHELL_H
 
-#include <resources/QtCommon.h>
+#include <assets/QtCommon.h>
 #include <src/core/btState.h>
 #include <src/core/btApplicationManager.h>
 

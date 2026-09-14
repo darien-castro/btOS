@@ -4,8 +4,6 @@
 
 #include "btApplicationManager.h"
 
-#include "../applications/phone/phoneScreen.h"
-#include "../applications/Weather/weatherScreen.h"
 
 QStringList btApplicationManager::appName(){
     return _applications.keys();

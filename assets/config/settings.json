@@ -1,0 +1,18 @@
+{
+  "system":{
+    "language": "en_US",
+    "time_zone": "est",
+    "time_format": "24h"
+  },
+  "appearance": {
+    "themes_location" : "/home/pablovepo/CLionProjects/btOS/resources/themes",
+    "theme": "dark",
+    "background": "default"
+  },
+  "applications":[
+    {
+      "base_object_name": "settingsScreen",
+      "on_home_screen" : true
+    }
+    ]
+}

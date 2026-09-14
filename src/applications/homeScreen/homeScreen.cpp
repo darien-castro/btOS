@@ -4,7 +4,6 @@
 
 #include "homeScreen.h"
 
-#include "../Notes/notesScreen.h"
 #include "src/core/btShell.h"
 #include "src/core/screenManager.h"
 
@@ -18,18 +17,6 @@ void homeScreen::appButtonPressed(btApplication* app){
 //although we may have many applications, the homescreen should only display the ones the user wants, function grabs a
 //vector of all variables (within the btState) and looks through config settings to see if "onScreen" bool is true, then places them if so.
 void homeScreen::screenAppsSetup(QVBoxLayout* scrollArea){
-
-    //-----------------------------------------------------------------------------------------------
-    //font settings for homescreen widgets
-
-    int id = QFontDatabase::addApplicationFont("../resources/fonts/MapleMono-TTF/MapleMono-SemiBoldItalic.ttf");
-
-    QString family = QFontDatabase::applicationFontFamilies(id).at(0);
-    QFont nerdFont (family);
-    nerdFont.bold();
-    nerdFont.setPointSize(24);
-    //----------------------------------------------------------------------------------------------
-
 
     btApplicationManager* temp_app_manager = mainShell->returnAppManager();
     QJsonArray tempAppArr = mainShell->returnState()->returnJsonAppArray();
@@ -46,7 +33,6 @@ void homeScreen::screenAppsSetup(QVBoxLayout* scrollArea){
                 curr->setFocusPolicy(Qt::StrongFocus);
                 curr->setFixedWidth(200);
                 curr->setFixedHeight(45);
-                curr->setFont(nerdFont);
                 scrollArea->addWidget(curr,0,Qt::AlignCenter);
                 buttonStyle(curr);
                 QObject::connect(curr, &QPushButton::clicked, [this,temp_app_manager,name]{

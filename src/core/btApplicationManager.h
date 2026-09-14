@@ -4,7 +4,7 @@
 
 #ifndef BTAPPLICATIONMANAGER_H
 #define BTAPPLICATIONMANAGER_H
-#include <resources/QtCommon.h>
+#include <assets/QtCommon.h>
 #include <QMap>
 
 #include "btApplication.h"

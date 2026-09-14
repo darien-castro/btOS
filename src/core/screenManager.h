@@ -4,7 +4,7 @@
 
 #ifndef SCREENMANAGER_H
 #define SCREENMANAGER_H
-#include <resources/QtCommon.h>
+#include <assets/QtCommon.h>
 
 #include "btApplication.h"
 

@@ -4,7 +4,7 @@
 
 #ifndef HOMESCREEN_H
 #define HOMESCREEN_H
-#include <resources/QtCommon.h>
+#include <assets/QtCommon.h>
 #include <src/core/btApplication.h>
 class btShell;
 

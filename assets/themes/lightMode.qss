@@ -1,0 +1,47 @@
+    /* ================================
+       Testing Styles
+    ================================ */
+    QWidget {
+        background-color: #ece0d1;
+        color: #000000;
+        font-family: "Maple Mono";
+        font-size: 14px;
+    }
+
+    /* ================================
+       Buttons
+    ================================ */
+    QPushButton {
+        background-color: #dbc1ac;
+        border-radius: 8px;
+        padding: 6px 12px;
+        color: #000000;
+    }
+    QPushButton:hover {
+        background-color: #967259;
+    }
+    QPushButton:pressed {
+        color: #ece0d1;
+    }
+
+    /* ================================
+       Labels
+    ================================ */
+    QLabel {
+        border: none;
+        background: transparent;
+    }
+
+    /* ================================
+       Text Inputs
+    ================================ */
+    QLineEdit, QTextEdit {
+        background-color: #FFFFFF;
+        border: 2px solid #BEBEBE;
+        border-radius: 6px;
+        padding: 4px;
+        color: #000000;
+    }
+    QLineEdit:focus, QTextEdit:focus {
+        border: 2px solid #7E57C2;
+    }

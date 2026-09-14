@@ -4,7 +4,7 @@
 
 #ifndef BTAPPLICATION_H
 #define BTAPPLICATION_H
-#include <resources/QtCommon.h>
+#include <assets/QtCommon.h>
 
 
 class btApplication : public QWidget {
