@@ -7,7 +7,7 @@
 #include <assets/QtCommon.h>
 #include <src/core/btState.h>
 
-class btShell;
+class Theme;
 
 class btTopBar : public QWidget{
     Q_OBJECT

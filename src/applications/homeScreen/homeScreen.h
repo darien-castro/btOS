@@ -4,26 +4,24 @@
 
 #ifndef HOMESCREEN_H
 #define HOMESCREEN_H
+
 #include <assets/QtCommon.h>
 #include <src/core/btApplication.h>
-class btShell;
+#include "src/ui/theme.h"
 
 class homeScreen : public QWidget {
-  Q_OBJECT
-
+    Q_OBJECT
 
     QJsonArray currentApplications; 
     QList<QPushButton*> onScreenButtons;
+
 public:
-    homeScreen(QJsonArray ApplicationArray);
+    explicit homeScreen(QJsonArray ApplicationArray);
     QWidget* returnHomeScreen();
-    void buttonStyle(QWidget* button);
-    void appButtonPressed(btApplication* app);
     void screenAppsSetup(QVBoxLayout* scrollArea);
+
 signals:
     void applicationLaunchRequest(const QString& appName);
 };
-
-
 
 #endif //HOMESCREEN_H

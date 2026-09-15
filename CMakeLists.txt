@@ -26,6 +26,7 @@ find_package(cpr REQUIRED)
 set(HEADERS
         src/core/btShell.h
         src/ui/btTopBar.h
+        src/ui/theme.h
         src/core/btState.h
         assets/QtCommon.h
         src/core/screenManager.h
@@ -40,6 +41,7 @@ set(SOURCES
         main.cpp
         src/core/btShell.cpp
         src/ui/btTopBar.cpp
+        src/ui/theme.cpp
         src/core/btState.cpp
         src/core/screenManager.cpp
         src/applications/homeScreen/homeScreen.cpp

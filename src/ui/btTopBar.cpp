@@ -3,109 +3,63 @@
 //
 
 #include "btTopBar.h"
-#include "src/core/btShell.h"
-#include "src/core/screenManager.h"
+#include "src/ui/theme.h"
 
-void btTopBar::styleWidget(QWidget* someWidget){
-    someWidget->setStyleSheet("QWidget{"
-                              "color: #ffffff;"
-                              "font-size: 16px;"
-                          "border: none;"
+btTopBar::btTopBar(QWidget* parent) : QWidget(parent) {
+    QFrame* top_bar_frame = new QFrame(this);
+    top_bar_frame->setObjectName("topBarFrame");
 
-                          "}");
-}
+    QHBoxLayout* top_bar_hbox = new QHBoxLayout(top_bar_frame);
+    top_bar_hbox->setContentsMargins(18, 0, 18, 0);
 
+    // Battery Indicator (Left)
+    QLabel* label_battery = new QLabel("77% ⚡", top_bar_frame);
+    Theme::markAsMuted(label_battery);
 
+    // Clock (Right)
+    labelTime = new QLabel(time, top_bar_frame);
+    Theme::markAsTitle(labelTime);
 
-btTopBar::btTopBar(QWidget* parent) : QWidget(parent){
-    QFrame* top_bar_frame = new QFrame;
-    top_bar_frame->setFrameShape(QFrame::Box);
-    top_bar_frame->setFrameShadow(QFrame::Sunken);
-    top_bar_frame->setLineWidth(2);
-    QHBoxLayout* top_bar_hbox = new QHBoxLayout;
-
-    //todo lank variables for testing
-    QLabel* label_battery = new QLabel("77%");
-    styleWidget(label_battery);
-    labelTime = new QLabel(time);
-    styleWidget(labelTime);
-
-
-    //button logic for leaving current window
-    QPushButton* close_window = new QPushButton("Quit");
-    exitButton=close_window;
-    exitButton->setStyleSheet("QPushButton{"
-                               ""
-                               "background-color: #FFFFFF;"
-                               "background: #ffffff;"
-                               "border:none;"
-                               "color: #000000;"
-                               "padding: 5px;"
-                               "}");
+    // Navigation / Exit Button (Center-Left)
+    QPushButton* close_window = new QPushButton("← Back", top_bar_frame);
+    Theme::markAsGhost(close_window);
+    exitButton = close_window;
+    exitButton->hide(); // Hidden by default on home screen
 
     top_bar_hbox->addWidget(label_battery);
-    top_bar_hbox->addStretch();
-    //toDo, not dynamic at all, due to size of other widgets, has to be a good way to set actual center, maybe by
-    //toDo, finding center of screen, and setting loc to there.
-    top_bar_hbox->addSpacing(30);
+    top_bar_hbox->addSpacing(16);
     top_bar_hbox->addWidget(close_window);
     top_bar_hbox->addStretch();
     top_bar_hbox->addWidget(labelTime);
 
-    QObject::connect(close_window, &QPushButton::clicked, [this](){
+    QObject::connect(close_window, &QPushButton::clicked, [this]() {
         emit quitApplicationRequested();
-
-        /*
-        QWidget* toDel = shell->returnScreenManager()->returnCurrent();
-        shell->returnScreenManager()->removeWidget(shell->returnScreenManager()->returnCurrent());
-        qDebug() << "toDelete: "<<  toDel;
-        toDel->deleteLater();
-        */
     });
 
-    top_bar_frame->setLayout(top_bar_hbox);
-    top_bar_frame->setStyleSheet("QFrame{"
-                                 "background: #000000; "
-                                 "border: solid;"
-                                 "border-width: 1upx;"
-                                 "border-color: #989816;"
-                                 "}");
+    QHBoxLayout* mainLayout = new QHBoxLayout(this);
+    mainLayout->setContentsMargins(0, 0, 0, 0);
+    mainLayout->addWidget(top_bar_frame);
+    setLayout(mainLayout);
 
-
-    QHBoxLayout* pushLayout = new QHBoxLayout;
-
-    pushLayout->addWidget(top_bar_frame);
-
-
-
-
-    this->setLayout(pushLayout);
-
-    this->setStyleSheet("QWidget{"
-                        "border-radius: 5px;"
-                        "color: rgba(0,0,0,0);"
-                        "border: solid 10px #989816;"
-                        "background-color: rgba(0,0,0,0)};");
-    setFixedHeight(45);
+    setFixedHeight(48);
 }
 
-QWidget* btTopBar::returnTopBar(){
+QWidget* btTopBar::returnTopBar() {
     return this;
 }
 
-
-void btTopBar::exitToggle(bool x){
-    if (x == false)
-    {
-        this->exitButton->hide();
+void btTopBar::exitToggle(bool visible) {
+    if (!exitButton) return;
+    if (visible) {
+        exitButton->show();
+    } else {
+        exitButton->hide();
     }
-    if (x == true)
-    {
-        this->exitButton->show();
-    }
-
 }
 
-void btTopBar::setTime(const QString& time){
-  labelTime->setText(time);
+void btTopBar::setTime(const QString& newTime) {
+    time = newTime;
+    if (labelTime) {
+        labelTime->setText(newTime);
+    }
 }
