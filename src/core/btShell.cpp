@@ -30,10 +30,11 @@ btShell::btShell(int h, int w) : height(h), width(w) {
     // create the QWidget for the shell
 
     // create the btTopBar controller
-    topBar = new btTopBar(this);
+    topBar = new btTopBar();
     connect(topBar, &btTopBar::quitApplicationRequested, [this]{
       endActiveApplication();
     });
+    connect(mainState, &btState::timeUpdated, topBar, &btTopBar::setTime);
 
 
     mainScreenManager = new screenManager;
@@ -129,4 +130,6 @@ void btShell::startActiveApplication(){
 };
 void btShell::endActiveApplication(){
   mainScreenManager->removeWidget(mainScreenManager->returnCurrent());
+  activeApp->btAPP_CLOSED();
+  activeApp = nullptr;
 };

@@ -17,7 +17,6 @@ class btState : public QObject{
     QString connection;
     QTimer timeChange;
     QTimer connectionTest;
-    std::string configLocation = configLoc;
     QFile* configSettings;
     QJsonObject mainJson;
     QJsonArray apps;

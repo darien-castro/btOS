@@ -17,8 +17,7 @@ void btTopBar::styleWidget(QWidget* someWidget){
 
 
 
-btTopBar::btTopBar(btShell* btParent){
-    shell = btParent;
+btTopBar::btTopBar(QWidget* parent) : QWidget(parent){
     QFrame* top_bar_frame = new QFrame;
     top_bar_frame->setFrameShape(QFrame::Box);
     top_bar_frame->setFrameShadow(QFrame::Sunken);
@@ -28,9 +27,8 @@ btTopBar::btTopBar(btShell* btParent){
     //todo lank variables for testing
     QLabel* label_battery = new QLabel("77%");
     styleWidget(label_battery);
-    QLabel* label_time = new QLabel(shell->returnStateTime());
-    styleWidget(label_time);
-    connect(shell->returnState(), &btState::timeUpdated, label_time, &QLabel::setText);
+    labelTime = new QLabel(time);
+    styleWidget(labelTime);
 
 
     //button logic for leaving current window
@@ -52,7 +50,7 @@ btTopBar::btTopBar(btShell* btParent){
     top_bar_hbox->addSpacing(30);
     top_bar_hbox->addWidget(close_window);
     top_bar_hbox->addStretch();
-    top_bar_hbox->addWidget(label_time);
+    top_bar_hbox->addWidget(labelTime);
 
     QObject::connect(close_window, &QPushButton::clicked, [this](){
         emit quitApplicationRequested();
@@ -78,10 +76,7 @@ btTopBar::btTopBar(btShell* btParent){
 
     pushLayout->addWidget(top_bar_frame);
 
-    if (shell->onHome())
-    {
-        exitToggle(false);
-    }
+
 
 
     this->setLayout(pushLayout);
@@ -109,4 +104,8 @@ void btTopBar::exitToggle(bool x){
         this->exitButton->show();
     }
 
+}
+
+void btTopBar::setTime(const QString& time){
+  labelTime->setText(time);
 }

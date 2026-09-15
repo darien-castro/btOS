@@ -14,10 +14,10 @@ class btTopBar : public QWidget{
 
 
     QWidget* topBar;
-    QWidget* exitButton = nullptr;
-    QLabel* labelTime = nullptr;
+    btShell* shell = nullptr;
+    QWidget* exitButton;
     //todo decide if these variables are necessary
-    QString time = "00:00";
+    QString time;
     QString battery;
     QString connection;
 public:
@@ -26,11 +26,10 @@ public:
     QWidget* returnTopBar();
     void exitToggle(bool x);
     void styleWidget(QWidget* someWidget);
-    void setTime(const QString& time);
-signals:
-    void quitApplicationRequested();
+    signals:
     void buttonPressed();
-
+signals:
+     void quitApplicationRequested();
 };
 
 
