@@ -12,7 +12,7 @@ int main(int argc, char* argv[])
    //toDo, really need to theme this, and make a real design, so that it comes together nicely!
   QApplication app(argc,argv);
   Theme::applyTheme(&app);
-  btShell* thisShell = new btShell(800,500);
+  btShell* thisShell = new btShell(1080,1920);
   QWidget* wait = thisShell->returnCurrentScreen();
   wait->show();
   return app.exec();
