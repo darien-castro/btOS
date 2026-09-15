@@ -16,7 +16,7 @@ void settings::btAPP_SETUP(){
     QVBoxLayout* settings_main = new QVBoxLayout(this->application);
     settings_main->addWidget(construction,0,Qt::AlignCenter);
 
-    QPixmap* mypix = new QPixmap("../resources/cat/cat.png");
+    QPixmap* mypix = new QPixmap("../assets/icons/cat/cat.png");
     cat->setPixmap(*mypix);
     delete mypix;
     settings_main->addWidget(cat,0,Qt::AlignCenter);

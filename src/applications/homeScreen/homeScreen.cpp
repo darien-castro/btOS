@@ -7,38 +7,30 @@
 #include "src/core/btShell.h"
 #include "src/core/screenManager.h"
 
-//function for
-void homeScreen::appButtonPressed(btApplication* app){
-    app->btAPP_SETUP();
-    this->mainShell->returnScreenManager()->addWidget(app->btAPP_RETURN());
-    this->mainShell->returnScreenManager()->returnStack()->setCurrentWidget(app->btAPP_RETURN());
-}
 
 //although we may have many applications, the homescreen should only display the ones the user wants, function grabs a
 //vector of all variables (within the btState) and looks through config settings to see if "onScreen" bool is true, then places them if so.
 void homeScreen::screenAppsSetup(QVBoxLayout* scrollArea){
 
-    btApplicationManager* temp_app_manager = mainShell->returnAppManager();
-    QJsonArray tempAppArr = mainShell->returnState()->returnJsonAppArray();
-        qDebug() << temp_app_manager->size();
-        for (int j = 0; j <= tempAppArr.size(); j++) {
-            QJsonValue value = tempAppArr.at(j);
-            QJsonObject obj = value.toObject();
-            QString name = obj["base_object_name"].toString();
-            bool question = (temp_app_manager->returnQMap().contains(name));
-            bool onHome = obj["on_home_screen"].toBool();
-            if (question == true && onHome == true){
-                QPushButton* curr = new QPushButton(temp_app_manager->returnQMap()[name]->appName);
-                onScreenButtons.push_back(curr);
-                curr->setFocusPolicy(Qt::StrongFocus);
-                curr->setFixedWidth(200);
-                curr->setFixedHeight(45);
-                scrollArea->addWidget(curr,0,Qt::AlignCenter);
-                buttonStyle(curr);
-                QObject::connect(curr, &QPushButton::clicked, [this,temp_app_manager,name]{
-                appButtonPressed(temp_app_manager->returnQMap()[name]);
-            });
-        }
+  // instead of passing over whole array, just pass jsonfile with creation of homescreen
+
+      for (const QJsonValue &value : currentApplications) {
+          QJsonObject obj = value.toObject();
+          QString name = obj["base_object_name"].toString();
+          bool onHome = obj["on_home_screen"].toBool();
+          qDebug() << name; 
+          if (onHome == true){
+              QPushButton* curr = new QPushButton(name);
+              onScreenButtons.push_back(curr);
+              curr->setFocusPolicy(Qt::StrongFocus);
+              curr->setFixedWidth(200);
+              curr->setFixedHeight(45);
+              scrollArea->addWidget(curr,0,Qt::AlignCenter);
+              buttonStyle(curr);
+              QObject::connect(curr, &QPushButton::clicked, [this,name]{
+                  emit applicationLaunchRequest(name);  
+          });
+      }
     };
     }
 
@@ -63,8 +55,7 @@ void homeScreen::buttonStyle(QWidget* button){
 }
 
 
-homeScreen::homeScreen(btShell* shell){
-    mainShell = shell;
+homeScreen::homeScreen(QJsonArray ApplicationArray): currentApplications(ApplicationArray){
 
     setAccessibleName("homescreen");
 

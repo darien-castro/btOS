@@ -11,6 +11,8 @@ class btShell;
 
 class btTopBar : public QWidget{
     Q_OBJECT
+
+
     QWidget* topBar;
     btShell* shell = nullptr;
     QWidget* exitButton;
@@ -26,6 +28,8 @@ public:
     void styleWidget(QWidget* someWidget);
     signals:
     void buttonPressed();
+signals:
+     void quitApplicationRequested();
 };
 
 

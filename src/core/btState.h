@@ -8,8 +8,7 @@
 
 #include "btApplicationManager.h"
 #include "../applications/Settings/settings.h"
-#define configLoc "/home/pablovepo/CLionProjects/btOS/resources/config/settings.json"
-//state for device
+
 class btState : public QObject{
     //define as qObject so that we can use Object Functions when necessary like a state change
     Q_OBJECT

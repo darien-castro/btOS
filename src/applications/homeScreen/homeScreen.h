@@ -9,14 +9,19 @@
 class btShell;
 
 class homeScreen : public QWidget {
-    btShell* mainShell;
+  Q_OBJECT
+
+
+    QJsonArray currentApplications; 
     QList<QPushButton*> onScreenButtons;
 public:
-    homeScreen(btShell* shell);
+    homeScreen(QJsonArray ApplicationArray);
     QWidget* returnHomeScreen();
     void buttonStyle(QWidget* button);
     void appButtonPressed(btApplication* app);
     void screenAppsSetup(QVBoxLayout* scrollArea);
+signals:
+    void applicationLaunchRequest(const QString& appName);
 };
 
 

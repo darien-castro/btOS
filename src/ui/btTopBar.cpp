@@ -55,16 +55,14 @@ btTopBar::btTopBar(btShell* btParent){
     top_bar_hbox->addWidget(label_time);
 
     QObject::connect(close_window, &QPushButton::clicked, [this](){
-        if (shell->onHome())
-        {
-            //hacky version, can improve
-            qDebug() << "cannot remove homeScreen";
-            return;
-        }
+        emit quitApplicationRequested();
+
+        /*
         QWidget* toDel = shell->returnScreenManager()->returnCurrent();
         shell->returnScreenManager()->removeWidget(shell->returnScreenManager()->returnCurrent());
         qDebug() << "toDelete: "<<  toDel;
         toDel->deleteLater();
+        */
     });
 
     top_bar_frame->setLayout(top_bar_hbox);

@@ -6,6 +6,7 @@
 
 
 btState::btState(){
+  getSettingsJson();
     time = QTime::currentTime().toString("hh:mm a");
     timeChange.setInterval(1000);
     connect(&timeChange, &QTimer::timeout, this, [this]{
@@ -32,12 +33,12 @@ std::vector<btApplication*> btState::returnAppVect(){
 */
 
 void btState::getSettingsJson(){
-
     //todo, make sure this isn't storing too much memory, and make sure by copy
     qDebug() << "Settings File Loading...";
     QString dir = QDir().absolutePath();
     configSettings = new QFile(dir + "/../assets/config/settings.json");
     if (!configSettings->open(QIODevice::ReadOnly | QIODevice::Text)) {
+        
         qDebug() << "Failed to open file:" << configSettings->errorString();
         return;
     }
@@ -54,6 +55,7 @@ void btState::getSettingsJson(){
     }
     mainJson = doc.object();
     apps = mainJson["applications"].toArray();
+    qDebug() << "Apps here: \n" << apps;
 }
 
 

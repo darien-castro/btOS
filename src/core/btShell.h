@@ -19,6 +19,7 @@ class btShell : public QObject {
     screenManager* mainScreenManager;
     QWidget* shellScreen;
     btApplicationManager* appManager;
+    btApplication* activeApp = nullptr;
     //depends on settings
     int height;
     int width;
@@ -40,9 +41,13 @@ public:
     QJsonArray* returnAppArray();
     void initializeApplications();
     btApplicationManager* returnAppManager();
+
+    // application functions - to be called when emition is heard
+
+    void startActiveApplication();
+    void endActiveApplication();
 private slots:
     void updateUi();
-
 };
 
 #endif

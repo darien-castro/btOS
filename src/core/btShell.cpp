@@ -31,9 +31,22 @@ btShell::btShell(int h, int w) : height(h), width(w) {
 
     // create the btTopBar controller
     topBar = new btTopBar(this);
+    connect(topBar, &btTopBar::quitApplicationRequested, [this]{
+      endActiveApplication();
+    });
+
+
     mainScreenManager = new screenManager;
+
     qDebug() << "Debug Here";
-    homeScreen* mainHome = new homeScreen(this);
+  
+    // home screen instantiation
+    homeScreen* mainHome = new homeScreen(mainState->returnJsonAppArray());
+    connect(mainHome, &homeScreen::applicationLaunchRequest, [this](QString appName){
+        activeApp = appManager->retrieve(appName);
+        startActiveApplication();
+    });
+
     mainScreenManager->addWidget(mainHome);
     topBar->setMaximumHeight(80);
     QVBoxLayout* mainScreen = new QVBoxLayout(shellScreen);
@@ -66,14 +79,7 @@ QWidget* btShell::returnCurrentScreen(){
 }
 
 bool btShell::onHome(){
-    if (current == CURRAPP::HOMESCREEN)
-    {
-        return true;
-    }
-    if (current == CURRAPP::APPLICATION)
-    {
-        return false;
-    }
+    return current == CURRAPP::HOMESCREEN;
 }
 
 
@@ -111,3 +117,16 @@ void btShell::initializeApplications(){
 btApplicationManager* btShell::returnAppManager(){
     return appManager;
 }
+
+void btShell::startActiveApplication(){
+  if (activeApp == nullptr){
+    qDebug() << "No Active App";
+    return;
+  }
+  activeApp->btAPP_SETUP();
+  returnScreenManager()->addWidget(activeApp->btAPP_RETURN());
+  returnScreenManager()->returnStack()->setCurrentWidget(activeApp->btAPP_RETURN());
+};
+void btShell::endActiveApplication(){
+  mainScreenManager->removeWidget(mainScreenManager->returnCurrent());
+};
