@@ -31,6 +31,8 @@ public:
   void initiateDatabase();
   void saveMessage(const ChatMessage& message);
   void exportMessages();
+
+  
 signals:
   
 
