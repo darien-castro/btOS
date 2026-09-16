@@ -34,6 +34,7 @@ set(HEADERS
         src/core/btApplication.h
         src/applications/Settings/settings.h
         src/core/btApplicationManager.h
+        src/applications/messaging/messageDatabaseEngine.h
 )
 
 # Source files
@@ -48,6 +49,7 @@ set(SOURCES
         src/core/btApplication.cpp
         src/applications/Settings/settings.cpp
         src/core/btApplicationManager.cpp
+        src/applications/messaging/messageDatabaseEngine.cpp
 )
 
 add_executable(btOS ${SOURCES} ${HEADERS})

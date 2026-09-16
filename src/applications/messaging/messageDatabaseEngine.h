@@ -9,6 +9,8 @@
 #include <QSqlDatabase>
 #include <QSqlQuery>
 #include <QSqlError>
+#include <QDebug>
+#include <QCoreApplication>
 
 struct ChatMessage{
 
@@ -25,7 +27,7 @@ class MessageDatabaseEngine : public QObject{
   Q_OBJECT
   QSqlDatabase m_db;
 public:
-  explicit  MessageDatabaseEngine(QWidget* parent = nullptr);
+  explicit  MessageDatabaseEngine();
   void initiateDatabase();
   void saveMessage(const ChatMessage& message);
   void exportMessages();
