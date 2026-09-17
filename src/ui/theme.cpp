@@ -65,7 +65,7 @@ QString Theme::getMasterStyleSheet() {
             color: %7;
             border: 1px solid %5;
             border-radius: %13px;
-            padding: 14px 20px;
+            padding: 15px 15px;
             font-size: 14px;
             font-weight: 600;
             text-align: center;
